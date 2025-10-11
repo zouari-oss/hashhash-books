@@ -21,3 +21,7 @@
 - [How to Install VMware Workstation Pro on Windows 11 - FREE DOWNLOAD LATEST VERSION](https://www.youtube.com/watch?v=giD0zQ4A4E8)
 - [Ubuntu installer](https://releases.ubuntu.com/22.04)
 - [How Install Ubuntu 22.04 on VMware Workstation 16/17 Pro - UPDATED - 2023](https://www.youtube.com/watch?v=Gh0ErZLWLDY)
+
+## Articles
+
+- [Ubuntu 25.10 is Out: Here Are the Biggest Changes You'll Notice](https://news.itsfoss.com/ubuntu-25-10-release)

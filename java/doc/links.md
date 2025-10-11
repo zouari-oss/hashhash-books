@@ -29,7 +29,7 @@
 - [ListIterator in Java](https://www.geeksforgeeks.org/java/listiterator-in-java)
 - [ArrayList vs LinkedList](https://www.geeksforgeeks.org/java/arraylist-vs-linkedlist-java/)
 
-### Java IO
+## Java IO
 
 - [Java.io Package in Java](https://www.geeksforgeeks.org/java-io-packag)
 - [Package java.io](https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html)
@@ -39,19 +39,33 @@
 
 - [Guide to Stream.reduce()](https://www.baeldung.com/java-stream-reduce)
 
-### Maven
+## Java Util
+
+- [Class Optional<T>](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
+- [Class Objects](https://docs.oracle.com/javase/8/docs/api/java/util/Objects.html)
+
+## Maven
 
 - [MVN Repository](https://mvnrepository.com) [OFFICIAL]
 - [Introduction to the POM](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html)
 - [Maven Wrapper](https://maven.apache.org/tools/wrapper)
 
-#### Plugins
+### Plugins
 
 - [Writing Plugin Documentation](https://maven.apache.org/guides/development/guide-plugin-documentation.html)
 - [org.codehaus.mojo](https://www.mojohaus.org) [OFFICIAL]
 - [Apache Maven Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin)
 - [Apache Maven Eclipse Plugin (RETIRED)](https://maven.apache.org/plugins/maven-eclipse-plugin)
 - [org.slf4j - Java logging framework](https://logging.apache.org/log4j/2.x/manual/getting-started.html)
+
+## Apache
+
+- [Apache Commons](https://commons.apache.org)
+
+### Utils
+
+- [Class DescriptiveStatistics](https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/index.html?org/apache/commons/math3/stat/descriptive/DescriptiveStatistics.html)
+- [Class StringUtils](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html)
 
 ## JavaFX
 

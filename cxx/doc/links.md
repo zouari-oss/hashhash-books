@@ -20,6 +20,7 @@
 - [Qt Tutorials For Beginners](https://www.youtube.com/watch?v=EkjaiDsiM-Q&list=PLS1QulWo1RIZiBcTr5urECberTITj7gjA&ab_channel=ProgrammingKnowledge)
 - [QT DOCUMENTATION](https://doc.qt.io/)
 - [QMessageBox](https://doc.qt.io/qt-6/qmessagebox.html)
+- [Simple and Fast Multimedia Library (SFML)](https://www.sfml-dev.org/)
 
 ## **Oracle/C++**
 
