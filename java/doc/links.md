@@ -1,5 +1,6 @@
 # Java Links
 
+- [Oracle Docs](https://docs.oracle.com/en/)
 - [Compiling Java \*.class Files with javac](https://www.baeldung.com/javac)
 - [JAR files in Java](https://www.geeksforgeeks.org/jar-files-java/)
 - [What are Java Records and How to Use them Alongside Constructors and Methods?](https://www.geeksforgeeks.org/java/what-are-java-records-and-how-to-use-them-alongside-constructors-and-methods)
@@ -43,6 +44,7 @@
 
 - [Class Optional<T>](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
 - [Class Objects](https://docs.oracle.com/javase/8/docs/api/java/util/Objects.html)
+- [Class EnumMap<K extends Enum<K>,V>](https://docs.oracle.com/javase/8/docs/api/java/util/EnumMap.html)
 
 ## Maven
 
@@ -66,6 +68,17 @@
 
 - [Class DescriptiveStatistics](https://commons.apache.org/proper/commons-math/javadocs/api-3.6.1/index.html?org/apache/commons/math3/stat/descriptive/DescriptiveStatistics.html)
 - [Class StringUtils](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html)
+- [Class NumberUtils](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/math/NumberUtils.html)
+
+## Jakarta EE
+
+- [Jakarta Official Web Site](https://jakarta.ee) [OFFICIAL]
+- [Jakarta Packages](https://jakarta.ee/specifications/coreprofile/11/apidocs/allpackages-index)
+- [Jakarta Tuto](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/index.html)
+
+### Utils
+
+- [Package jakarta.validation.constraints](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/package-summary)
 
 ## JavaFX
 
@@ -107,3 +120,8 @@
 
 - [Android Tutorial](https://www.tutorialspoint.com/android/index.htm)
 - [Building Java Applications Sample](https://docs.gradle.org/current/samples/sample_building_java_applications.html)
+
+## Hibernate
+
+- [Hibernate Official Web Site](https://hibernate.org)
+- [Hibernate Validator](https://hibernate.org/validator)
