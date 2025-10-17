@@ -59,6 +59,7 @@
 - [Apache Maven Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin)
 - [Apache Maven Eclipse Plugin (RETIRED)](https://maven.apache.org/plugins/maven-eclipse-plugin)
 - [org.slf4j - Java logging framework](https://logging.apache.org/log4j/2.x/manual/getting-started.html)
+- [Group: Tablesaw](https://mvnrepository.com/artifact/tech.tablesaw)
 
 ## Apache
 
@@ -79,6 +80,7 @@
 ### Utils
 
 - [Package jakarta.validation.constraints](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/package-summary)
+- [Jakarta Mail](https://jakarta.ee/specifications/mail/2.0/jakarta-mail-spec-2.0)
 
 ## JavaFX
 
@@ -101,27 +103,35 @@
 - [How to Create Mobile Apps with JavaFX (Part 3)](https://foojay.io/today/creating-mobile-apps-with-javafx-part-3/)
 - [IntelliJ IDEA Conf 2022 | JavaFX for Mobile Development](https://www.youtube.com/watch?v=VCJtdb28HWE)
 
-## Mailing services
-
-- [Jakarta Mail](https://jakarta.ee/specifications/mail/2.0/jakarta-mail-spec-2.0)
-
 ## Java Security
 
 - [SecureRandom](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/SecureRandom.html)
 - [Hashing a Password in Java](https://www.baeldung.com/java-password-hashing)
 - [BCrypt](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCrypt.html)
 
-## Java redis
+## Java Redis
 
 - [Jedis guide (Java)](https://redis.io/docs/latest/develop/clients/jedis/)
 - [Intro to Jedis – the Java Redis Client Library](https://www.baeldung.com/jedis-java-redis-client-library)
 
-## Java for Android dev
+## Java for Android
 
 - [Android Tutorial](https://www.tutorialspoint.com/android/index.htm)
 - [Building Java Applications Sample](https://docs.gradle.org/current/samples/sample_building_java_applications.html)
 
-## Hibernate
+## Java ORM
+
+### Hibernate
 
 - [Hibernate Official Web Site](https://hibernate.org)
 - [Hibernate Validator](https://hibernate.org/validator)
+
+## Java For Data Science
+
+- [tablesaw Web-site](https://jtablesaw.github.io/tablesaw/userguide/reducing.html)
+- [tablesaw Github](https://github.com/jtablesaw/tablesaw)
+- [Working with Tabular Data Using Tablesaw](https://www.baeldung.com/tablesaw)
+- [Class Table](https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.34.1/tech/tablesaw/api/Table.html)
+- [Interface Column<T>](https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.36.0/tech/tablesaw/columns/Column.html)
+- [Class DoubleColumn](https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.25.2/tech/tablesaw/api/DoubleColumn.html)
+- [Interface Selection](https://www.javadoc.io/doc/tech.tablesaw/tablesaw-core/latest/tech/tablesaw/selection/Selection.html)
