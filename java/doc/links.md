@@ -9,6 +9,8 @@
 - [Using an Interface vs. Abstract Class in Java](https://www.baeldung.com/java-interface-vs-abstract-class)
 - [(Linux/CentOS/Solaris) How to Load a Java Native/Shared Library (.so)](https://www.chilkatsoft.com/java-loadlibrary-linux.asp)
 - [How to Build a Shared Library in Java and Call it From .NET Code](https://medium.com/@sixpeteunder/how-to-build-a-shared-library-in-java-and-call-it-from-dotnet-code-b47c22300456)
+- [volatile Keyword in Java](https://www.geeksforgeeks.org/java/volatile-keyword-in-java)
+- [Introduction to Java Serialization](https://www.baeldung.com/java-serialization)
 
 ## Java Tools
 
