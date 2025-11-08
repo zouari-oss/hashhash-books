@@ -1,5 +1,10 @@
 ﻿# Links
 
+## Distros
+
+- [Alma Linux OFFICIAL](https://almalinux.org)
+- [Arch Linux OFFICIAL](https://archlinux.org)
+
 ## Core
 
 - [os vs kernel](https://www.geeksforgeeks.org/difference-between-operating-system-and-kernel)
@@ -25,3 +30,4 @@
 ## Articles
 
 - [Ubuntu 25.10 is Out: Here Are the Biggest Changes You'll Notice](https://news.itsfoss.com/ubuntu-25-10-release)
+- [Linux NFS Server: How to Set Up Server and Client](https://www.netapp.com/learn/azure-anf-blg-linux-nfs-server-how-to-set-up-server-and-client)
