@@ -11,6 +11,7 @@
 | `feature/*` | New features and enhancements       |
 | `release/*` | Prepares for a new release          |
 | `hotfix/*`  | Emergency fixes to production       |
+| `docs/*`    | Documentation updates               |
 
 ## 🔁 Workflow Steps
 

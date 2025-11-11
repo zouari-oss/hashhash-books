@@ -1,9 +1,0 @@
-1. open vsc > undo the specific commit
-or
-open Git Bash in the main directory and tape:
-
-	$ git reset --soft HEAD~NumberOfLastAddedCommits
-
-2. open Git Bash in the main directory and tape:
-	
-		$ git push origin +main --force

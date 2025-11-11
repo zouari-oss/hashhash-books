@@ -12,3 +12,8 @@
 - [VLAN Explained](https://www.youtube.com/watch?v=jC6MJTh9fRE)
 - [Introduction of Variable Length Subnet Mask (VLSM)](https://www.geeksforgeeks.org/computer-networks/introduction-of-variable-length-subnet-mask-vlsm)
 - [CCNA - VLSM Basics](https://www.youtube.com/watch?v=panYsofrxy0)
+
+## GNS3
+
+- [GNS3 Creating a Virtual Lab - ISP creation](https://www.youtube.com/watch?v=L2wAZ4jUC5M)
+- [GNS3 Tutorial for Beginners](https://youtube.com/playlist?list=PLZURQ_XyXLwB5BUDb18M9btWX0WWUNXMR&si=rLxfIZIlw0CITplr)
