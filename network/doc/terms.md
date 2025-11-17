@@ -9,3 +9,5 @@
 - **MTU, or Maximum Transmission Unit**, refers to the largest size of data packets that a network interface can transmit without fragmentation. It's a crucial setting in networking, dictating the maximum amount of data that can be sent in a single transmission. MTU is usually associated with the Ethernet protocol, where a _1500-byte packet_ is the largest allowed.
 - **firewall**: A security tool, hardware or software that is used to filter network traffic by stopping unauthorized incoming and outgoing traffic.
 - **Network Backbone**: is the _primary infrastructure that interconnects smaller networks_ such as local area networks (LANs) or subnetworks within a larger network, like a campus, enterprise, or the Internet itself.
+- **NAT-box** is a network device (usually a router or firewall) that allows multiple _private-network devices_ to share a _single public IP_ address by translating their private IP addresses into a public one.
+- **ISP router** is the internet router provided by your Internet Service Provider (ISP) when you sign up for home internet service.
