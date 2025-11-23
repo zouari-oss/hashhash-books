@@ -2,8 +2,12 @@
 
 ## Distros
 
+- [Oracle Linux OFFICIAL](https://www.oracle.com/linux)
+- [Centos Linux OFFICIAL](https://www.centos.org)
 - [Alma Linux OFFICIAL](https://almalinux.org)
 - [Arch Linux OFFICIAL](https://archlinux.org)
+- [Ubuntu Linux OFFICIAL](https://ubuntu.com)
+- [Kali Linux OFFICIAL](https://www.kali.org)
 
 ## Core
 
@@ -31,3 +35,4 @@
 
 - [Ubuntu 25.10 is Out: Here Are the Biggest Changes You'll Notice](https://news.itsfoss.com/ubuntu-25-10-release)
 - [Linux NFS Server: How to Set Up Server and Client](https://www.netapp.com/learn/azure-anf-blg-linux-nfs-server-how-to-set-up-server-and-client)
+- [Major Distributions](https://distrowatch.com/dwres.php?resource=major)

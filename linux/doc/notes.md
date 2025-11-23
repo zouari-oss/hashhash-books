@@ -79,6 +79,23 @@ The Linux operating system is structured in a tree-like hierarchy and is documen
 | BlackArch       | Arch Linux  | Pentesting, Ethical Hacking     | ✅               | ⚠️ Heavy    | Desktop        |
 | Pentoo          | Gentoo      | Security, Pentesting            | ✅               | ⚠️ Medium   | Desktop        |
 
+- Key Facts About the **Red Hat Family**
+  - Fedora serves as an upstream testing platform for RHEL.
+  - CentOS is a close clone of RHEL; in fact, CentOS has been part of Red Hat since 2014.
+  - It supports multiple hardware platforms.
+  - It uses dnf, the RPM-based package manager (covered in detail later) to install, update, and remove packages in the system.
+  - RHEL is widely used by enterprises that host their own systems.
+- Key Facts About the **SUSE Family**
+  - SUSE Linux Enterprise Server (SLES) is upstream for openSUSE.
+  - It uses the RPM-based zypper package manager (we cover it in detail later) to install, update, and remove packages in the system.
+  - It includes the YaST (Yet Another Setup Tool) application for system administration purposes.
+  - SLES is widely used in retail and many other sectors.
+- Key Facts About the **Debian Family**
+  - The Debian family is upstream for Ubuntu, and Ubuntu is upstream for Linux Mint and others.
+  - It uses the DPKG-based APT package manager (using apt, apt-get, apt-cache, etc., which we cover in detail later) to install, update, and remove packages in the system.
+  - Ubuntu has been widely used for cloud deployments.
+  - While Ubuntu is built on top of Debian and is GNOME-based under the hood, it differs visually from the interface on standard Debian, as well as other distributions.
+
 ## Linux System Information
 
 Below is a list of essential tools to help gather this information. Most of these tools come pre-installed. However, this knowledge is not only crucial for routine Linux tasks, but also plays a key role when assessing security configurations, identifying vulnerabilities, or preventing potential security risks in Linux operating systems:
