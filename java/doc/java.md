@@ -15,6 +15,18 @@
   | **When to Use**       | Inside instance methods                        | Inside static methods like `main()`          |
 
 - A **resource bundle** is a Java `.properties` file that contains locale-specific data. It is a way of internationalising a Java application by making the code locale-independent.
+- **Jagged Array** in java is a multidimensional array where each row can have a _different number of columns_
+
+```java
+void main() {
+  // Declaring 2-D array with 2 rows
+  int arr[][] = new int[2][];
+
+  // Making the above array Jagged
+  arr[0] = new int[3];
+  arr[1] = new int[2];
+}
+```
 
 ## Java data types
 
@@ -92,3 +104,46 @@ int myInt = myInteger;  // Unboxing Integer to int
 | Integration    | ✔ Excellent    | ❌ Limited              |
 | Learning Curve | Moderate        | Easy                    |
 | Security       | Safe if updated | Simpler (less risk)     |
+
+## Anonymous Class from an Interface
+
+- An anonymous class is a **class without a name**. It is created and used at the same time.
+- You often use anonymous classes to _override methods_ of an existing class or interface, without writing a separate class file.
+- You can use an anonymous class to implement an interface on the fly:
+
+```java
+// Interface
+interface Greeting {
+  void sayHello();
+}
+
+public class Main {
+  public static void main(String[] args) {
+    // Anonymous class that implements Greeting
+    Greeting greet = new Greeting() {
+      public void sayHello() {
+        System.out.println("Hello, World!");
+      }
+    };
+
+    greet.sayHello();
+  }
+}
+// output: Hello, World!
+```
+
+## Java String
+
+The String class in Java implements three important interfaces:
+
+- `CharSequence`: Allows access to characters in the string using `charAt()`, `length()`, etc.
+- `Comparable<String>`: Enables comparing two strings lexicographically using `compareTo()`
+- `Serializable`: Allows string objects to be converted into a byte stream
+
+### `StringBuffer` Class in Java
+
+The key features of StringBuffer class are listed below:
+
+- Unlike String, we can modify the content of the StringBuffer without creating a new object.
+- All methods of StringBuffer are synchronized, making it safe to use in multithreaded environments.
+- Ideal for scenarios with frequent modifications like append, insert, delete, or replace operations.

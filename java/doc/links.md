@@ -31,6 +31,13 @@
 - [AtomicInteger](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html)
 - [ListIterator in Java](https://www.geeksforgeeks.org/java/listiterator-in-java)
 - [ArrayList vs LinkedList](https://www.geeksforgeeks.org/java/arraylist-vs-linkedlist-java/)
+- [Class Arrays from `java.util`](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html)
+- [binarySearch method in java](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#binarySearch-float:A-int-int-float-)
+
+### Java String
+
+- [Class StringBuffer](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuffer.html)
+- [Class StringBuilder](https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html)
 
 ## Java IO
 
@@ -47,6 +54,7 @@
 - [Class Optional<T>](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html)
 - [Class Objects](https://docs.oracle.com/javase/8/docs/api/java/util/Objects.html)
 - [Class EnumMap<K extends Enum<K>,V>](https://docs.oracle.com/javase/8/docs/api/java/util/EnumMap.html)
+- [Package java.util.regex](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html)
 
 ## Maven
 
