@@ -7,11 +7,12 @@
 - [Bias and Variance in Machine Learning](https://www.geeksforgeeks.org/machine-learning/bias-vs-variance-in-machine-learning)
 - [Summary of the tokenizers](https://huggingface.co/docs/transformers/en/tokenizer_summary)
 - [Using HuggingFace datasets for NLP Projects](https://www.geeksforgeeks.org/nlp/accessing-huggingface-datasets-for-nlp-experiments)
+- [ReAct Prompting](https://www.promptingguide.ai/techniques/react)
 
 ## Audio and Image Models
 
-| Task                 | Model Name                    | Link to Models Hub                                             |
-| -------------------- | ----------------------------- | -------------------------------------------------------------- |
+| Task                 | Model Name                    | Link to Models Hub                                               |
+| -------------------- | ----------------------------- | ---------------------------------------------------------------- |
 | Audio classification | Audio Spectrogram Transformer | <https://huggingface.co/MIT/ast-finetuned-audioset-10-10-0.4593> |
 | Speech-to-text       | Whisper                       | <https://huggingface.co/openai/whisper-base>                     |
 | Text-to-speech       | SpeechT5                      | <https://huggingface.co/microsoft/speecht5_tts>                  |
