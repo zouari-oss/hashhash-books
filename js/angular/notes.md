@@ -24,6 +24,21 @@ Key files in a minimal Angular workspace:
 3. **Directives**: Create/destroy embedded views (DOM fragments) based on state.
 4. **Binding flow**: Interpolation/Property binding push data to the view. Event binding captures browser events back to the component.
 
+### Templates Overview
+
+Explore templates step by step in these next chapters:
+
+- Interpolation - show values with `{{ ... }}`.
+- Template Reference Variables - use `#var` to reference elements.
+- Null-Safe Navigation (`?.`) - read optional values safely.
+- Structural Directives: Micro-syntax - the `*` shorthand.
+- ngTemplateOutlet - render a template by reference.
+- Template Statements and `$event` - handle events and inputs.
+- Alias with as in `*ngIf` - create local aliases.
+- Pipes in Templates (`|`) - format and transform values.
+- Attribute Binding with `attr.` - bind to HTML attributes.
+- TrackBy with `*ngFor` - keep lists fast and stable.
+
 ## Angular Component
 
 - A component is a class that controls a view (its template).
