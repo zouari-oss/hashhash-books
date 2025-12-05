@@ -11,6 +11,8 @@
 - [How to Build a Shared Library in Java and Call it From .NET Code](https://medium.com/@sixpeteunder/how-to-build-a-shared-library-in-java-and-call-it-from-dotnet-code-b47c22300456)
 - [volatile Keyword in Java](https://www.geeksforgeeks.org/java/volatile-keyword-in-java)
 - [Introduction to Java Serialization](https://www.baeldung.com/java-serialization)
+- [Different Ways to Prevent Method Overriding in Java](https://www.geeksforgeeks.org/java/different-ways-to-prevent-method-overriding-in-java)
+- [Java Functional Interfaces](https://www.geeksforgeeks.org/java/java-functional-interfaces)
 
 ## Java Tools
 
@@ -55,6 +57,7 @@
 - [Class Objects](https://docs.oracle.com/javase/8/docs/api/java/util/Objects.html)
 - [Class EnumMap<K extends Enum<K>,V>](https://docs.oracle.com/javase/8/docs/api/java/util/EnumMap.html)
 - [Package java.util.regex](https://docs.oracle.com/javase/8/docs/api/java/util/regex/package-summary.html)
+- [Class WeakHashMap<K,V>](https://docs.oracle.com/javase/8/docs/api/java/util/WeakHashMap.html)
 
 ## Maven
 
