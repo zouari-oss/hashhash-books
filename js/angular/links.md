@@ -14,3 +14,7 @@
 ## Articles
 
 - [Angular Cheatsheet (2024)](https://medium.com/@sehban.alam/angular-cheatsheet-2024-fbf6bab3ab74)
+- [Understanding Angular Hydration: How It Works and Its Benefits](https://www.angularminds.com/blog/understanding-angular-hydration-how-it-works-and-its-benefits)
+- [Using .env to store environment variables in Angular](https://medium.com/@desinaoluseun/using-env-to-store-environment-variables-in-angular-20c15c7c0e6a)
+- [Configuring application environments](https://angular.dev/tools/cli/environments)
+- [Essential Angular SSR Config To Deploy On Vercel](https://dev.to/this-is-angular/essential-angular-ssr-config-to-deploy-on-vercel-2lka)

@@ -24,6 +24,12 @@
 - [magick](https://imagemagick.org)
 - [ImageMagick](https://github.com/ImageMagick/ImageMagick)
 
+### Qemu
+
+- [QEMU GITHUB](https://github.com/qemu/qemu)
+- [QEMU’s documentation](https://www.qemu.org/docs/master)
+- [QEMU ArchWiki](https://wiki.archlinux.org/title/QEMU)
+
 ### Virtual Machine (VM)
 
 - [VMware installer](https://vmware-workstation.fr.download.it)
