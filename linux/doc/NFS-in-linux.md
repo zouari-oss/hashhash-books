@@ -90,11 +90,50 @@ Add:
 /srv/nfs/share 192.168.1.0/24(rw,sync,no_subtree_check)
 ```
 
+- `rw` → allows read/write access for clients
+- `sync` → commits writes immediately to disk
+- `no_subtree_check` → avoids subtree checking for reliability
+- Replace `192.168.1.0/24` with the actual client subnet or IP
+
 ### 3️⃣ Apply exports
 
 ```bash
 sudo exportfs -ra
+sudo exportfs -v # verify
 ```
+
+Check the directory permissions:
+
+```bash
+ls -ld /srv/nfs/share
+```
+
+- Example default: `drwxr-xr-x` → only owner can write
+
+Adjust permissions for a client group (`nfs_group`) safely:
+
+```bash
+sudo chown -R :nfs_group /srv/nfs/share # Ensures users in group `nfs_group` can write without opening write access to everyone
+sudo chmod -R 775 /srv/nfs/share        # owner and group can read/write/execute; others read/execute
+```
+
+### NFS Ownership Behavior
+
+- NFS uses **UID/GID from the client**.
+- Users must have the **same UID/GID as on the server** for correct permissions.
+- Root on the client is squashed to `nobody` by default (`root_squash`) → cannot write unless `no_root_squash` is used.
+
+Example file on the client:
+
+```bash
+ls -ls /mnt/nfs/README.md
+4 -rwxrwxr-x 1 root nfs_group README.md
+```
+
+- Owner: `root`
+- Group: `nfs_group`
+- Permissions: `rwxrwxr-x` → owner and group can write, others cannot
+- Normal users in group `nfs_group` can write, root cannot (safe default)
 
 ## 🔥 Step 3: Configure Firewall
 
@@ -149,6 +188,28 @@ Edit `/etc/fstab`:
 ```
 192.168.1.10:/srv/nfs/share  /mnt/nfs_share  nfs  defaults  0  0
 ```
+
+### Unmount
+
+```bash
+sudo umount /mnt/nfs
+```
+
+If busy:
+
+```bash
+sudo lsof /mnt/nfs      # see open files
+sudo fuser -m /mnt/nfs  # see processes using the mount
+sudo umount -l /mnt/nfs # lazy unmount
+sudo umount -f /mnt/nfs # force unmount
+```
+
+## Best Practices
+
+- Use a dedicated group (`nfs_group`) for clients needing write access
+- Avoid `chmod 777` unless testing; use group-based permissions
+- Keep `root_squash` enabled for security unless trusted clients require root access
+- Ensure UID/GID match between client and server for consistent permissions
 
 ## 🔒 Step 6: Securing NFS with Authentication (Kerberos)
 
