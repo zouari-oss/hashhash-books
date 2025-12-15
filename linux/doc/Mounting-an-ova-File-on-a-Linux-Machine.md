@@ -49,7 +49,8 @@ sudo apt install qemu-utils
 Convert:
 
 ```bash
-qemu-img convert -O raw myvm-disk1.vmdk myvm.raw
+qemu-img convert -f vmdk -O raw <input_vmdk_file.vmdk> <output_raw_file.raw>
+qemu-img convert -f raw -O vmdk <input_raw_file.raw> <output_vmdk_file.vmdk> # From .raw to .vmdk
 ```
 
 ## 3. Identify Partitions in the RAW Disk
