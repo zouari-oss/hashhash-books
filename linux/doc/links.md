@@ -8,6 +8,7 @@
 - [Arch Linux OFFICIAL](https://archlinux.org)
 - [Ubuntu Linux OFFICIAL](https://ubuntu.com)
 - [Kali Linux OFFICIAL](https://www.kali.org)
+- [TempleOS NOT-LINUX-DISTRO](https://templeos.org)
 
 ## Core
 
@@ -37,10 +38,11 @@
 - [Ubuntu installer](https://releases.ubuntu.com/22.04)
 - [How Install Ubuntu 22.04 on VMware Workstation 16/17 Pro - UPDATED - 2023](https://www.youtube.com/watch?v=Gh0ErZLWLDY)
 
-## Articles
+## Articles && Videos
 
 - [Ubuntu 25.10 is Out: Here Are the Biggest Changes You'll Notice](https://news.itsfoss.com/ubuntu-25-10-release)
 - [Linux NFS Server: How to Set Up Server and Client](https://www.netapp.com/learn/azure-anf-blg-linux-nfs-server-how-to-set-up-server-and-client)
 - [Major Distributions](https://distrowatch.com/dwres.php?resource=major)
 - [Why do I get "wrong fs type, bad option, bad superblock" error?](https://askubuntu.com/questions/525243/why-do-i-get-wrong-fs-type-bad-option-bad-superblock-error)
 - [crypttab](https://wiki.archlinux.org/title/Dm-crypt/System_configuration#crypttab)
+- [TempleOS in 100 Seconds](https://www.youtube.com/watch?v=h7gf5M04hdg)
