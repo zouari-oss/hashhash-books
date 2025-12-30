@@ -30,3 +30,9 @@
 - ch1: Big-O notation: time complexity
 - ch2: Understanding performance bottlenecks
 - ch3: Basic multi-threading principles
+
+## [Introduction To Testing In Java](introduction-to-testing-in-java.zip)
+
+- ch1: Introduction to testing
+- ch2: Integration testing
+- ch3: Parameterized testing
