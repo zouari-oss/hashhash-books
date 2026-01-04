@@ -1,8 +1,29 @@
 # Linux Notes
 
-## Linux Philosophy
+## Linux Philosophy and Concepts
 
-The Linux philosophy centers on simplicity, modularity, and openness. It advocates for building small, single-purpose programs that perform one task well. These programs can be combined in various ways to accomplish complex operations, promoting efficiency and flexibility. Linux follows five core principles:
+### Linux History
+
+- Linux is an **open source computer operating system**, initially developed on and for Intel **x86-based** personal computers. It has been subsequently ported to an astoundingly long list of other hardware platforms, from tiny embedded appliances to the world's largest supercomputers.
+
+- In 1992, Linux was re-licensed using the General Public License (GPL) by GNU (a project of the Free Software Foundation or FSF, which promotes freely available software), which enabled it to build a worldwide community of developers. By combining the kernel with other system components from the GNU project, numerous other developers created complete systems called Linux Distributions, which first appeared in the mid-90s.
+
+- The Linux distributions created in the mid-90s provided the basis for fully free (in the sense of freedom, not zero cost) computing and became a driving force in the open source software movement. In 1998, major companies like IBM and Oracle announced their support for the Linux platform and began major development efforts as well.
+
+- Today, Linux powers more than half of the servers on the Internet, the majority of smartphones (via the Android system, which is built on top of Linux), more than 90 percent of the public cloud workload, and all of the world’s most powerful supercomputers.
+
+### Linux Philosophy
+
+- Linux borrows heavily from the well-established family of UNIX operating systems. It was written to be a free and open source alternative; at the time, UNIX was designed for computers much more powerful than PCs, and furthermore, it was quite expensive.
+
+- Files are stored in a hierarchical filesystem, with the top node of the system being the root or simply "/".
+
+- Whenever possible, Linux makes its components available via files or objects that look like files. Processes, devices, and network sockets are all represented by file-like objects and can often be worked with using the same utilities used for regular files. Linux is a fully multitasking (i.e., multiple threads of execution are performed simultaneously), multiuser operating system with built-in networking and service processes known as daemons in the UNIX world.
+
+> [!NOTE]
+> Linux was inspired by UNIX, but it is not UNIX.
+
+- The Linux philosophy centers on simplicity, modularity, and openness. It advocates for building small, single-purpose programs that perform one task well. These programs can be combined in various ways to accomplish complex operations, promoting efficiency and flexibility. Linux follows five core principles:
 
 | Principle                                                   | Description                                                                                                                                                    |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -11,6 +32,34 @@ The Linux philosophy centers on simplicity, modularity, and openness. It advocat
 | Ability to chain programs together to perform complex tasks | The integration and combination of different tools enable us to carry out many large and complex tasks, such as processing or filtering specific data results. |
 | Avoid captive user interfaces                               | Linux is designed to work mainly with the shell (or terminal), which gives the user greater control over the operating system.                                 |
 | Configuration data stored in a text file                    | An example of such a file is the /etc/passwd file, which stores all users registered on the system.                                                            |
+
+### Linux Community
+
+- The Linux community is a far-reaching ecosystem consisting of developers, system administrators, users, and vendors who use many different forums to connect with one another.
+  Among the most popular are:
+  - Internet Relay Chat (IRC) software (such as WeeChat, HexChat, Pidgin, and XChat)
+  - Online communities and discussion boards including Linux User Groups (both local and online)
+  - Many collaborative projects hosted on services such as GitHub and GitLab
+  - Newsgroups and mailing lists, including the Linux Kernel Mailing List
+  - Community events, e.g., Hackathons, Install Fests, Open Source Summits, Embedded Linux Conferences, and many other conferences and get-togethers.
+
+- A portal to one of the most powerful online user communities can be found at [linux.com](https://www.linux.com). This site is hosted by The Linux Foundation and serves over one million unique visitors every month. It has active sections on:
+  - News
+  - Community discussion threads
+  - Free tutorials and user tips.
+
+### Linux Terminology
+
+- Kernel: Glue between hardware and applications
+- Distribution: Collection of software making up a Linux-based OS (e.g: RedHat, fedora, Arch...)
+- Boot Loader: Program that boot s the OS (e.g: GRUB and ISOLINUX)
+- Service: Program that runs as background process (e.g: httpd, nfsd, ntpd, ftpd, named...)
+- Filesystem (FS): Method for storing and organizing files (e.g: ext3, ext4, FAT, XFS, NTFS, Btrfs...)
+- X Window System: Graphical subsystem on nearly all Linux systems
+- Desktop Environment: Graphical user interface on top of the OS (e.g: GNOME, KDE, Xfce, Fluxbox...)
+- Command Line: Interface for typing commands on top of the OS
+- Shell: Command line interpreter that interprets the command line input and instructs the OS
+  to perform any necessary tasks and commands (e.g: bash, tcsh, zsh...)
 
 ## Linux Components
 
@@ -59,7 +108,16 @@ The Linux operating system is structured in a tree-like hierarchy and is documen
 
 ## Linux Distributions
 
-- Linux distributions - or distros - are operating systems based on the Linux kernel. They are used for various purposes, from servers and embedded devices to desktop computers and mobile phones. Linux distributions are like different branches or franchises of the same company, each tailored to serve specific markets or customer preferences. While they all share the same dedicated employees (components), organizational structure (architecture), and corporate culture (philosophy), each distribution offers its own unique products and services (software packages and configurations), customizing the experience to meet diverse needs—all while operating under the unified brand and values of Linux. Each Linux distribution is different, with its own set of features, packages, and tools. Some popular examples include:
+- <mark>Linux distribution = kernel + software tools</mark>
+  ![Distribution Roles](../imgs/distribution-roles.png)
+  ![Services Associated With Distributions](../imgs/services-associated-with-distributions.png)
+- Examples of other essential tools and ingredients provided by distributions include the C/C++ and Clang compilers, the gdb debugger, the core system libraries applications need to link with in order to run, the low-level interface for drawing graphics on the screen, as well as the higher-level desktop environment, and the system for installing and updating the various components, including the kernel itself.
+- Linux distributions - or distros - are operating systems based on the Linux kernel.
+- They are used for various purposes, from servers and embedded devices to desktop computers and mobile phones.
+- Linux distributions are like different branches or franchises of the same company, each tailored to serve specific markets or customer preferences.
+- While they all share the same dedicated employees (components), organizational structure (architecture), and corporate culture (philosophy), each distribution offers its own unique products and services (software packages and configurations), customizing the experience to meet diverse needs—all while operating under the unified brand and values of Linux.
+- Each Linux distribution is different, with its own set of features, packages, and tools.
+- Some popular examples include:
   - [Ubuntu](https://ubuntu.com)
   - [Fedora](https://fedoraproject.org)
   - [CentOS](https://www.centos.org)

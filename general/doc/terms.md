@@ -8,3 +8,5 @@
 - **Library**: A collection of pre-written code, such as functions, classes, and procedures, that provides specific functionalities and can be reused in other programs.
 - **IS**: _An information system_ is a structured combination of hardware, software, data, people, and processes designed to collect, process, store, and distribute information to support decision-making and organizational functions
 - **SOW**: Statement Of Work
+
+- **OSS**: **O**pen **S**ource **S**oftware

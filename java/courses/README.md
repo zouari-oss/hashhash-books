@@ -36,3 +36,9 @@
 - ch1: Introduction to testing
 - ch2: Integration testing
 - ch3: Parameterized testing
+
+## [Importing Data in Java](importing-data-in-java.zip)
+
+- ch1: Introduction to Data Management in Java
+- ch2: Working With `tablesaw` Fundamentals
+- ch3: Advanced Data Processing With `tablesaw`

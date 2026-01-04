@@ -1,5 +1,10 @@
 ﻿# Links
 
+## Linux Forums And News
+
+- [linux.com](https://www.linux.com)
+- [The Linux Kernel Archives](https://www.kernel.org)
+
 ## Distros
 
 - [Oracle Linux OFFICIAL](https://www.oracle.com/linux)
