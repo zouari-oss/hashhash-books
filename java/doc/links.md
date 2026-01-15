@@ -13,6 +13,7 @@
 - [Introduction to Java Serialization](https://www.baeldung.com/java-serialization)
 - [Different Ways to Prevent Method Overriding in Java](https://www.geeksforgeeks.org/java/different-ways-to-prevent-method-overriding-in-java)
 - [Java Functional Interfaces](https://www.geeksforgeeks.org/java/java-functional-interfaces)
+- [Stop Using != null — Here’s How Senior Developers Actually Think](https://medium.com/@anurag.ydv36/stop-using-null-heres-how-senior-developers-actually-think-e5ef86d9eb6e?source=email-c4f64d2e1269-1768443569654-digest.reader--e5ef86d9eb6e----0-109------------------2f3e51f1_229c_490a_abd6_acad5219770c-1)
 
 ## Java Tools
 
