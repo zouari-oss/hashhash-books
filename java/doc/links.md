@@ -103,7 +103,7 @@
 - [JavaFX - Run HelloWorld using Maven](https://openjfx.io/openjfx-docs/#maven)
 - [javafx-maven-plugin](https://github.com/openjfx/javafx-maven-plugin)
 - [OpenJFX Docs Samples](https://github.com/openjfx/samples/tree/master)
-- [JavaFX Fundamentals](https://dev.java/learn/javafx) - I Recommend this tutorial (doc)
+- [JavaFX Fundamentals (RECOMMENDED)](https://dev.java/learn/javafx)
 - [JavaFX FXML controller - constructor vs initialize method](https://stackoverflow.com/questions/34785417/javafx-fxml-controller-constructor-vs-initialize-method)
 - [JavaFX Tutorial | Multiple Scene Communication](https://www.youtube.com/watch?v=HJC_JxpHTeU)
 - [JavaFX WebView + building a web browser 🌐](https://www.youtube.com/watch?v=96r3olimdkA&t=868s)
@@ -135,6 +135,8 @@
 
 ## Java ORM
 
+- [Hibernate Tutorial](https://www.geeksforgeeks.org/java/hibernate-tutorial)
+
 ### Hibernate
 
 - [Hibernate Official Web Site](https://hibernate.org)
@@ -149,3 +151,13 @@
 - [Interface Column<T>](https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.36.0/tech/tablesaw/columns/Column.html)
 - [Class DoubleColumn](https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.25.2/tech/tablesaw/api/DoubleColumn.html)
 - [Interface Selection](https://www.javadoc.io/doc/tech.tablesaw/tablesaw-core/latest/tech/tablesaw/selection/Selection.html)
+
+## Java For Web
+
+- [Spring initializr (OFFICIAL)](https://start.spring.io)
+
+### Java With Angular
+
+- [How to Build a Full Stack Java Angular Application: Step-by-Step](https://medium.com/@MohamedManbar/how-to-build-a-full-stack-java-angular-application-step-by-step-d53a17bdcba7)
+- [Building a Web Application with Spring Boot and Angular](https://www.baeldung.com/spring-boot-angular-web)
+- [Angular + Spring Boot CRUD Full Stack Application course (PLAYLIST)](https://youtube.com/playlist?list=PLGRDMO4rOGcNzi3CpBWsCdQSzbjdWWy-f&si=f2Gbr3bDwJSrYW1H)
