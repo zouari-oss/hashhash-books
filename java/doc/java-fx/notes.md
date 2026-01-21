@@ -1,4 +1,4 @@
-# JavaFx
+# JavaFx Notes
 
 ## FXML
 
