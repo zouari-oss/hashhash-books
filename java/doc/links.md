@@ -78,6 +78,7 @@
 ## Apache
 
 - [Apache Commons](https://commons.apache.org)
+- [Apache OpenNLP](https://opennlp.apache.org)
 
 ### Utils
 
@@ -109,10 +110,12 @@
 
 - [Hibernate Official Web Site](https://hibernate.org)
 - [Hibernate Validator](https://hibernate.org/validator)
+- [Generate UUIDs as Primary Keys With Hibernate](https://www.baeldung.com/java-hibernate-uuid-primary-key)
+- [Stop using auto-increment for table primary keys!](https://azimutt.app/blog/stop-using-auto-increment-for-primary-keys)
 
 ## Java For Data Science
 
-- [tablesaw Web-site](https://jtablesaw.github.io/tablesaw/userguide/reducing.html)
+- [tablesaw-web-site](https://jtablesaw.github.io/tablesaw/tutorial.html) RECOMMENDED
 - [tablesaw Github](https://github.com/jtablesaw/tablesaw)
 - [Working with Tabular Data Using Tablesaw](https://www.baeldung.com/tablesaw)
 - [Class Table](https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.34.1/tech/tablesaw/api/Table.html)
