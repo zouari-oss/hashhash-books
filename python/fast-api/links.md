@@ -5,6 +5,11 @@
 - [fastapi docs](https://fastapi.tiangolo.com)
 - [fastapi learn](https://fastapi.tiangolo.com/learn)
 - [fastapi github](https://github.com/fastapi/fastapi)
+- [full-stack-fastapi-template](https://fastapi.tiangolo.com/project-generation)
+
+## Packages
+
+- [https://sqlmodel.tiangolo.com](https://sqlmodel.tiangolo.com/#installation)
 
 ## Courses
 
@@ -16,3 +21,4 @@
 
 - [Tutorial - User Guide OFFICIAL](https://fastapi.tiangolo.com/tutorial)
 - [FastAPI - Introduction](https://www.geeksforgeeks.org/python/fastapi-introduction)
+- [Structuring a FastAPI Project: Best Practices](https://dev.to/mohammad222pr/structuring-a-fastapi-project-best-practices-53l6)

@@ -97,7 +97,13 @@ def your_function(optional parameters):
 
 ## Pip
 
-- `Pip freeze` is a command in Python that allows you to save packages that were installed using pip in the virtual environment.
+- `pip freeze` is a command in Python that allows you to save packages that were installed using pip in the virtual environment.
+
+- To create a `requirements.txt` file including the versions of the packages that you're using do the following:
+
+```bash
+pip freeze > requirements.txt
+```
 
 ## Python keywords
 

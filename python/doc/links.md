@@ -7,3 +7,7 @@
 - [Name mangling in Python](https://www.geeksforgeeks.org/python/name-mangling-in-python)
 - [Keyword and Positional Argument in Python](https://www.geeksforgeeks.org/python/keyword-and-positional-argument-in-python)
 - [Default arguments in Python](https://www.geeksforgeeks.org/python/default-arguments-in-python)
+
+## Packages
+
+- [Pydantic Validation](https://docs.pydantic.dev/latest)
