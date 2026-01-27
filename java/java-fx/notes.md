@@ -1,5 +1,18 @@
 # JavaFx Notes
 
+- A simple JavaFX project can be created by executing the following command:
+
+```bash
+mvn archetype:generate \
+        -DarchetypeGroupId=org.openjfx \
+        -DarchetypeArtifactId=javafx-archetype-simple \
+        -DarchetypeVersion=0.0.6 \
+        -DgroupId=org.openjfx \
+        -DartifactId=sample \
+        -Dversion=1.0.0 \
+        -Djavafx-version=25.0.2
+```
+
 ## FXML
 
 - FXML lets you _describe_ and _configure_ your scene graph in a declarative format.

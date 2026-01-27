@@ -1,8 +1,23 @@
-# Maven Guide
+# Maven Notes
 
-- Maven is a powerful **project management** and **build automation tool** primarily used for Java projects, but it also supports other languages like C#, Ruby, and Scala.
+- Maven is a powerful **project management** and **build automation tool** primarily used for Java projects, but it also
+  supports other languages like C#, Ruby, and Scala.
 - It simplifies the build process, handles dependencies, and provides a standardized way to manage projects.
 - Maven uses a **project object model (POM)** to define project structure, dependencies, and build configurations.
+
+## Creating a Project
+
+You need somewhere for your project to reside. Create a directory somewhere and start a shell in that directory.
+On your command line, execute the following Maven goal:
+
+```bash
+$ mvn archetype:generate \
+    -DgroupId=com.mycompany.app \
+    -DartifactId=my-app \
+    -DarchetypeArtifactId=maven-archetype-quickstart \
+    -DarchetypeVersion=1.5 \
+    -DinteractiveMode=false
+```
 
 ## POM.xml
 
@@ -67,7 +82,7 @@
     </project>
   ```
 
-## Create a Maven module (Aggregation Method)
+### Create a Maven module (Aggregation Method)
 
 1. **Ensure Parent Project Configuration:**
    The parent project's `pom.xml` file must have its `<packaging>` element set to pom. This designates it as a parent project for managing other modules.
@@ -78,7 +93,7 @@
 mvn archetype:generate -DgroupId=com.example -Dartifa # Or use https://raw.githubusercontent.com/ZouariOmar/Cpkg/refs/heads/main/scripts/java/run
 ```
 
-3. **Add Module to Parent pom.xml:**
+1. **Add Module to Parent pom.xml:**
    In the **parent project's pom.xml**, add a `<module>` entry within the `<modules>` section, specifying the name of the newly created module's directory.
 
 ```xml
@@ -87,7 +102,7 @@ mvn archetype:generate -DgroupId=com.example -Dartifa # Or use https://raw.githu
 </modules>
 ```
 
-4. **Configure Module's pom.xml:**
+1. **Configure Module's pom.xml:**
    In the **new module's pom.xml**, add a `<parent>` tag to link it to the parent project. This allows the module to inherit configurations and dependencies from the parent.
 
 ```xml
@@ -99,10 +114,35 @@ mvn archetype:generate -DgroupId=com.example -Dartifa # Or use https://raw.githu
 <artifactId>my-module</artifactId>
 ```
 
-5. **Build the Project:**
+1. **Build the Project:**
 
 - Navigate to the parent project's root directory in your terminal.
 - Run `mvn clean install` to build the entire multi-module project, including the new module.
+
+### Dependency Management
+
+- `<dependencyManagement>` is a special section in Maven used to declare dependency versions and scopes **in one place**, usually in a **parent POM** of a multi-module project.
+- Dependencies declared inside `<dependencyManagement>` are NOT automatically added to your project.
+- You must still declare them separately in the `<dependencies>` section to actually use them.
+- When Should You Use <dependencyManagement>?
+  - You have a multi-module Maven project, and you want all modules to use the same version of a dependency.
+  - You’re creating a parent POM to manage versions for consistency.
+
+| Section                  | Purpose                                                | Required for usage?     |
+| ------------------------ | ------------------------------------------------------ | ----------------------- |
+| `<dependencyManagement>` | Sets default versions for child projects/modules       | ❌ Not enough by itself |
+| `<dependencies>`         | Actually adds the dependency to your project/classpath | ✅ Always needed        |
+
+> Same logic for `<pluginManagement>` and `<plugins>`
+
+### `<developer>` vs `<contributor>`
+
+| Feature        | <developer>                         | <contributor>                               |
+| -------------- | ----------------------------------- | ------------------------------------------- |
+| Role           | Core team member, primary coder     | Peripheral helper, external participant     |
+| Commitment     | Long-term, ongoing responsibility   | Ad-hoc, often one-off help                  |
+| Access         | Typically has commit access         | May not have direct commit access           |
+| Decision Power | High influence on project direction | Little to no influence on project direction |
 
 ## Maven && Nvim
 
@@ -135,18 +175,70 @@ mvn archetype:generate -DgroupId=com.example -Dartifa # Or use https://raw.githu
     mvn eclipse:eclipse
     ```
 
-### Dependency Management
+### gitignore for Maven
 
-- `<dependencyManagement>` is a special section in Maven used to declare dependency versions and scopes **in one place**, usually in a **parent POM** of a multi-module project.
-- Dependencies declared inside `<dependencyManagement>` are NOT automatically added to your project.
-- You must still declare them separately in the `<dependencies>` section to actually use them.
-- When Should You Use <dependencyManagement>?
-  - You have a multi-module Maven project, and you want all modules to use the same version of a dependency.
-  - You’re creating a parent POM to manage versions for consistency.
+A candidate `.gitignore` for CS56 Maven Projects
 
-| Section                  | Purpose                                                | Required for usage?     |
-| ------------------------ | ------------------------------------------------------ | ----------------------- |
-| `<dependencyManagement>` | Sets default versions for child projects/modules       | ❌ Not enough by itself |
-| `<dependencies>`         | Actually adds the dependency to your project/classpath | ✅ Always needed        |
+```gitignore
+# Emacs/vim
 
-> Same logic for `<pluginManagement>` and `<plugins>`
+*~
+*.swp
+
+# VSCode
+
+.vscode
+.classpath
+.project
+.settings/
+
+
+# MacOS
+
+.DS_Store
+
+# CS56 specific: Secrets files
+
+localhost.json
+heroku.json
+
+# Maven (from: https://github.com/github/gitignore/blob/master/Maven.gitignore)
+
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
+# Java (from: https://github.com/github/gitignore/blob/master/Java.gitignore)
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+```

@@ -50,3 +50,75 @@ The terminals which run the command shells can be accessed using the `ALT+fn`. M
 Usually, the default command shell is **bash** (the GNU Bourne Again Shell), but there are a number of other advanced command shells available. The shell prints a text prompt, indicating it is ready to accept commands; after the user types the command and presses `Enter`, the command is executed, and another prompt is displayed after the command is done.
 
 ![Text-Mode Login](../imgs/text-mode-logins.png)
+
+## Kernel, init and Services
+
+### The Linux Kernel
+
+The boot loader loads both the **kernel** and an initial RAM–based file system (initramfs) into memory, so it can be used directly by the kernel.
+
+When the kernel is loaded in RAM, it immediately initializes and configures the computer’s memory and also configures all the hardware attached to the system. This includes all processors, I/O subsystems, storage devices, etc. The kernel also loads some necessary user space applications.
+
+![The Linux Kernel](../imgs/the-linux-kernel.png)
+
+### `/sbin/init` and Services
+
+Once the kernel has set up all its hardware and mounted the root filesystem, the kernel runs `/sbin/init`. This then becomes the initial process, which then starts other processes to get the system running. Most other processes on the system trace their origin ultimately to init; exceptions include the so-called kernel processes. These are started by the kernel directly, and their job is to manage internal operating system details.
+
+Besides starting the system, `init` is responsible for keeping the system running and for shutting it down cleanly. One of its responsibilities is to act when necessary as a manager for all non-kernel processes; it cleans up after them upon completion, and restarts user login services as needed when users log in and out, and does the same for other background system services.
+
+Traditionally, this process startup was done using conventions that date back to the 1980s and the System V variety of UNIX. This serial process (called `SysVinit`) had the system pass through a sequence of `runlevels` containing collections of scripts that start and stop services. Each runlevel supported a different mode of running the system. Within each runlevel, individual services could be set to run, or to be shut down if running.
+
+However, all major distributions have moved away from this sequential method of system initialization, although they usually can emulate many System V utilities for compatibility purposes.
+
+![/sbin/init and Services](../imgs/sbin-init-and-services.png)
+
+### Startup Alternatives
+
+**SysVinit** viewed things as a serial process, divided into a series of sequential stages. Each stage required completion before the next could proceed. Thus, startup did not easily take advantage of the parallel processing that could be done with the **multiple processors** or cores found on modern systems.
+
+Furthermore, starting up and rebooting were seen as relatively rare events; exactly how long they took was not considered important. This is no longer true, especially with mobile devices and embedded Linux systems. Some modern methods, such as the use of containers, can require almost instantaneous startup times. Thus, systems now require methods with faster and enhanced capabilities. Finally, the older methods required rather complicated startup scripts, which were difficult to keep universal across distribution versions, kernel versions, architectures, and types of systems. The two main alternatives developed were:
+
+- **Upstart**
+  - Developed by Ubuntu and first included in 2006
+  - Adopted in Fedora 9 (in 2008) and in RHEL 6 and its clones
+
+- **systemd**
+  - Adopted by Fedora first (in 2011)
+  - Adopted by RHEL 7 and SUSE
+  - Replaced Upstart in Ubuntu 16.04
+
+While the migration to `systemd` was rather controversial, it has been adopted by all major distributions.
+
+### `systemd` Features
+
+![systemd](../imgs/systemd.png)
+
+Systems with `systemd` start up faster than those with earlier `init` methods. This is largely because it replaces a serialized set of steps with aggressive parallelization techniques, which permits multiple services to be initiated simultaneously.
+
+Complicated startup shell scripts are replaced with simpler configuration files, which enumerate what has to be done before a service is started, how to execute service startup, and what conditions the service should indicate have been accomplished when startup is finished. One thing to note is that `/sbin/init` now just points to `/lib/systemd/systemd`; i.e. `systemd` takes over the `init` process.
+
+- One `systemd` command (`systemctl`) is used for most basic tasks. While we have not yet talked about working at the command line, here is a brief listing of its use:
+  - Starting, stopping, restarting a service (using `httpd`, the Apache web server, as an example) on a currently running system:
+
+  ```bash
+  sudo systemctl start|stop|restart httpd.service
+  ```
+
+  - Enabling or disabling a system service from starting up at system boot:
+
+  ```bash
+  sudo systemctl enable|disable httpd.service
+  ```
+
+  - Checking on the status of a service:
+
+  ```bash
+  sudo systemctl status httpd.service
+  ```
+
+In most cases, the `.service` can be omitted. There are many technical differences with older methods that lie beyond the scope of our discussion.
+
+## Linux Filesystem Basics
+
+### Linux Filesystems
