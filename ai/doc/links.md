@@ -8,6 +8,7 @@
 - [Summary of the tokenizers](https://huggingface.co/docs/transformers/en/tokenizer_summary)
 - [Using HuggingFace datasets for NLP Projects](https://www.geeksforgeeks.org/nlp/accessing-huggingface-datasets-for-nlp-experiments)
 - [ReAct Prompting](https://www.promptingguide.ai/techniques/react)
+- [Face Recognition System using LBPH Algorithm](https://karthikeyan-pcp.medium.com/face-recognition-system-using-lbph-algorithm-3145b4820646)
 
 ## Audio and Image Models
 

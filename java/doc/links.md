@@ -123,3 +123,23 @@
 - [Interface Column<T>](https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.36.0/tech/tablesaw/columns/Column.html)
 - [Class DoubleColumn](https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.25.2/tech/tablesaw/api/DoubleColumn.html)
 - [Interface Selection](https://www.javadoc.io/doc/tech.tablesaw/tablesaw-core/latest/tech/tablesaw/selection/Selection.html)
+
+## Java for AI
+
+- [Deeplearning4j Suite Overview](https://deeplearning4j.konduit.ai)
+- [DeepLearning4j vs TensorFlow](https://www.geeksforgeeks.org/deep-learning/deeplearning4j-vs-tensorflow)
+- [WekaDeeplearning4j: Deep Learning using Weka](https://deeplearning.cms.waikato.ac.nz)
+
+### Ollama4j - Interfacing with Ollama using Java
+
+- [Ollama4j-examples](github.com/ollama4j/ollama4j-examples/tree/main/src/main/java/io/github/ollama4j/examples)
+
+### Face Recognition
+
+- [Package org.opencv.face](https://docs.opencv.org/4.x/javadoc/org/opencv/face/package-summary.html)
+- [Image Processing in Java - Face Detection](https://www.geeksforgeeks.org/java/image-processing-in-java-face-detection)
+- [Index of face-recognition](https://darnok.org/programming/face-recognition)
+- [djl FeatureComparison](https://github.com/deepjavalibrary/djl/blob/master/examples/src/main/java/ai/djl/examples/inference/face/FeatureComparison.java)
+- [Java Home Made Face Recognition Application](https://ramok.tech/2018/09/12/java-home-made-face-recognition-application)
+- [Thumbnailator](https://coobird.net)
+- [Gender Detection Using Deep Neural Network (DNN) with JavaCV Library](https://github.com/mesutpiskin/java-gender-recognition)
