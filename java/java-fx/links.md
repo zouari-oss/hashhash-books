@@ -11,6 +11,11 @@
 - [JavaFX WebView + building a web browser 🌐](https://www.youtube.com/watch?v=96r3olimdkA&t=868s)
 - [Introduction to JavaFX animations](https://dev.java/learn/javafx-animations)
 
+### i18
+
+- [How to implement language support for JavaFX in FXML documents?](https://stackoverflow.com/questions/26325403/how-to-implement-language-support-for-javafx-in-fxml-documents)
+- [Java 24: Internationalization](https://simplelocalize.io/blog/posts/java-internationalization)
+
 ## Mobile (Gluon)
 
 - [Gluon Documentation](https://docs.gluonhq.com/#_gluon_start)
