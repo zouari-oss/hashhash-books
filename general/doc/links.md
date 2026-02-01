@@ -11,6 +11,11 @@
 - [Link GitHub development information to Jira work items](https://support.atlassian.com/jira-cloud-administration/docs/use-the-github-for-jira-app)
 - [Reference work items in your development spaces](https://support.atlassian.com/jira-software-cloud/docs/reference-issues-in-your-development-work)
 
+## Cloud
+
+- [Google Cloud](https://console.cloud.google.com)
+- [LinkedIn Developers](https://www.linkedin.com/developers/apps)
+
 ## Soft-skills
 
 - [5 Presentation Tips for Students w/Templates](https://www.youtube.com/watch?v=cEIyV-fTQ5Y)
