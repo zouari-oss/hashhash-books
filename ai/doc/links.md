@@ -24,3 +24,7 @@
 
 - [Hugging Face](https://huggingface.co)
 - [Gradio](https://www.gradio.app)
+
+## Research & Articles
+
+- [anthropic research](https://www.anthropic.com/research)
