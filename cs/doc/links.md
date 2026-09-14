@@ -8,11 +8,12 @@
 - [Appache-doc](https://httpd.apache.org/docs)
 - [Php-doc](https://www.php.net/manual/en/index.php)
 - [NodeJs-doc](https://nodejs.org/docs/latest/api)
+- [Introduction to Dirb - Kali Linux](https://www.geeksforgeeks.org/introduction-to-dirb-kali-linux)
 
 ## Tools
 
-- [Introduction to Dirb - Kali Linux](https://www.geeksforgeeks.org/introduction-to-dirb-kali-linux)
-- [SecLists](https://github.com/danielmiessler/SecLists) > Collection of multiple types of lists used during security assessments
+- [SecLists](https://github.com/danielmiessler/SecLists) | Collection of multiple types of lists used during security assessments
+- [evil-winrm](https://hub.docker.com/r/oscarakaelvis/evil-winrm) | Evil-WinRM provides an easy-to-use shell for authorized penetration testing, security auditing and educational purposes. It uses the WinRM Ruby library and PSRP (PowerShell Remoting Protocol) to initialize runspace pools and process pipelines.
 
 ## Websites
 
