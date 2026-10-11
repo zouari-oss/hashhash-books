@@ -1,0 +1,534 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Langue : utilise babel-french s'il est installé, sinon repli sans erreur
+\IfFileExists{french.ldf}{%
+  \usepackage[french]{babel}%
+}{%
+  \usepackage[english]{babel}%
+  \addto\captionsenglish{\renewcommand{\contentsname}{Table des matières}%
+    \renewcommand{\proofname}{Preuve}}%
+}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{enumitem}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=NavyBlue,urlcolor=NavyBlue}
+
+% ---------- Raccourcis ----------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\1}{\mathbf{1}}
+
+% ---------- Environnements ----------
+\theoremstyle{definition}
+\newtheorem*{definition}{Définition}
+\newtheorem*{exemple}{Exemple}
+\newtheorem*{application}{Application corrigée}
+\theoremstyle{plain}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{theoreme}{Théorème}
+\theoremstyle{remark}
+\newtheorem*{remarque}{Remarque}
+
+\setlist{itemsep=2pt,topsep=4pt}
+\renewcommand{\arraystretch}{1.35}
+
+\title{\textbf{Chapitre 1 : Outils fondamentaux pour les probabilités}\\[4pt]
+\large Résumé de cours --- 4\textsuperscript{ème} année DAS \& FINTECH (A.U.\ 2026-2027)}
+\date{}
+\author{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+%=====================================================================
+\section{Espace de probabilité}
+%=====================================================================
+
+\subsection{Expérience aléatoire et univers}
+
+\begin{definition}[Expérience aléatoire]
+Une expérience aléatoire est une expérience renouvelable (dans des conditions identiques), dont l'ensemble des résultats possibles est connu, sans que l'on sache lequel se produira (pile ou face, lancer d'un dé, nombre d'articles défectueux dans un lot, durée de fonctionnement d'une machine, etc.).
+\end{definition}
+
+\begin{definition}[Univers]
+L'\emph{univers} (ou espace fondamental), noté $\Omega$, est l'ensemble de tous les résultats possibles d'une expérience aléatoire.
+\end{definition}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Expérience} & \textbf{Univers}\\
+\midrule
+Pile ou face & $\Omega=\{P,F\}$\\
+Lancer d'un dé & $\Omega=\{1,2,3,4,5,6\}$\\
+Nombre de clients dans une file & $\Omega=\{1,2,3,\dots\}$\\
+Durée de fonctionnement d'une machine & $\Omega=\{[0,a],\ a>0\}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Évènements}
+
+Un \emph{évènement} est un sous-ensemble de $\Omega$. On note $\A$ l'ensemble des évènements.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Notation} & \textbf{Signification}\\
+\midrule
+$A=\Omega$ & évènement certain\\
+$A=\emptyset$ & évènement impossible\\
+$\bar A=\Omega\setminus A$ & évènement contraire de $A$\\
+$A\cap B$ & « $A$ et $B$ » : les deux sont réalisés\\
+$A\cup B$ & « $A$ ou $B$ » : l'un au moins est réalisé\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{definition}[Évènements incompatibles]
+Deux évènements $A$ et $B$ sont \emph{incompatibles} (ou disjoints) si $A\cap B=\emptyset$, c'est-à-dire s'ils ne peuvent pas se réaliser simultanément.
+\end{definition}
+
+\begin{exemple}
+Lors d'un lancer de dé, « nombre pair » et « nombre impair » sont incompatibles ; de même $P$ et $F$ pour un pile ou face.
+\end{exemple}
+
+\begin{definition}[Système complet]
+Une famille d'évènements $A_1,\dots,A_n$ est un \emph{système complet} de $\Omega$ si
+\begin{itemize}
+  \item les $A_i$ sont deux à deux incompatibles : $\forall i\neq j,\ A_i\cap A_j=\emptyset$ ;
+  \item ils forment une partition de $\Omega$ : $\bigcup_{i=1}^{n}A_i=\Omega$.
+\end{itemize}
+Exemple : pour tout évènement $A$, $\{A,\bar A\}$ est un système complet.
+\end{definition}
+
+\subsection{Tribu}
+
+\begin{definition}[Tribu]
+Une \emph{tribu} $\A$ sur $\Omega$ est une classe de parties de $\Omega$ vérifiant :
+\begin{enumerate}
+  \item $\Omega\in\A$ ;
+  \item stabilité par complémentaire : $A\in\A\Rightarrow\bar A\in\A$ ;
+  \item stabilité par union dénombrable : $A_1,A_2,\dots\in\A\Rightarrow\bigcup_i A_i\in\A$.
+\end{enumerate}
+\end{definition}
+
+\begin{exemple}
+La \emph{tribu grossière} $\{\emptyset,\Omega\}$ est la plus petite tribu ; la \emph{tribu discrète} $\mathcal{P}(\Omega)$ est la plus grande ; pour tout $A\subset\Omega$, $\{\emptyset,A,\bar A,\Omega\}$ est une tribu.
+\end{exemple}
+
+\subsection{Probabilité}
+
+\begin{definition}[Probabilité]
+Une \emph{probabilité} sur l'espace mesurable $(\Omega,\A)$ est une mesure $\P:\A\to[0,1]$ telle que
+\begin{itemize}
+  \item $\P(\Omega)=1$ ;
+  \item si $A$ et $B$ sont incompatibles, $\P(A\cup B)=\P(A)+\P(B)$ (en toute rigueur, $\sigma$-additivité pour les unions dénombrables).
+\end{itemize}
+\end{definition}
+
+\begin{proposition}[Propriétés]
+Pour $A,B\in\A$ :
+\[
+\P(\bar A)=1-\P(A),\qquad
+\P(A\cup B)=\P(A)+\P(B)-\P(A\cap B),\qquad
+A\subset B\Rightarrow\P(A)\le\P(B).
+\]
+\end{proposition}
+
+\begin{definition}[Espace de probabilité]
+Un \emph{espace de probabilité} est un triplet $(\Omega,\A,\P)$ formé d'un ensemble $\Omega$, d'une tribu $\A$ et d'une probabilité $\P$ définie sur cette tribu. C'est le cadre rigoureux pour modéliser et analyser les phénomènes aléatoires.
+\end{definition}
+
+\begin{application}
+Soient $A,B,C$ trois évènements, $E_1=A\cap\bar B\cap\bar C$ et $E_2=A\cap(B\cup C)$, avec
+$\P(A)=0{,}6$, $\P(B)=0{,}4$, $\P(C)=0{,}3$, $\P(A\cap B)=0{,}2$, $\P(A\cap C)=0{,}1$, $\P(B\cap C)=0{,}1$, $\P(A\cap B\cap C)=0{,}025$.
+\begin{itemize}
+  \item $E_1$ exige « ni $B$ ni $C$ », $E_2$ exige « $B$ ou $C$ » : $E_1\cap E_2=\emptyset$, ils sont incompatibles.
+  \item $E_1\cup E_2=A\cap(\bar B\cap\bar C)\ \cup\ A\cap(B\cup C)=A$.
+  \item $\P(E_2)=\P(A\cap B)+\P(A\cap C)-\P(A\cap B\cap C)=0{,}2+0{,}1-0{,}025=0{,}275$.
+  \item $\P(E_1)=\P(A)-\P(E_2)=0{,}6-0{,}275=0{,}325$.
+\end{itemize}
+\end{application}
+
+%=====================================================================
+\section{Probabilité conditionnelle et indépendance}
+%=====================================================================
+
+\subsection{Probabilité conditionnelle}
+
+\begin{definition}
+Si $\P(B)>0$, la probabilité de $A$ sachant $B$ est
+\[
+\P(A\mid B)=\frac{\P(A\cap B)}{\P(B)},\qquad\text{d'où}\qquad
+\P(A\cap B)=\P(A\mid B)\P(B)=\P(B\mid A)\P(A).
+\]
+\end{definition}
+
+C'est elle-même une probabilité. En particulier :
+\[
+\P(\bar A\mid B)=1-\P(A\mid B),\quad
+\P(A\cap B\cap C)=\P(A\cap B\mid C)\P(C),\quad
+\P(A\cap B\mid C)=\P(A\mid B\cap C)\P(B\mid C).
+\]
+
+\subsection{Formule des probabilités totales (FPT)}
+
+\begin{theoreme}[FPT]
+Si $B_1,\dots,B_n$ est un système complet d'évènements de probabilités non nulles, alors pour tout évènement $A$ :
+\[
+\P(A)=\sum_{i=1}^{n}\P(A\cap B_i)=\sum_{i=1}^{n}\P(A\mid B_i)\,\P(B_i).
+\]
+\end{theoreme}
+
+Elle permet de calculer la probabilité d'un évènement en le décomposant selon un système complet.
+
+\subsection{Formule de Bayes}
+
+\begin{theoreme}[Bayes]
+Si $(B_i)_{1\le i\le n}$ est un système complet et $\P(A)\neq0$ :
+\[
+\P(B_i\mid A)=\frac{\P(A\mid B_i)\P(B_i)}{\P(A)}
+=\frac{\P(A\mid B_i)\P(B_i)}{\sum_{j=1}^{n}\P(A\mid B_j)\P(B_j)}.
+\]
+\end{theoreme}
+
+\begin{remarque}
+La formule de Bayes permet de « remonter le temps » : calculer la probabilité d'une cause connaissant sa conséquence.
+\end{remarque}
+
+\begin{application}[Assurance]
+30\,\% de la population est « à haut risque » ($A_1$, probabilité d'accident $0{,}4$) et 70\,\% « à risque modéré » ($A_2$, probabilité $0{,}2$). Pour $B$ = « accident dans l'année », la FPT donne
+\[
+\P(B)=0{,}4\times0{,}3+0{,}2\times0{,}7=0{,}26.
+\]
+\end{application}
+
+\begin{application}[Souris et anticorps]
+On a $\P(A)=\tfrac12$, $\P(B\mid A)=\tfrac25$ et $\P(\bar B\mid\bar A)=\tfrac45$. Par la FPT,
+$\P(B)=\tfrac25\cdot\tfrac12+\tfrac15\cdot\tfrac12=\tfrac{3}{10}$. Puis, par Bayes :
+\[
+\P(A\mid B)=\frac{\P(B\mid A)\P(A)}{\P(B)}=\frac{2/10}{3/10}=\frac23,
+\qquad
+\P(\bar A\mid\bar B)=\frac{\P(\bar B\mid\bar A)\P(\bar A)}{\P(\bar B)}=\frac{4/10}{7/10}=\frac47.
+\]
+\end{application}
+
+\subsection{Indépendance}
+
+\begin{definition}
+\begin{itemize}
+  \item $A$ et $B$ sont \emph{indépendants} ssi $\P(A\cap B)=\P(A)\P(B)$, ce qui équivaut à $\P(A\mid B)=\P(A)$ (si $\P(B)>0$).
+  \item $A$ et $B$ sont \emph{indépendants conditionnellement à $C$}, noté $A\perp B\mid C$, ssi $\P(A\cap B\mid C)=\P(A\mid C)\P(B\mid C)$.
+\end{itemize}
+\end{definition}
+
+%=====================================================================
+\section{Variables aléatoires discrètes}
+%=====================================================================
+
+\subsection{Notions de base}
+
+\begin{definition}[Variable aléatoire]
+Soient $(\Omega,\A,\P)$ un espace de probabilité et $(E,\mathcal{B})$ un espace mesurable. Une \emph{variable aléatoire} (v.a.) est une application mesurable $X:\Omega\to E$. Elle est dite \emph{discrète} si $X(\Omega)$ est fini ou infini dénombrable.
+\end{definition}
+
+\begin{definition}[Loi de probabilité]
+Pour $X(\Omega)=\{x_1,\dots,x_n\}$, la loi de $X$ est donnée par
+\[
+p_k=\P(X=x_k),\quad k=1,\dots,n,\qquad\text{avec}\quad\sum_{k=1}^{n}p_k=1.
+\]
+Il faut donc déterminer les valeurs possibles de $X$ et la probabilité de chacune.
+\end{definition}
+
+\begin{definition}[Fonction de répartition]
+\[
+F_X:\R\to[0,1],\qquad F_X(x)=\P(X\le x)=\sum_{y\in X(\Omega),\,y\le x}\P(X=y).
+\]
+\end{definition}
+
+\begin{proposition}[Propriétés]
+\begin{itemize}
+  \item $\displaystyle\lim_{x\to-\infty}F_X(x)=0$ et $\displaystyle\lim_{x\to+\infty}F_X(x)=1$ ;
+  \item $\P(X>a)=1-F_X(a)$ ;
+  \item $\P(a<X\le b)=F_X(b)-F_X(a)$ pour $a\le b$.
+\end{itemize}
+Deux v.a. discrètes de même fonction de répartition ont la même loi.
+\end{proposition}
+
+\begin{proposition}[Indépendance]
+Deux v.a. discrètes $X$ et $Y$ sont indépendantes ssi
+\[
+\forall x\in X(\Omega),\ \forall y\in Y(\Omega),\quad \P(X=x,\,Y=y)=\P(X=x)\,\P(Y=y).
+\]
+\end{proposition}
+
+\begin{application}
+Soient $X_1,X_2,X_3$ i.i.d.\ de loi de Bernoulli $\mathcal{B}(p)$, $Y_1=X_1X_2$ et $Y_2=X_2X_3$.
+\begin{itemize}
+  \item $Y_1(\Omega)=\{0,1\}$ et $\P(Y_1=1)=\P(X_1=X_2=1)=p^2$ ; $Y_2$ a la même loi (le cours traite le cas $p=\tfrac12$ : $\tfrac14$ et $\tfrac34$).
+  \item $\P(Y_1=1,Y_2=1)=\P(X_1=X_2=X_3=1)=p^3\neq p^4=\P(Y_1=1)\P(Y_2=1)$ pour $p\in\,]0,1[$ : $Y_1$ et $Y_2$ \textbf{ne sont pas indépendantes}.
+\end{itemize}
+\end{application}
+
+\subsection{Moments d'une variable aléatoire discrète}
+
+\begin{definition}[Espérance et variance]
+\[
+\E[X]=\sum_{k\in X(\Omega)}k\,\P(X=k),\qquad
+\V[X]=\E\big[(X-\E[X])^2\big]=\E[X^2]-\E[X]^2=\sum_{k\in X(\Omega)}k^2\P(X=k)-\E[X]^2.
+\]
+\end{definition}
+
+\begin{proposition}[Propriétés]
+Pour $a,b\in\R$ :
+\begin{enumerate}
+  \item $\E[aX+b]=a\E[X]+b$ et $\E[X+Y]=\E[X]+\E[Y]$ ;
+  \item $\V[aX+b]=a^2\V[X]$ ;
+  \item si $X$ et $Y$ sont indépendantes, $\V[X+Y]=\V[X]+\V[Y]$.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}[Moment d'ordre $p\ge1$]
+$X$ admet un moment d'ordre $p$ ssi $\sum_{x\in X(\Omega)}|x|^p\,\P(X=x)<+\infty$ ; alors $\E[X^p]=\sum_{x}x^p\,\P(X=x)$.
+Les moments d'ordre supérieur décrivent plus finement la forme de la distribution (tendance centrale, dispersion, asymétrie).
+\end{definition}
+
+\subsection{Lois discrètes usuelles}
+
+\begin{definition}[Épreuve et schéma de Bernoulli]
+Une \emph{épreuve de Bernoulli} de paramètre $p\in\,]0,1[$ est une expérience à deux issues : succès (probabilité $p$) ou échec (probabilité $1-p$). Un \emph{schéma de Bernoulli} de paramètres $n$ et $p$ consiste à répéter $n$ fois, de façon indépendante, une telle épreuve.
+\end{definition}
+
+\begin{center}
+\small
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+\textbf{Loi} & \textbf{$X$ modélise} & \textbf{Valeurs} & $\P(X=k)$ & $\E[X]$ & $\V[X]$\\
+\midrule
+Bernoulli $\mathcal{B}(p)$ & succès (1) ou échec (0) & $\{0,1\}$ & $p^k(1-p)^{1-k}$ & $p$ & $p(1-p)$\\[3pt]
+Binomiale $\mathcal{B}(n,p)$ & nombre de succès sur $n$ épreuves & $\{0,\dots,n\}$ & $\binom{n}{k}p^k(1-p)^{n-k}$ & $np$ & $np(1-p)$\\[3pt]
+Géométrique $\mathcal{G}(p)$ & rang du premier succès & $\N^*$ & $(1-p)^{k-1}p$ & $\dfrac1p$ & $\dfrac{1-p}{p^2}$\\[6pt]
+Poisson $\mathcal{P}(\lambda)$ & comptage d'évènements rares & $\N$ & $\dfrac{\lambda^k}{k!}e^{-\lambda}$ & $\lambda$ & $\lambda$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}[Caractérisation et stabilité]
+\begin{itemize}
+  \item Si $X\sim\mathcal{B}(n,p)$, alors $X=X_1+\dots+X_n$ avec $X_i$ i.i.d.\ de loi $\mathcal{B}(p)$.
+  \item Si $X_1\sim\mathcal{B}(n_1,p)$ et $X_2\sim\mathcal{B}(n_2,p)$ sont indépendantes, alors $X_1+X_2\sim\mathcal{B}(n_1+n_2,p)$.
+  \item Si $X\sim\mathcal{P}(\lambda)$ et $Y\sim\mathcal{P}(\mu)$ sont indépendantes, alors $X+Y\sim\mathcal{P}(\lambda+\mu)$.
+\end{itemize}
+\end{proposition}
+
+\begin{theoreme}[Approximation de Poisson]
+Pour $n$ assez grand et $p$ assez petit, la loi binomiale $\mathcal{B}(n,p)$ est approchée par la loi de Poisson $\mathcal{P}(\lambda)$ avec $\lambda=np$.
+\end{theoreme}
+
+%=====================================================================
+\section{Variables aléatoires continues}
+%=====================================================================
+
+\subsection{Notions de base}
+
+Une v.a. \emph{continue} prend ses valeurs dans un intervalle de $\R$ (durée de vie d'un composant, taille d'un individu, temps d'attente dans une file\dots).
+
+\begin{definition}[Densité de probabilité]
+Une application $f:\R\to\R$ est une \emph{densité} si elle est positive, mesurable (continue par morceaux) et $\displaystyle\int_{\R}f(x)\,dx=1$.
+\end{definition}
+
+\begin{exemple}
+La fonction « triangle » $f(x)=1+x$ sur $[-1,0[$, $1-x$ sur $[0,1[$ et $0$ ailleurs est une densité.
+\end{exemple}
+
+\begin{proposition}
+$X$ est continue de densité $f$ si
+\[
+\forall a,b\in\R\cup\{\pm\infty\},\quad \P(X\in\,]a,b[)=\int_a^b f(x)\,dx.
+\]
+Plus $f$ est élevée au-dessus d'un segment, plus $X$ a de chances d'y tomber.
+\end{proposition}
+
+\begin{remarque}
+Pour une v.a. continue, la probabilité de prendre une valeur précise est nulle : $\P(X=x)=0$ pour tout $x\in\R$.
+\end{remarque}
+
+\begin{definition}[Fonction de répartition]
+\[
+F_X(x)=\P(X\le x)=\int_{-\infty}^{x}f(y)\,dy.
+\]
+Si $X$ est positive, $F_X(x)=0$ pour tout $x\le0$.
+\end{definition}
+
+\begin{proposition}[Propriétés]
+Pour $a,b\in\R$ :
+\begin{enumerate}
+  \item $F_X$ est continue et croissante ;
+  \item $\displaystyle\lim_{x\to-\infty}F_X(x)=0$ et $\displaystyle\lim_{x\to+\infty}F_X(x)=1$ ;
+  \item $\P(X>a)=1-F_X(a)$ ;
+  \item $\P(a\le X\le b)=F_X(b)-F_X(a)$.
+\end{enumerate}
+Si $F_X$ est dérivable, la densité de $X$ est $f=F_X'$.
+\end{proposition}
+
+\subsection{Moments d'une variable aléatoire continue}
+
+\begin{definition}[Espérance et variance]
+\[
+\E[X]=\int_{\R}x\,f(x)\,dx,\qquad
+\V[X]=\E\big[(X-\E[X])^2\big]=\E[X^2]-\E[X]^2,\quad \E[X^2]=\int_{\R}x^2f(x)\,dx.
+\]
+L'espérance est un paramètre de position ; la variance mesure la dispersion autour de la moyenne.
+\end{definition}
+
+\begin{definition}[Moment d'ordre $p\ge1$]
+$X$ admet un moment d'ordre $p$ ssi $\int_{\R}|x|^pf(x)\,dx<+\infty$ ; alors $\E[X^p]=\int_{\R}x^pf(x)\,dx$.
+\end{definition}
+
+\begin{definition}[Indépendance]
+Deux v.a. réelles $X$ et $Y$ sont indépendantes ($X\perp\!\!\!\perp Y$) ssi, pour toutes fonctions $f,g$ mesurables bornées,
+\[
+\E\big[f(X)g(Y)\big]=\E[f(X)]\,\E[g(Y)].
+\]
+\end{definition}
+
+\begin{remarque}
+Deux v.a. indépendantes sont \emph{décorrélées} : $\Cov(X,Y)=\E[XY]-\E[X]\E[Y]=0$. \textbf{La réciproque est fausse.}
+\end{remarque}
+
+\subsection{Variable aléatoire normale (gaussienne)}
+
+\begin{definition}
+$X$ suit la loi normale $\mathcal{N}(m,\sigma^2)$ si sa densité est
+\[
+f(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\!\Big(-\frac12\Big(\frac{x-m}{\sigma}\Big)^{2}\Big).
+\]
+\end{definition}
+
+\begin{remarque}
+(1) $f$ est symétrique par rapport à la droite $x=m$.
+(2) Son maximum est atteint en $x=m$ et vaut $\dfrac{1}{\sigma\sqrt{2\pi}}$.
+\end{remarque}
+
+\begin{proposition}[Stabilité]
+Si $X_1\sim\mathcal{N}(m_1,\sigma_1^2)$ et $X_2\sim\mathcal{N}(m_2,\sigma_2^2)$ sont indépendantes :
+\[
+X_1+X_2\sim\mathcal{N}(m_1+m_2,\ \sigma_1^2+\sigma_2^2),\qquad
+X_1-X_2\sim\mathcal{N}(m_1-m_2,\ \sigma_1^2+\sigma_2^2).
+\]
+\end{proposition}
+
+\begin{definition}[Loi normale centrée réduite]
+$X$ est \emph{centrée} si $m=0$ et \emph{réduite} si $\sigma=1$ ; on note $X\sim\mathcal{N}(0,1)$, de densité $f(x)=\dfrac{1}{\sqrt{2\pi}}e^{-x^2/2}$.
+\end{definition}
+
+\begin{proposition}[Centrage et réduction]
+Si $X\sim\mathcal{N}(m,\sigma^2)$, alors
+\[
+Z=\frac{X-m}{\sigma}\sim\mathcal{N}(0,1),\qquad\text{donc}\qquad X\overset{\text{loi}}{=}\sigma Z+m.
+\]
+\end{proposition}
+
+\subsection{Lois continues usuelles}
+
+\subsubsection*{Loi uniforme $\mathcal{U}([a,b])$}
+
+\begin{itemize}
+  \item Densité : $f(x)=\dfrac{1}{b-a}$ si $x\in[a,b]$, $0$ sinon.
+  \item Répartition : $F_X(x)=0$ si $x<a$ ; $\dfrac{x-a}{b-a}$ si $x\in[a,b]$ ; $1$ si $x>b$.
+  \item Moments : $\E[X]=\dfrac{a+b}{2}$ et $\V[X]=\dfrac{(b-a)^2}{12}$.
+\end{itemize}
+
+\begin{application}
+Durée d'une communication (en heures), $X\sim\mathcal{U}([0,1])$ :
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Évènement} & \textbf{Probabilité}\\
+\midrule
+au moins 10 min & $\P(X\ge\tfrac16)=\tfrac56$\\
+au plus 45 min & $\P(X\le\tfrac34)=\tfrac34$\\
+entre 20 et 40 min & $\P(\tfrac13\le X\le\tfrac23)=\tfrac13$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{application}
+
+\subsubsection*{Loi exponentielle $\mathrm{Exp}(\lambda)$, $\lambda>0$}
+
+\begin{itemize}
+  \item Densité : $f(x)=\lambda e^{-\lambda x}$ si $x\ge0$, $0$ sinon.
+  \item Répartition : $F_X(x)=1-e^{-\lambda x}$ si $x\ge0$, $0$ sinon.
+  \item Moments : $\E[X]=\dfrac1\lambda$ et $\V[X]=\dfrac1{\lambda^2}$.
+\end{itemize}
+
+\begin{application}
+Durée de vie d'un composant, $\lambda=0{,}05$ :
+\begin{itemize}
+  \item $\P(X<100)=1-e^{-5}\approx0{,}993$ ;
+  \item $\P(X>250)=e^{-12{,}5}\approx3{,}7\times10^{-6}$ ;
+  \item durée de vie moyenne : $\E[X]=1/0{,}05=20$ heures.
+\end{itemize}
+\end{application}
+
+\begin{proposition}[Superposition de lois exponentielles]
+Si $X_1\sim\mathrm{Exp}(\lambda_1)$ et $X_2\sim\mathrm{Exp}(\lambda_2)$ sont indépendantes, alors $X=\min(X_1,X_2)\sim\mathrm{Exp}(\lambda_1+\lambda_2)$.
+\end{proposition}
+
+\begin{proof}
+Pour $x\ge0$ :
+\[
+F_X(x)=1-\P(X_1\ge x,\,X_2\ge x)=1-\P(X_1\ge x)\P(X_2\ge x)=1-e^{-(\lambda_1+\lambda_2)x}.\qedhere
+\]
+\end{proof}
+
+\begin{application}[Appareil à deux composantes]
+Chaque composante a une durée de vie $X\sim\mathrm{Exp}(\lambda)$ avec $\P(X\ge1)=0{,}4$.
+\begin{enumerate}
+  \item $\P(X\ge1)=e^{-\lambda}=0{,}4$, donc $\lambda=-\ln0{,}4=\ln2{,}5\approx0{,}916$ et $f(x)=\lambda e^{-\lambda x}\,\1_{x\ge0}$.
+  \item
+    \begin{enumerate}[label=\alph*)]
+      \item $\P(X>2)=e^{-2\lambda}=0{,}4^2=0{,}16$.
+      \item $\P(X>5\mid X>3)=\dfrac{\P(X>5)}{\P(X>3)}=e^{-2\lambda}=0{,}16=\P(X>2)$.
+      \item La loi exponentielle est \emph{sans mémoire} : $\P(X>s+t\mid X>s)=\P(X>t)$ pour tous $s,t\ge0$.
+    \end{enumerate}
+  \item L'appareil tombe en panne dès qu'une composante cesse de fonctionner : $T=\min(X_1,X_2)\sim\mathrm{Exp}(2\lambda)$, donc $\P(T>3)=e^{-6\lambda}=0{,}4^6=0{,}004096$.
+\end{enumerate}
+\end{application}
+
+%=====================================================================
+\section{Formulaire de synthèse}
+%=====================================================================
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Loi} & $\E[X]$ & $\V[X]$\\
+\midrule
+$\mathcal{B}(p)$ & $p$ & $p(1-p)$\\
+$\mathcal{B}(n,p)$ & $np$ & $np(1-p)$\\
+$\mathcal{G}(p)$ & $1/p$ & $(1-p)/p^2$\\
+$\mathcal{P}(\lambda)$ & $\lambda$ & $\lambda$\\
+$\mathcal{U}([a,b])$ & $(a+b)/2$ & $(b-a)^2/12$\\
+$\mathrm{Exp}(\lambda)$ & $1/\lambda$ & $1/\lambda^2$\\
+$\mathcal{N}(m,\sigma^2)$ & $m$ & $\sigma^2$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Outils clés à retenir :} FPT $\P(A)=\sum_i\P(A\mid B_i)\P(B_i)$ ; Bayes $\P(B_i\mid A)=\dfrac{\P(A\mid B_i)\P(B_i)}{\P(A)}$ ; lien entre $F_X$ et densité ($f=F_X'$) ; indépendance $\Rightarrow$ décorrélation (pas la réciproque) ; stabilité des lois binomiale, de Poisson et normale par somme de v.a.\ indépendantes.
+
+\end{document}
