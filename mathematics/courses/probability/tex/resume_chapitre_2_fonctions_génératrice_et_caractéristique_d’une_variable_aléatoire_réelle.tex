@@ -1,0 +1,259 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Langue : babel-french s'il est installé, sinon repli sans erreur
+\IfFileExists{french.ldf}{%
+  \usepackage[french]{babel}%
+}{%
+  \usepackage[english]{babel}%
+  \addto\captionsenglish{\renewcommand{\contentsname}{Table des matières}}%
+}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs,array}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\headheight}{14pt}
+\setlist{itemsep=1pt,topsep=2pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Chapitre 2 -- Fonctions génératrice et caractéristique}
+\fancyhead[R]{\small 4ème DAS \& FinTech}
+\fancyfoot[C]{\small\thepage}
+\hypersetup{colorlinks=true,linkcolor=black}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\loi}{\overset{\mathcal L}{=}}
+
+\tcbset{defstyle/.style={colback=blue!4,colframe=blue!50!black,fonttitle=\bfseries,breakable,left=4pt,right=4pt,top=2pt,bottom=2pt}}
+\newtcolorbox{defn}[1]{defstyle,title={Définition #1}}
+\newtcolorbox{thm}[1]{defstyle,colback=red!3,colframe=red!50!black,title={#1}}
+\newtcolorbox{appl}[1]{defstyle,colback=green!3,colframe=green!40!black,title={Application corrigée : #1}}
+\newtcolorbox{rem}{defstyle,colback=gray!8,colframe=gray!60,title={Remarque}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Chapitre 2 : Fonctions génératrice et caractéristique\\[2pt] d'une variable aléatoire réelle}\\[6pt]
+{\large Résumé de cours --- 4ème année DAS \& FINTECH (A.U. 2026-2027)}
+\end{center}
+\vspace{2pt}
+\tableofcontents
+\vspace{4pt}
+
+\section{Introduction}
+Les fonctions \textbf{génératrice} et \textbf{caractéristique} décrivent et étudient la loi d'une v.a.
+\begin{itemize}
+\item \textbf{Fonction génératrice} : proche d'un polynôme, ses coefficients sont les probabilités d'une v.a. \emph{discrète} à valeurs dans $\N$.
+\item \textbf{Fonction caractéristique} : existe \emph{toujours} (discrète ou continue) ; elle résume la loi, donne les moments, et sert pour les sommes et la convergence vers la loi normale.
+\end{itemize}
+Applications : finance (risque, valorisation), assurance (sinistres, primes), IA (simulation et comparaison de distributions).
+
+\section{Fonction génératrice}
+\subsection{Définition et propriétés}
+\begin{defn}{(fonction génératrice)}
+Soit $X$ une v.a. à valeurs dans $\N$. Sa fonction génératrice est
+\[ G_X(z)=\sum_{n\in X(\Omega)}\P(X=n)\,z^n=\E(z^X),\qquad -1\le z\le 1. \]
+Elle ne dépend que de la loi de $X$. Si $X(\Omega)$ est fini, $G_X$ est un polynôme de degré $m=\max X(\Omega)$.
+\end{defn}
+
+\textbf{Propriétés.} $G_X(0)=\P(X=0)$ et $G_X(1)=1$. De plus $G_X$ est de classe $\mathcal C^\infty$ sur $[-1,1]$ et
+\[ G_X^{(n)}(z)=\sum_{k=n}^{+\infty}\frac{k!}{(k-n)!}\,\P(X=k)\,z^{k-n}. \]
+
+\begin{thm}{Proposition (caractérisation)}
+$\displaystyle \P(X=n)=\frac{1}{n!}G_X^{(n)}(0)$ pour tout $n$ : la loi d'une v.a. discrète est entièrement caractérisée par $G_X$. Si $G_X^{(n)}(0)=0$ pour tout $n>N$, alors $X(\Omega)\subset\{0,\dots,N\}$.
+
+\smallskip
+\textbf{Théorème.} Pour $X,Y$ à valeurs dans $\N$ : $X\loi Y\iff G_X(z)=G_Y(z)\ \ \forall z\in[-1,1]$.
+\end{thm}
+
+\begin{thm}{Proposition (somme de v.a. indépendantes)}
+Si $X$ et $Y$ sont indépendantes (à valeurs dans $\N$) : $G_{X+Y}(z)=G_X(z)\,G_Y(z)$.
+La réciproque est \textbf{fausse}.
+\end{thm}
+
+\begin{appl}{$G_X(z)=\beta(1+z)^3$}
+$G_X(1)=8\beta=1\Rightarrow\beta=\tfrac18$ ; $\P(X=0)=G_X(0)=\tfrac18$ ;
+$G_X(z)=\tfrac18+\tfrac38z+\tfrac38z^2+\tfrac18z^3$. Donc $X(\Omega)=\{0,1,2,3\}$ avec $\P(X=k)=\tfrac18,\tfrac38,\tfrac38,\tfrac18$ (c'est la loi $\mathcal B(3,\tfrac12)$).
+\end{appl}
+
+\begin{appl}{$X(\Omega)=\{0,1,2\}$, $G_X'(1)=\tfrac34$, $G_X''(1)=\tfrac12$}
+$G_X(z)=p_0+p_1z+p_2z^2$ donne $G_X'(1)=p_1+2p_2=\tfrac34$ et $G_X''(1)=2p_2=\tfrac12$, d'où $p_2=p_1=\tfrac14$, puis $p_0=1-p_1-p_2=\tfrac12$ :
+\[ G_X(z)=\tfrac12+\tfrac14 z+\tfrac14 z^2. \]
+\end{appl}
+
+\subsection{Fonctions génératrices des lois discrètes usuelles}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}llc@{}}
+\toprule
+Loi & $G_X(z)$ & Domaine\\
+\midrule
+Bernoulli $\mathcal B(p)$ & $(1-p)+pz$ & $[-1,1]$\\
+Binomiale $\mathcal B(n,p)$ & $\big((1-p)+pz\big)^n$ & $[-1,1]$\\
+Géométrique $\mathcal G(p)$ (rang du 1er succès) & $\dfrac{pz}{1-(1-p)z}$ & $|z|<\dfrac1{1-p}$\\
+Poisson $\mathcal P(\lambda)$ & $e^{\lambda(z-1)}$ & $\R$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Démonstrations clés.}
+\begin{itemize}
+\item \emph{Binomiale} : $G_X(z)=\sum_{k=0}^n C_n^k(pz)^k(1-p)^{n-k}=((1-p)+pz)^n$ (binôme de Newton). On le retrouve aussi comme produit de $n$ fonctions génératrices de Bernoulli indépendantes.
+\item \emph{Géométrique} : $\sum_{n\ge1}p(1-p)^{n-1}z^n=\frac{p}{1-p}\sum_{n\ge1}(z(1-p))^n=\frac{pz}{1-(1-p)z}$ (série géométrique).
+\item \emph{Poisson} : $e^{-\lambda}\sum_{n\ge0}\frac{(\lambda z)^n}{n!}=e^{-\lambda}e^{\lambda z}$ (série exponentielle).
+\end{itemize}
+
+\begin{appl}{stabilité par somme (deux méthodes)}
+\textbf{Binomiales} : si $X\sim\mathcal B(n,p)$, $Y\sim\mathcal B(m,p)$ indépendantes,
+$G_{X+Y}(z)=(1-p+pz)^{n}(1-p+pz)^{m}=(1-p+pz)^{n+m}$, donc $X+Y\sim\mathcal B(n+m,p)$.
+(Autre méthode : $X+Y$ est une somme de $n+m$ Bernoulli indépendantes.)
+
+\textbf{Poisson} : si $X\sim\mathcal P(\lambda)$, $Y\sim\mathcal P(\mu)$ indépendantes,
+$G_{X+Y}(z)=e^{\lambda(z-1)}e^{\mu(z-1)}=e^{(\lambda+\mu)(z-1)}$, donc $X+Y\sim\mathcal P(\lambda+\mu)$.
+(Autre méthode : FPT sur $\{Y=k\}$ puis binôme de Newton :
+$\P(S=n)=\sum_{k=0}^n\frac{\lambda^{n-k}}{(n-k)!}e^{-\lambda}\frac{\mu^k}{k!}e^{-\mu}=\frac{(\lambda+\mu)^n}{n!}e^{-(\lambda+\mu)}$.)
+\end{appl}
+
+\subsection{Fonction génératrice et moments}
+\begin{thm}{Théorème et corollaire}
+$X$ (à valeurs dans $\N$) admet un moment d'ordre $p\in\N^*$ ssi $G_X$ est $p$ fois dérivable en $1$, et alors
+\[ G_X^{(p)}(1)=\E\big[X(X-1)\cdots(X-p+1)\big]. \]
+En particulier, si $X$ admet un moment d'ordre 2 :
+\[ \E(X)=G_X'(1),\qquad \V(X)=G_X''(1)+G_X'(1)-\big(G_X'(1)\big)^2. \]
+\end{thm}
+
+\begin{appl}{moment d'ordre 3 d'une loi de Poisson $\mathcal P(\lambda)$}
+$G_X^{(k)}(1)=\lambda^k$ pour $k=1,2,3$. Donc $\E(X)=\lambda$, $\E[X(X-1)]=\lambda^2$, $\E[X(X-1)(X-2)]=\lambda^3$, d'où
+$\E(X^2)=\lambda^2+\lambda$ et
+\[ \E(X^3)=\E[X(X-1)(X-2)]+3\E(X^2)-2\E(X)=\lambda^3+3\lambda^2+\lambda. \]
+\end{appl}
+
+\begin{appl}{demande $\P(X=k)=\dfrac{p^k}{(1+p)^{k+1}}$, $k\in\N$, $p\in]0,1[$}
+\begin{itemize}
+\item \emph{Loi de probabilité} : $\sum_k\frac{p^k}{(1+p)^{k+1}}=\frac1{1+p}\cdot\frac{1}{1-\frac p{1+p}}=1$.
+\item \emph{Fonction génératrice} : $G_X(z)=\frac1{1+p}\sum_k\big(\frac{pz}{1+p}\big)^k=\dfrac{1}{1+p-pz}$.
+\item $G_X'(z)=\frac{p}{(1+p-pz)^2}$, $G_X''(z)=\frac{2p^2}{(1+p-pz)^3}$, donc $G_X'(1)=p$, $G_X''(1)=2p^2$ :
+$\E(X)=p$ et $\V(X)=2p^2+p-p^2=p(p+1)$.
+\end{itemize}
+\end{appl}
+
+\section{Fonction caractéristique}
+\subsection{Définition et propriétés}
+\begin{defn}{(fonction caractéristique)}
+Pour une v.a. réelle $X$ :
+\[ \Phi_X:\R\to\C,\qquad t\mapsto\Phi_X(t)=\E(e^{itX}). \]
+\begin{itemize}
+\item $X$ discrète : $\Phi_X(t)=\sum_{n\in X(\Omega)}e^{itn}\P(X=n)$ ;
+\item $X$ continue de densité $f$ : $\Phi_X(t)=\int_{\R}e^{itx}f(x)\,dx$.
+\end{itemize}
+\end{defn}
+
+\begin{thm}{Propriétés}
+\begin{enumerate}[label=\arabic*.,nosep]
+\item $\Phi_X(0)=1$ ;\quad 2. $|\Phi_X(t)|\le1$ pour tout $t$ ;
+\item $\Phi_X$ est continue (convergence dominée) ;
+\item $\Phi_X(-t)=\overline{\Phi_X(t)}$ ;
+\item si $X$ est symétrique ($X\loi -X$), alors $\Phi_X$ est réelle (et paire).
+\end{enumerate}
+\end{thm}
+
+\begin{thm}{Théorèmes et propositions}
+\begin{itemize}
+\item \textbf{Caractérisation} : $X\loi Y\iff\Phi_X(t)=\Phi_Y(t)\ \ \forall t\in\R$.
+\item \textbf{Transformation affine} : $\Phi_{aX+b}(t)=e^{ibt}\,\Phi_X(at)$.
+\item \textbf{Somme} : si $X\perp\!\!\!\perp Y$, alors $\Phi_{X+Y}(t)=\Phi_X(t)\,\Phi_Y(t)$.
+\item \textbf{Inversion} : si $\int_\R|\Phi_X(t)|\,dt<+\infty$, alors $X$ admet la densité
+$\displaystyle f(x)=\frac1{2\pi}\int_{\R}e^{-itx}\Phi_X(t)\,dt.$
+\end{itemize}
+\end{thm}
+
+\begin{appl}{$\Phi_X(t)=e^{-|t|}$}
+$f(x)=\frac1{2\pi}\Big(\int_{-\infty}^0e^{(1-ix)t}dt+\int_0^{+\infty}e^{(-1-ix)t}dt\Big)=\frac1{2\pi}\Big(\frac1{1-ix}+\frac1{1+ix}\Big)=\dfrac{1}{\pi(1+x^2)}$ :
+$X$ suit la loi de Cauchy $\mathcal C(0,1)$.
+\end{appl}
+
+\subsection{Fonctions caractéristiques des lois usuelles}
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}lc@{}}
+\toprule
+Loi & $\Phi_X(t)$\\
+\midrule
+Bernoulli $\mathcal B(p)$ & $(1-p)+pe^{it}$\\
+Binomiale $\mathcal B(n,p)$ & $(1-p+pe^{it})^n$\\
+Géométrique $\mathcal G(p)$ & $\dfrac{pe^{it}}{1-(1-p)e^{it}}$ \ (rang du 1er succès)\\
+Poisson $\mathcal P(\lambda)$ & $e^{\lambda(e^{it}-1)}$\\
+Uniforme $\mathcal U([0,1])$ & $\dfrac{e^{it}-1}{it}$ si $t\ne0$, $1$ si $t=0$\\
+Uniforme $\mathcal U([a,b])$ & $\dfrac{e^{itb}-e^{ita}}{it(b-a)}$ si $t\ne0$, $1$ si $t=0$\\
+Exponentielle $\mathcal E(1)$ & $\dfrac{1}{1-it}$\\
+Exponentielle $\mathcal E(\lambda)$ & $\dfrac{\lambda}{\lambda-it}$\\
+Cauchy $\mathcal C(0,1)$ & $e^{-|t|}$\\
+Cauchy $\mathcal C(x_0,a)$ & $e^{ix_0t}e^{-a|t|}$\\
+Normale $\mathcal N(0,1)$ & $e^{-t^2/2}$\\
+Normale $\mathcal N(m,\sigma^2)$ & $e^{imt}\,e^{-\sigma^2t^2/2}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\emph{Note :} dans l'annexe du cours, la géométrique y est définie comme le nombre d'échecs avant le premier succès (sans le facteur $e^{it}$) ; ici on garde la convention du chapitre~1 ($\N^*$).
+
+\textbf{Méthode.} On se ramène à la loi standard grâce à $\Phi_{aX+b}(t)=e^{ibt}\Phi_X(at)$ :
+$\mathcal U([a,b])\loi(b-a)X+a$ avec $X\sim\mathcal U([0,1])$ ; $\mathcal E(\lambda)\loi\frac1\lambda X$ avec $X\sim\mathcal E(1)$ ; $\mathcal C(x_0,a)\loi aX+x_0$ ; $\mathcal N(m,\sigma^2)\loi\sigma Z+m$.
+
+\begin{rem}
+La fonction caractéristique de la loi de Cauchy n'est pas dérivable en $0$ : la loi de Cauchy n'admet pas d'espérance.
+\end{rem}
+
+\begin{appl}{calculs directs et changements affines}
+\begin{itemize}
+\item $\mathcal E(1)$ : $\Phi_X(t)=\int_0^{+\infty}e^{x(-1+it)}dx=\frac1{-1+it}\big[0-1\big]=\frac1{1-it}$ (car $|e^{-x}e^{itx}|\le e^{-x}\to0$).
+\item $\mathcal U([-1,1])$ : $\Phi_X(t)=\frac{e^{it}-e^{-it}}{2it}=\frac{\sin t}{t}$ ; $\mathcal U([-a,a])$ : $\Phi_X(t)=\frac{\sin(at)}{at}$ (et $1$ en $t=0$).
+\item $Y\sim\mathcal C(2,4)$ : $Y\loi4X+2$ avec $X\sim\mathcal C(0,1)$, donc $\Phi_Y(t)=e^{2it}e^{-4|t|}$.
+\item $Y=2X+3$ avec $X\sim\mathcal N(0,1)$ : $\Phi_Y(t)=e^{3it}\Phi_X(2t)=e^{3it-2t^2}$. Par identification avec $e^{imt-\sigma^2t^2/2}$ : $Y\sim\mathcal N(3,4)$.
+\item $X\sim\mathcal N(2,4)$ et $Z=\frac12X-1\sim\mathcal N(0,1)$ : $\Phi_Z(t)=e^{-t^2/2}$ est paire donc $Z$ est symétrique ; de plus $X=2Z+2$ donne $\Phi_X(t)=e^{2it}\Phi_Z(2t)=e^{2it-2t^2}$. En général : $\Phi_X(t)=e^{imt}\Phi_Z(\sigma t)$.
+\end{itemize}
+\end{appl}
+
+\subsection{Fonction caractéristique et moments d'ordre supérieur}
+\begin{thm}{Proposition et corollaire}
+Si $X$ admet un moment d'ordre $p\in\N^*$, alors $\Phi_X$ est $p$ fois dérivable et
+\[ \E(X^p)=\frac{1}{i^p}\,\Phi_X^{(p)}(0). \]
+En particulier (moment d'ordre 2) : $\E(X)=-i\,\Phi_X'(0)$ et $\V(X)=-\Phi_X''(0)+\big(\Phi_X'(0)\big)^2$.
+
+Si $\Phi_X$ n'est pas dérivable en $0$, alors $X$ n'admet pas de moment d'ordre 1.
+\end{thm}
+
+\begin{appl}{$\E(X^3)$ pour $X\sim\mathcal E(\lambda)$}
+$\Phi_X(t)=\frac{\lambda}{\lambda-it}$, $\ \Phi_X'(t)=\frac{i\lambda}{(\lambda-it)^2}$, $\ \Phi_X''(t)=\frac{-2\lambda}{(\lambda-it)^3}$, $\ \Phi_X'''(t)=\frac{-6i\lambda}{(\lambda-it)^4}$. Donc
+\[ \E(X^3)=\frac1{i^3}\Phi_X'''(0)=\frac{1}{-i}\cdot\frac{-6i}{\lambda^3}=\frac{6}{\lambda^3}. \]
+\end{appl}
+
+\section{Formulaire de synthèse}
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}p{5.2cm}p{9cm}@{}}
+\toprule
+\textbf{Outil} & \textbf{À retenir}\\
+\midrule
+Fonction génératrice & $G_X(z)=\E(z^X)$, $X$ à valeurs dans $\N$ ; $G_X(0)=\P(X=0)$, $G_X(1)=1$\\
+Lois $\leftrightarrow G_X$ & $\P(X=n)=G_X^{(n)}(0)/n!$ ; $X\loi Y\iff G_X=G_Y$\\
+Moments via $G_X$ & $\E(X)=G_X'(1)$ ; $\V(X)=G_X''(1)+G_X'(1)-G_X'(1)^2$\\
+Fonction caractéristique & $\Phi_X(t)=\E(e^{itX})$, existe toujours, $\Phi_X(0)=1$, $|\Phi_X|\le1$\\
+Lois $\leftrightarrow\Phi_X$ & $X\loi Y\iff\Phi_X=\Phi_Y$ ; inversion si $\Phi_X\in L^1$\\
+Moments via $\Phi_X$ & $\E(X^p)=\Phi_X^{(p)}(0)/i^p$ ; $\E(X)=-i\Phi_X'(0)$\\
+Affine & $\Phi_{aX+b}(t)=e^{ibt}\Phi_X(at)$\\
+Somme indépendante & $G_{X+Y}=G_XG_Y$ ; $\Phi_{X+Y}=\Phi_X\Phi_Y$ (réciproques fausses)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Formules utiles (annexe).} Série géométrique : $\sum_{n\ge0}x^n=\frac1{1-x}$ ($|x|<1$), $\sum_{n\ge1}nx^{n-1}=\frac1{(1-x)^2}$, $\sum_{n\ge2}n(n-1)x^{n-2}=\frac2{(1-x)^3}$. Série exponentielle : $e^x=\sum_{n\ge0}\frac{x^n}{n!}$. Combinaison : $C_n^k=\frac{n!}{k!(n-k)!}$. Binôme : $(a+b)^n=\sum_{k=0}^nC_n^ka^kb^{n-k}$.
+
+\end{document}

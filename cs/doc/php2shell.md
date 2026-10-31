@@ -1,5 +1,17 @@
 # PHP2Shell
 
+<!--toc:start-->
+
+- [PHP2Shell](#php2shell)
+  - [A Harmless Feature: Upload Progress](#a-harmless-feature-upload-progress)
+  - [The Bug: A Bailout at the Wrong Moment](#the-bug-a-bailout-at-the-wrong-moment)
+  - [Leaking Memory and Defeating ASLR (CVE-2026-109618)](#leaking-memory-and-defeating-aslr-cve-2026-109618)
+  - [From a Leak to a Shell (CVE-2026-109619)](#from-a-leak-to-a-shell-cve-2026-109619)
+  - [Detection, Mitigation and the Real Fix](#detection-mitigation-and-the-real-fix)
+  - [Conclusion](#conclusion)
+
+<!--toc:end-->
+
 ## A Harmless Feature: Upload Progress
 
 ![upload-progress-runs-before-your-code-does](../assets/upload-progress-runs-before-your-code-does.png)

@@ -1,8 +1,7 @@
 \documentclass[11pt,a4paper]{article}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-% Langue : utilise babel-french s'il est installé, sinon repli sans erreur
+% Langue : babel-french s'il est installé, sinon repli sans erreur
 \IfFileExists{french.ldf}{%
   \usepackage[french]{babel}%
 }{%
@@ -10,13 +9,23 @@
   \addto\captionsenglish{\renewcommand{\contentsname}{Table des matières}%
     \renewcommand{\proofname}{Preuve}}%
 }
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{booktabs,array}
-\usepackage{enumitem}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage[margin=2.2cm]{geometry}
-\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs,array}
+\usepackage[most]{tcolorbox}
 \usepackage{hyperref}
-\hypersetup{colorlinks=true,linkcolor=NavyBlue,urlcolor=NavyBlue}
+\usepackage{fancyhdr}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\headheight}{14pt}
+\setlist{itemsep=1pt,topsep=2pt}
+\renewcommand{\arraystretch}{1.35}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Chapitre 1 -- Outils fondamentaux pour les probabilités}
+\fancyhead[R]{\small 4ème DAS \& FinTech}
+\fancyfoot[C]{\small\thepage}
+\hypersetup{colorlinks=true,linkcolor=black}
 
 % ---------- Raccourcis ----------
 \newcommand{\E}{\mathbb{E}}
@@ -28,29 +37,23 @@
 \newcommand{\Cov}{\operatorname{Cov}}
 \newcommand{\1}{\mathbf{1}}
 
-% ---------- Environnements ----------
-\theoremstyle{definition}
-\newtheorem*{definition}{Définition}
-\newtheorem*{exemple}{Exemple}
-\newtheorem*{application}{Application corrigée}
-\theoremstyle{plain}
-\newtheorem*{proposition}{Proposition}
-\newtheorem*{theoreme}{Théorème}
-\theoremstyle{remark}
-\newtheorem*{remarque}{Remarque}
-
-\setlist{itemsep=2pt,topsep=4pt}
-\renewcommand{\arraystretch}{1.35}
-
-\title{\textbf{Chapitre 1 : Outils fondamentaux pour les probabilités}\\[4pt]
-\large Résumé de cours --- 4\textsuperscript{ème} année DAS \& FINTECH (A.U.\ 2026-2027)}
-\date{}
-\author{}
+% ---------- Encadrés (même style que le chapitre 2) ----------
+\tcbset{defstyle/.style={colback=blue!4,colframe=blue!50!black,fonttitle=\bfseries,breakable,left=4pt,right=4pt,top=2pt,bottom=2pt}}
+\newtcolorbox{definition}[1][]{defstyle,title={Définition\ifx\relax#1\relax\else\ (#1)\fi}}
+\newtcolorbox{theoreme}[1][]{defstyle,colback=red!3,colframe=red!50!black,title={Théorème\ifx\relax#1\relax\else\ (#1)\fi}}
+\newtcolorbox{proposition}[1][]{defstyle,colback=red!3,colframe=red!50!black,title={Proposition\ifx\relax#1\relax\else\ (#1)\fi}}
+\newtcolorbox{application}[1][]{defstyle,colback=green!3,colframe=green!40!black,title={Application corrigée\ifx\relax#1\relax\else\ : #1\fi}}
+\newtcolorbox{exemple}{defstyle,colback=orange!5,colframe=orange!60!black,title={Exemple}}
+\newtcolorbox{remarque}{defstyle,colback=gray!8,colframe=gray!60,title={Remarque}}
 
 \begin{document}
-\maketitle
+\begin{center}
+{\LARGE\bfseries Chapitre 1 : Outils fondamentaux pour les probabilités}\\[6pt]
+{\large Résumé de cours --- 4ème année DAS \& FINTECH (A.U. 2026-2027)}
+\end{center}
+\vspace{2pt}
 \tableofcontents
-\newpage
+\vspace{4pt}
 
 %=====================================================================
 \section{Espace de probabilité}
@@ -288,8 +291,9 @@ Soient $X_1,X_2,X_3$ i.i.d.\ de loi de Bernoulli $\mathcal{B}(p)$, $Y_1=X_1X_2$ 
 \begin{definition}[Espérance et variance]
 \[
 \E[X]=\sum_{k\in X(\Omega)}k\,\P(X=k),\qquad
-\V[X]=\E\big[(X-\E[X])^2\big]=\E[X^2]-\E[X]^2=\sum_{k\in X(\Omega)}k^2\P(X=k)-\E[X]^2.
+\V[X]=\E\big[(X-\E[X])^2\big]=\E[X^2]-\E[X]^2,
 \]
+avec $\E[X^2]=\sum_{k\in X(\Omega)}k^2\,\P(X=k)$.
 \end{definition}
 
 \begin{proposition}[Propriétés]
