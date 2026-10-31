@@ -42,7 +42,6 @@
 \newtcolorbox{definition}[1][]{defstyle,title={Définition\ifx\relax#1\relax\else\ (#1)\fi}}
 \newtcolorbox{theoreme}[1][]{defstyle,colback=red!3,colframe=red!50!black,title={Théorème\ifx\relax#1\relax\else\ (#1)\fi}}
 \newtcolorbox{proposition}[1][]{defstyle,colback=red!3,colframe=red!50!black,title={Proposition\ifx\relax#1\relax\else\ (#1)\fi}}
-\newtcolorbox{application}[1][]{defstyle,colback=green!3,colframe=green!40!black,title={Application corrigée\ifx\relax#1\relax\else\ : #1\fi}}
 \newtcolorbox{exemple}{defstyle,colback=orange!5,colframe=orange!60!black,title={Exemple}}
 \newtcolorbox{remarque}{defstyle,colback=gray!8,colframe=gray!60,title={Remarque}}
 
@@ -155,17 +154,6 @@ A\subset B\Rightarrow\P(A)\le\P(B).
 Un \emph{espace de probabilité} est un triplet $(\Omega,\A,\P)$ formé d'un ensemble $\Omega$, d'une tribu $\A$ et d'une probabilité $\P$ définie sur cette tribu. C'est le cadre rigoureux pour modéliser et analyser les phénomènes aléatoires.
 \end{definition}
 
-\begin{application}
-Soient $A,B,C$ trois évènements, $E_1=A\cap\bar B\cap\bar C$ et $E_2=A\cap(B\cup C)$, avec
-$\P(A)=0{,}6$, $\P(B)=0{,}4$, $\P(C)=0{,}3$, $\P(A\cap B)=0{,}2$, $\P(A\cap C)=0{,}1$, $\P(B\cap C)=0{,}1$, $\P(A\cap B\cap C)=0{,}025$.
-\begin{itemize}
-  \item $E_1$ exige « ni $B$ ni $C$ », $E_2$ exige « $B$ ou $C$ » : $E_1\cap E_2=\emptyset$, ils sont incompatibles.
-  \item $E_1\cup E_2=A\cap(\bar B\cap\bar C)\ \cup\ A\cap(B\cup C)=A$.
-  \item $\P(E_2)=\P(A\cap B)+\P(A\cap C)-\P(A\cap B\cap C)=0{,}2+0{,}1-0{,}025=0{,}275$.
-  \item $\P(E_1)=\P(A)-\P(E_2)=0{,}6-0{,}275=0{,}325$.
-\end{itemize}
-\end{application}
-
 %=====================================================================
 \section{Probabilité conditionnelle et indépendance}
 %=====================================================================
@@ -211,23 +199,6 @@ Si $(B_i)_{1\le i\le n}$ est un système complet et $\P(A)\neq0$ :
 \begin{remarque}
 La formule de Bayes permet de « remonter le temps » : calculer la probabilité d'une cause connaissant sa conséquence.
 \end{remarque}
-
-\begin{application}[Assurance]
-30\,\% de la population est « à haut risque » ($A_1$, probabilité d'accident $0{,}4$) et 70\,\% « à risque modéré » ($A_2$, probabilité $0{,}2$). Pour $B$ = « accident dans l'année », la FPT donne
-\[
-\P(B)=0{,}4\times0{,}3+0{,}2\times0{,}7=0{,}26.
-\]
-\end{application}
-
-\begin{application}[Souris et anticorps]
-On a $\P(A)=\tfrac12$, $\P(B\mid A)=\tfrac25$ et $\P(\bar B\mid\bar A)=\tfrac45$. Par la FPT,
-$\P(B)=\tfrac25\cdot\tfrac12+\tfrac15\cdot\tfrac12=\tfrac{3}{10}$. Puis, par Bayes :
-\[
-\P(A\mid B)=\frac{\P(B\mid A)\P(A)}{\P(B)}=\frac{2/10}{3/10}=\frac23,
-\qquad
-\P(\bar A\mid\bar B)=\frac{\P(\bar B\mid\bar A)\P(\bar A)}{\P(\bar B)}=\frac{4/10}{7/10}=\frac47.
-\]
-\end{application}
 
 \subsection{Indépendance}
 
@@ -277,14 +248,6 @@ Deux v.a. discrètes $X$ et $Y$ sont indépendantes ssi
 \forall x\in X(\Omega),\ \forall y\in Y(\Omega),\quad \P(X=x,\,Y=y)=\P(X=x)\,\P(Y=y).
 \]
 \end{proposition}
-
-\begin{application}
-Soient $X_1,X_2,X_3$ i.i.d.\ de loi de Bernoulli $\mathcal{B}(p)$, $Y_1=X_1X_2$ et $Y_2=X_2X_3$.
-\begin{itemize}
-  \item $Y_1(\Omega)=\{0,1\}$ et $\P(Y_1=1)=\P(X_1=X_2=1)=p^2$ ; $Y_2$ a la même loi (le cours traite le cas $p=\tfrac12$ : $\tfrac14$ et $\tfrac34$).
-  \item $\P(Y_1=1,Y_2=1)=\P(X_1=X_2=X_3=1)=p^3\neq p^4=\P(Y_1=1)\P(Y_2=1)$ pour $p\in\,]0,1[$ : $Y_1$ et $Y_2$ \textbf{ne sont pas indépendantes}.
-\end{itemize}
-\end{application}
 
 \subsection{Moments d'une variable aléatoire discrète}
 
@@ -456,21 +419,6 @@ Z=\frac{X-m}{\sigma}\sim\mathcal{N}(0,1),\qquad\text{donc}\qquad X\overset{\text
   \item Moments : $\E[X]=\dfrac{a+b}{2}$ et $\V[X]=\dfrac{(b-a)^2}{12}$.
 \end{itemize}
 
-\begin{application}
-Durée d'une communication (en heures), $X\sim\mathcal{U}([0,1])$ :
-\begin{center}
-\begin{tabular}{ll}
-\toprule
-\textbf{Évènement} & \textbf{Probabilité}\\
-\midrule
-au moins 10 min & $\P(X\ge\tfrac16)=\tfrac56$\\
-au plus 45 min & $\P(X\le\tfrac34)=\tfrac34$\\
-entre 20 et 40 min & $\P(\tfrac13\le X\le\tfrac23)=\tfrac13$\\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{application}
-
 \subsubsection*{Loi exponentielle $\mathrm{Exp}(\lambda)$, $\lambda>0$}
 
 \begin{itemize}
@@ -478,15 +426,6 @@ entre 20 et 40 min & $\P(\tfrac13\le X\le\tfrac23)=\tfrac13$\\
   \item Répartition : $F_X(x)=1-e^{-\lambda x}$ si $x\ge0$, $0$ sinon.
   \item Moments : $\E[X]=\dfrac1\lambda$ et $\V[X]=\dfrac1{\lambda^2}$.
 \end{itemize}
-
-\begin{application}
-Durée de vie d'un composant, $\lambda=0{,}05$ :
-\begin{itemize}
-  \item $\P(X<100)=1-e^{-5}\approx0{,}993$ ;
-  \item $\P(X>250)=e^{-12{,}5}\approx3{,}7\times10^{-6}$ ;
-  \item durée de vie moyenne : $\E[X]=1/0{,}05=20$ heures.
-\end{itemize}
-\end{application}
 
 \begin{proposition}[Superposition de lois exponentielles]
 Si $X_1\sim\mathrm{Exp}(\lambda_1)$ et $X_2\sim\mathrm{Exp}(\lambda_2)$ sont indépendantes, alors $X=\min(X_1,X_2)\sim\mathrm{Exp}(\lambda_1+\lambda_2)$.
@@ -498,20 +437,6 @@ Pour $x\ge0$ :
 F_X(x)=1-\P(X_1\ge x,\,X_2\ge x)=1-\P(X_1\ge x)\P(X_2\ge x)=1-e^{-(\lambda_1+\lambda_2)x}.\qedhere
 \]
 \end{proof}
-
-\begin{application}[Appareil à deux composantes]
-Chaque composante a une durée de vie $X\sim\mathrm{Exp}(\lambda)$ avec $\P(X\ge1)=0{,}4$.
-\begin{enumerate}
-  \item $\P(X\ge1)=e^{-\lambda}=0{,}4$, donc $\lambda=-\ln0{,}4=\ln2{,}5\approx0{,}916$ et $f(x)=\lambda e^{-\lambda x}\,\1_{x\ge0}$.
-  \item
-    \begin{enumerate}[label=\alph*)]
-      \item $\P(X>2)=e^{-2\lambda}=0{,}4^2=0{,}16$.
-      \item $\P(X>5\mid X>3)=\dfrac{\P(X>5)}{\P(X>3)}=e^{-2\lambda}=0{,}16=\P(X>2)$.
-      \item La loi exponentielle est \emph{sans mémoire} : $\P(X>s+t\mid X>s)=\P(X>t)$ pour tous $s,t\ge0$.
-    \end{enumerate}
-  \item L'appareil tombe en panne dès qu'une composante cesse de fonctionner : $T=\min(X_1,X_2)\sim\mathrm{Exp}(2\lambda)$, donc $\P(T>3)=e^{-6\lambda}=0{,}4^6=0{,}004096$.
-\end{enumerate}
-\end{application}
 
 %=====================================================================
 \section{Formulaire de synthèse}

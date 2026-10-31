@@ -36,7 +36,6 @@
 \tcbset{defstyle/.style={colback=blue!4,colframe=blue!50!black,fonttitle=\bfseries,breakable,left=4pt,right=4pt,top=2pt,bottom=2pt}}
 \newtcolorbox{defn}[1]{defstyle,title={Définition #1}}
 \newtcolorbox{thm}[1]{defstyle,colback=red!3,colframe=red!50!black,title={#1}}
-\newtcolorbox{appl}[1]{defstyle,colback=green!3,colframe=green!40!black,title={Application corrigée : #1}}
 \newtcolorbox{rem}{defstyle,colback=gray!8,colframe=gray!60,title={Remarque}}
 
 \begin{document}
@@ -79,16 +78,6 @@ Si $X$ et $Y$ sont indépendantes (à valeurs dans $\N$) : $G_{X+Y}(z)=G_X(z)\,G
 La réciproque est \textbf{fausse}.
 \end{thm}
 
-\begin{appl}{$G_X(z)=\beta(1+z)^3$}
-$G_X(1)=8\beta=1\Rightarrow\beta=\tfrac18$ ; $\P(X=0)=G_X(0)=\tfrac18$ ;
-$G_X(z)=\tfrac18+\tfrac38z+\tfrac38z^2+\tfrac18z^3$. Donc $X(\Omega)=\{0,1,2,3\}$ avec $\P(X=k)=\tfrac18,\tfrac38,\tfrac38,\tfrac18$ (c'est la loi $\mathcal B(3,\tfrac12)$).
-\end{appl}
-
-\begin{appl}{$X(\Omega)=\{0,1,2\}$, $G_X'(1)=\tfrac34$, $G_X''(1)=\tfrac12$}
-$G_X(z)=p_0+p_1z+p_2z^2$ donne $G_X'(1)=p_1+2p_2=\tfrac34$ et $G_X''(1)=2p_2=\tfrac12$, d'où $p_2=p_1=\tfrac14$, puis $p_0=1-p_1-p_2=\tfrac12$ :
-\[ G_X(z)=\tfrac12+\tfrac14 z+\tfrac14 z^2. \]
-\end{appl}
-
 \subsection{Fonctions génératrices des lois discrètes usuelles}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
@@ -111,17 +100,6 @@ Poisson $\mathcal P(\lambda)$ & $e^{\lambda(z-1)}$ & $\R$\\
 \item \emph{Poisson} : $e^{-\lambda}\sum_{n\ge0}\frac{(\lambda z)^n}{n!}=e^{-\lambda}e^{\lambda z}$ (série exponentielle).
 \end{itemize}
 
-\begin{appl}{stabilité par somme (deux méthodes)}
-\textbf{Binomiales} : si $X\sim\mathcal B(n,p)$, $Y\sim\mathcal B(m,p)$ indépendantes,
-$G_{X+Y}(z)=(1-p+pz)^{n}(1-p+pz)^{m}=(1-p+pz)^{n+m}$, donc $X+Y\sim\mathcal B(n+m,p)$.
-(Autre méthode : $X+Y$ est une somme de $n+m$ Bernoulli indépendantes.)
-
-\textbf{Poisson} : si $X\sim\mathcal P(\lambda)$, $Y\sim\mathcal P(\mu)$ indépendantes,
-$G_{X+Y}(z)=e^{\lambda(z-1)}e^{\mu(z-1)}=e^{(\lambda+\mu)(z-1)}$, donc $X+Y\sim\mathcal P(\lambda+\mu)$.
-(Autre méthode : FPT sur $\{Y=k\}$ puis binôme de Newton :
-$\P(S=n)=\sum_{k=0}^n\frac{\lambda^{n-k}}{(n-k)!}e^{-\lambda}\frac{\mu^k}{k!}e^{-\mu}=\frac{(\lambda+\mu)^n}{n!}e^{-(\lambda+\mu)}$.)
-\end{appl}
-
 \subsection{Fonction génératrice et moments}
 \begin{thm}{Théorème et corollaire}
 $X$ (à valeurs dans $\N$) admet un moment d'ordre $p\in\N^*$ ssi $G_X$ est $p$ fois dérivable en $1$, et alors
@@ -129,21 +107,6 @@ $X$ (à valeurs dans $\N$) admet un moment d'ordre $p\in\N^*$ ssi $G_X$ est $p$ 
 En particulier, si $X$ admet un moment d'ordre 2 :
 \[ \E(X)=G_X'(1),\qquad \V(X)=G_X''(1)+G_X'(1)-\big(G_X'(1)\big)^2. \]
 \end{thm}
-
-\begin{appl}{moment d'ordre 3 d'une loi de Poisson $\mathcal P(\lambda)$}
-$G_X^{(k)}(1)=\lambda^k$ pour $k=1,2,3$. Donc $\E(X)=\lambda$, $\E[X(X-1)]=\lambda^2$, $\E[X(X-1)(X-2)]=\lambda^3$, d'où
-$\E(X^2)=\lambda^2+\lambda$ et
-\[ \E(X^3)=\E[X(X-1)(X-2)]+3\E(X^2)-2\E(X)=\lambda^3+3\lambda^2+\lambda. \]
-\end{appl}
-
-\begin{appl}{demande $\P(X=k)=\dfrac{p^k}{(1+p)^{k+1}}$, $k\in\N$, $p\in]0,1[$}
-\begin{itemize}
-\item \emph{Loi de probabilité} : $\sum_k\frac{p^k}{(1+p)^{k+1}}=\frac1{1+p}\cdot\frac{1}{1-\frac p{1+p}}=1$.
-\item \emph{Fonction génératrice} : $G_X(z)=\frac1{1+p}\sum_k\big(\frac{pz}{1+p}\big)^k=\dfrac{1}{1+p-pz}$.
-\item $G_X'(z)=\frac{p}{(1+p-pz)^2}$, $G_X''(z)=\frac{2p^2}{(1+p-pz)^3}$, donc $G_X'(1)=p$, $G_X''(1)=2p^2$ :
-$\E(X)=p$ et $\V(X)=2p^2+p-p^2=p(p+1)$.
-\end{itemize}
-\end{appl}
 
 \section{Fonction caractéristique}
 \subsection{Définition et propriétés}
@@ -174,11 +137,6 @@ Pour une v.a. réelle $X$ :
 $\displaystyle f(x)=\frac1{2\pi}\int_{\R}e^{-itx}\Phi_X(t)\,dt.$
 \end{itemize}
 \end{thm}
-
-\begin{appl}{$\Phi_X(t)=e^{-|t|}$}
-$f(x)=\frac1{2\pi}\Big(\int_{-\infty}^0e^{(1-ix)t}dt+\int_0^{+\infty}e^{(-1-ix)t}dt\Big)=\frac1{2\pi}\Big(\frac1{1-ix}+\frac1{1+ix}\Big)=\dfrac{1}{\pi(1+x^2)}$ :
-$X$ suit la loi de Cauchy $\mathcal C(0,1)$.
-\end{appl}
 
 \subsection{Fonctions caractéristiques des lois usuelles}
 \begin{center}
@@ -211,16 +169,6 @@ $\mathcal U([a,b])\loi(b-a)X+a$ avec $X\sim\mathcal U([0,1])$ ; $\mathcal E(\lam
 La fonction caractéristique de la loi de Cauchy n'est pas dérivable en $0$ : la loi de Cauchy n'admet pas d'espérance.
 \end{rem}
 
-\begin{appl}{calculs directs et changements affines}
-\begin{itemize}
-\item $\mathcal E(1)$ : $\Phi_X(t)=\int_0^{+\infty}e^{x(-1+it)}dx=\frac1{-1+it}\big[0-1\big]=\frac1{1-it}$ (car $|e^{-x}e^{itx}|\le e^{-x}\to0$).
-\item $\mathcal U([-1,1])$ : $\Phi_X(t)=\frac{e^{it}-e^{-it}}{2it}=\frac{\sin t}{t}$ ; $\mathcal U([-a,a])$ : $\Phi_X(t)=\frac{\sin(at)}{at}$ (et $1$ en $t=0$).
-\item $Y\sim\mathcal C(2,4)$ : $Y\loi4X+2$ avec $X\sim\mathcal C(0,1)$, donc $\Phi_Y(t)=e^{2it}e^{-4|t|}$.
-\item $Y=2X+3$ avec $X\sim\mathcal N(0,1)$ : $\Phi_Y(t)=e^{3it}\Phi_X(2t)=e^{3it-2t^2}$. Par identification avec $e^{imt-\sigma^2t^2/2}$ : $Y\sim\mathcal N(3,4)$.
-\item $X\sim\mathcal N(2,4)$ et $Z=\frac12X-1\sim\mathcal N(0,1)$ : $\Phi_Z(t)=e^{-t^2/2}$ est paire donc $Z$ est symétrique ; de plus $X=2Z+2$ donne $\Phi_X(t)=e^{2it}\Phi_Z(2t)=e^{2it-2t^2}$. En général : $\Phi_X(t)=e^{imt}\Phi_Z(\sigma t)$.
-\end{itemize}
-\end{appl}
-
 \subsection{Fonction caractéristique et moments d'ordre supérieur}
 \begin{thm}{Proposition et corollaire}
 Si $X$ admet un moment d'ordre $p\in\N^*$, alors $\Phi_X$ est $p$ fois dérivable et
@@ -229,11 +177,6 @@ En particulier (moment d'ordre 2) : $\E(X)=-i\,\Phi_X'(0)$ et $\V(X)=-\Phi_X''(0
 
 Si $\Phi_X$ n'est pas dérivable en $0$, alors $X$ n'admet pas de moment d'ordre 1.
 \end{thm}
-
-\begin{appl}{$\E(X^3)$ pour $X\sim\mathcal E(\lambda)$}
-$\Phi_X(t)=\frac{\lambda}{\lambda-it}$, $\ \Phi_X'(t)=\frac{i\lambda}{(\lambda-it)^2}$, $\ \Phi_X''(t)=\frac{-2\lambda}{(\lambda-it)^3}$, $\ \Phi_X'''(t)=\frac{-6i\lambda}{(\lambda-it)^4}$. Donc
-\[ \E(X^3)=\frac1{i^3}\Phi_X'''(0)=\frac{1}{-i}\cdot\frac{-6i}{\lambda^3}=\frac{6}{\lambda^3}. \]
-\end{appl}
 
 \section{Formulaire de synthèse}
 \begin{center}
