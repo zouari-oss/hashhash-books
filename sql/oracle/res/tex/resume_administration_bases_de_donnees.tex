@@ -1,0 +1,840 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Langue : babel-french s'il est installé, sinon repli sans erreur
+\IfFileExists{french.ldf}{%
+  \usepackage[french]{babel}%
+}{%
+  \usepackage[english]{babel}%
+  \addto\captionsenglish{\renewcommand{\contentsname}{Table des matières}}%
+}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs,array}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\headheight}{14pt}
+\emergencystretch=4em
+\setlist{itemsep=1pt,topsep=2pt}
+\renewcommand{\arraystretch}{1.3}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Administration des bases de données Oracle}
+\fancyhead[R]{\small Résumé de cours}
+\fancyfoot[C]{\small\thepage}
+\hypersetup{colorlinks=true,linkcolor=black}
+
+% ---------- Raccourcis ----------
+\newcommand{\kw}[1]{\texttt{\detokenize{#1}}}
+
+% ---------- Code SQL ----------
+\lstdefinestyle{sql}{language=SQL,basicstyle=\ttfamily\footnotesize,keywordstyle=\color{blue!60!black}\bfseries,
+  commentstyle=\color{gray}\itshape,stringstyle=\color{red!50!black},showstringspaces=false,
+  frame=single,rulecolor=\color{gray!60},backgroundcolor=\color{gray!6},breaklines=true,columns=fullflexible,
+  aboveskip=4pt,belowskip=4pt,xleftmargin=2pt,xrightmargin=2pt}
+\lstset{style=sql}
+
+% ---------- Encadrés ----------
+\tcbset{defstyle/.style={colback=blue!4,colframe=blue!50!black,fonttitle=\bfseries,breakable,left=4pt,right=4pt,top=2pt,bottom=2pt}}
+\newtcolorbox{definition}[1][]{defstyle,title={Définition\ifx\relax#1\relax\else\ (#1)\fi}}
+\newtcolorbox{retenir}[1][]{defstyle,colback=red!3,colframe=red!50!black,title={À retenir\ifx\relax#1\relax\else\ : #1\fi}}
+\newtcolorbox{exemple}[1][]{defstyle,colback=orange!5,colframe=orange!60!black,title={Exemple\ifx\relax#1\relax\else\ : #1\fi}}
+\newtcolorbox{remarque}{defstyle,colback=gray!8,colframe=gray!60,title={Remarque}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Administration des bases de données Oracle}\\[6pt]
+{\large Résumé de cours --- Chapitres 1 à 5}
+\end{center}
+\vspace{2pt}
+\tableofcontents
+\vspace{4pt}
+
+%=====================================================================
+\section{Architecture du serveur Oracle}
+%=====================================================================
+
+\subsection{Serveur, instance et base de données}
+\begin{definition}[Serveur Oracle]
+Un \emph{serveur Oracle} est un SGBD qui fournit une approche intégrée, complète et ouverte de la gestion des informations. Il se compose d'une \textbf{instance Oracle} (mémoire + processus) et d'une \textbf{base de données Oracle} (fichiers).
+\end{definition}
+
+\textbf{Scénario de connexion.}
+\begin{enumerate}[nosep]
+\item Le client contacte le \emph{listener} Oracle en indiquant l'instance voulue (nom de service).
+\item Le listener démarre un processus dédié, le \emph{processus serveur}.
+\item Le listener renvoie au client un accusé de réception avec l'adresse du processus serveur.
+\item Le client établit la connexion avec ce processus serveur dédié.
+\item Le processus serveur se connecte à l'instance pour le compte du processus utilisateur (création de la \emph{session}).
+\end{enumerate}
+Le processus utilisateur n'interagit jamais directement avec le serveur Oracle : c'est le processus serveur qui exécute les demandes et renvoie les résultats.
+
+\subsection{Instance Oracle : mémoire SGA}
+La \textbf{SGA} (System Global Area) est une mémoire partagée par tous les processus serveurs et les processus d'arrière-plan.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{4.2cm}p{11cm}@{}}
+\toprule
+\textbf{Zone SGA} & \textbf{Rôle}\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Zones obligatoires}}\\
+Shared Pool & Cache du dictionnaire de données (\emph{row cache}) : informations du dictionnaire (comptes, fichiers, segments, privilèges\dots) réutilisées lors de l'analyse des requêtes. Cache \emph{library} : instructions SQL et code PL/SQL récents, chargés une seule fois pour plusieurs exécutions.\\
+Database buffer cache & Copies des blocs de données lus dans les fichiers de données ; géré par un algorithme \textbf{LRU} ; taille du bloc principal : \kw{DB_BLOCK_SIZE}.\\
+Redo log buffer & Enregistre toutes les modifications faites aux blocs de données (entrées de journalisation), pour la \textbf{récupération} ; taille : \kw{LOG_BUFFER}.\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Zones facultatives}}\\
+Large pool, Java pool, Streams pool & Zones mémoire complémentaires.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Processus d'arrière-plan et PGA}
+\begin{center}
+\small
+\begin{tabular}{@{}lp{3.6cm}p{8.4cm}@{}}
+\toprule
+\textbf{Processus} & \textbf{Nom} & \textbf{Rôle / déclenchement}\\
+\midrule
+DBWn & Database Writer & Écrit les blocs modifiés (\emph{dirty}) du cache vers les fichiers de données : point de reprise, seuil de tampons dirty atteint, plus de tampon libre, délai dépassé, tablespace hors ligne ou en lecture seule, DROP/TRUNCATE d'une table, BEGIN BACKUP.\\
+LGWR & Log Writer & Écrit les entrées de journalisation sur disque : à chaque \textbf{COMMIT}, quand un tiers du tampon est plein, à 1~Mo de journalisation, toutes les 3~secondes, avant une écriture de DBWn.\\
+SMON & System Monitor & Récupération de l'instance après panne (rejoue les redo logs, ouvre la base, annule les transactions non validées), fusion de l'espace libre, libération des segments temporaires.\\
+PMON & Process Monitor & Nettoie après l'échec d'un processus utilisateur : annule la transaction, libère verrous et ressources, redémarre les répartiteurs interrompus.\\
+CKPT & Checkpoint & Signale les points de reprise à DBWn et met à jour les en-têtes des fichiers de données et les fichiers de contrôle.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{definition}[PGA]
+La \textbf{PGA} (Program Global Area) est une mémoire \emph{privée} créée pour chaque processus serveur et chaque processus d'arrière-plan : zones privées de curseurs, variables attachées (\emph{bind}), informations de session, zone de tri. Elle est libérée à la fin de la session.
+\end{definition}
+
+\subsection{Base de données : le dictionnaire de données}
+Le dictionnaire de données décrit la base : noms et attributs de tous les objets. Il est créé avec la base, mis à jour à chaque création ou modification d'objet, appartient à l'utilisateur \textbf{SYS}, et est stocké dans des tables de base auxquelles on accède \emph{uniquement} par des vues prédéfinies.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lp{12cm}@{}}
+\toprule
+\textbf{Préfixe} & \textbf{Usage}\\
+\midrule
+\kw{USER_} & Ce que contient votre schéma (objets dont vous êtes propriétaire)\\
+\kw{ALL_} & Vue étendue : ce à quoi vous pouvez accéder\\
+\kw{DBA_} & Vue de l'administrateur : ce que contient le schéma de chaque utilisateur\\
+\kw{V\$} & Données relatives aux performances (vues dynamiques)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lp{11.5cm}@{}}
+\toprule
+\textbf{Vue} & \textbf{Contenu}\\
+\midrule
+\kw{DICTIONARY} & Nom et description des tables et vues du dictionnaire\\
+\kw{USER_OBJECTS} & Tous vos objets : nom, type, date de création, dernière modification, statut (valide / non valide) ; \kw{ALL_OBJECTS} pour ceux auxquels vous avez accès\\
+\kw{USER_TABLES} & Informations sur vos tables (\kw{TABLE_NAME}, \kw{TABLESPACE_NAME}, \dots)\\
+\kw{USER_TAB_COLUMNS} & Colonnes de vos tables (type, longueur, précision, échelle, \kw{NULLABLE}, \dots)\\
+\kw{USER_CONSTRAINTS} & Contraintes sur vos tables (\kw{CONSTRAINT_TYPE}~: C, U, P, R ; \kw{SEARCH_CONDITION}, \kw{DELETE_RULE}, \kw{STATUS})\\
+\kw{USER_CONS_COLUMNS} & Colonnes impliquées dans des contraintes\\
+\kw{USER_VIEWS} & Vos vues (\kw{VIEW_NAME}, \kw{TEXT} : requête de définition)\\
+\kw{USER_SEQUENCES} & Vos séquences ; \kw{LAST_NUMBER} = prochain numéro disponible\\
+\kw{USER_SYNONYMS} & Vos synonymes\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+SELECT object_name, object_type, created, status FROM user_objects ORDER BY object_type;
+SELECT column_name, data_type, data_length, data_precision, data_scale, nullable
+FROM user_tab_columns WHERE table_name = 'EMPLOYEES';
+SELECT constraint_name, constraint_type, search_condition, r_constraint_name, delete_rule, status
+FROM user_constraints WHERE table_name = 'EMPLOYEES';
+\end{lstlisting}
+
+\begin{definition}[Vues dynamiques V\$]
+Elles enregistrent l'activité en cours, sont constamment mises à jour, lues depuis la mémoire et le fichier de contrôle, commencent par \kw{V\$} et sont accessibles par un DBA. Exemples : \kw{V\$SESSION} (sessions en cours), \kw{V\$LOGFILE} (fichiers journaux), \kw{V\$LOG} (statut des groupes de journaux).
+\end{definition}
+
+\subsection{Fichiers de paramètres d'initialisation}
+Une base n'est disponible que lorsque le DBA a démarré l'instance et ouvert la base. Pour démarrer, Oracle lit un fichier de paramètres afin d'allouer la SGA et lancer les processus.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{3.6cm}p{6cm}p{6cm}@{}}
+\toprule
+ & \textbf{PFILE} (\kw{initSID.ora}) & \textbf{SPFILE} (\kw{spfileSID.ora})\\
+\midrule
+Format & Fichier texte & Fichier binaire\\
+Modification & Manuelle (éditeur), effective au démarrage suivant & Ne pas éditer à la main ; géré par le serveur (dynamique)\\
+Particularité & Indispensable sur les postes clients & Pas besoin d'en copier sur les clients distants\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+CREATE PFILE  [= 'nom_pfile']  FROM SPFILE [= 'nom_spfile'];
+CREATE SPFILE [= 'nom_spfile'] FROM PFILE  [= 'nom_pfile'];
+\end{lstlisting}
+
+\textbf{Paramètres usuels :} \kw{CONTROL_FILES} (fichiers de contrôle), \kw{DB_FILES} (nombre max de fichiers), \kw{PROCESSES} (nombre max de processus OS), \kw{DB_BLOCK_SIZE}, \kw{DB_CACHE_SIZE}, \kw{SGA_TARGET}, \kw{MEMORY_TARGET}, \kw{PGA_AGGREGATE_TARGET}, \kw{SHARED_POOL_SIZE}, \kw{UNDO_MANAGEMENT}.
+
+\textbf{Paramètres statiques} : modifiables seulement dans le fichier de paramètres (\kw{ALTER SYSTEM ... SCOPE='SPFILE'}) ; redémarrage nécessaire.
+\textbf{Paramètres dynamiques} : modifiables base en ligne, au niveau \emph{session} (\kw{ALTER SESSION}) ou \emph{système} (\kw{ALTER SYSTEM}).
+
+\begin{lstlisting}
+ALTER SYSTEM SET parametre = valeur COMMENT = '...' [SCOPE = MEMORY | SPFILE | BOTH];
+ALTER SESSION SET parametre = valeur;
+SHOW PARAMETER nom_parametre;
+\end{lstlisting}
+
+\begin{retenir}[SCOPE]
+\kw{MEMORY} : changement immédiat, perdu à l'arrêt. \kw{SPFILE} : pris en compte au prochain démarrage (paramètres statiques). \kw{BOTH} : immédiat \emph{et} persistant ; c'est la valeur par défaut si la base a démarré avec un SPFILE. Avec un PFILE, seule la portée \kw{MEMORY} existe.
+\end{retenir}
+
+La vue \kw{V\$PARAMETER} donne les valeurs courantes (\kw{NAME}, \kw{TYPE}, \kw{VALUE}, \kw{ISDEFAULT}). Sa colonne \kw{ISSYS_MODIFIABLE} indique si le paramètre est statique (\kw{FALSE}), modifiable immédiatement (\kw{IMMEDIATE}) ou en différé (\kw{DEFERRED}) ; \kw{ISSES_MODIFIABLE} concerne la session.
+
+\subsection{Démarrage de la base}
+\begin{lstlisting}
+STARTUP [OPEN [READ {ONLY | WRITE}] | MOUNT | NOMOUNT | FORCE | RESTRICT]
+\end{lstlisting}
+\begin{center}
+\small
+\begin{tabular}{@{}lp{12.5cm}@{}}
+\toprule
+\textbf{Option} & \textbf{Effet}\\
+\midrule
+\kw{NOMOUNT} & Crée la SGA et démarre les processus d'arrière-plan ; pas d'accès à la base (création de base ou recréation des fichiers de contrôle)\\
+\kw{MOUNT} & Associe la base à l'instance démarrée ; pas d'accès utilisateur\\
+\kw{OPEN} & Ouvre fichiers de données et journaux en ligne ; accès utilisateurs (\kw{READ ONLY} ou \kw{READ WRITE})\\
+\kw{FORCE} & Effectue un \kw{SHUTDOWN ABORT} puis un redémarrage (si le démarrage normal échoue)\\
+\kw{RESTRICT} & Base ouverte, mais accessible seulement aux utilisateurs ayant \kw{RESTRICTED SESSION} (tuning, import/export) ; levée par \kw{ALTER SYSTEM DISABLE RESTRICTED SESSION}\\
+\bottomrule
+\end{tabular}
+\end{center}
+Passage d'un état à l'autre : \kw{ALTER DATABASE MOUNT}, \kw{ALTER DATABASE OPEN [READ WRITE | READ ONLY]}. Ordre normal : \textbf{NOMOUNT $\rightarrow$ MOUNT $\rightarrow$ OPEN}.
+
+\subsection{Arrêt de la base}
+À la fermeture, Oracle écrit les changements du buffer cache et du redo log buffer dans les fichiers de données et de journalisation, ferme ces fichiers (les fichiers de contrôle restent ouverts), démonte la base, ferme les fichiers de contrôle, arrête l'instance (libération de la SGA, arrêt des processus d'arrière-plan, fermeture des fichiers trace et alert).
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{2.3cm}p{2.4cm}p{3.3cm}p{3.6cm}p{2.8cm}@{}}
+\toprule
+\textbf{Mode} & \textbf{Nouvelles connexions} & \textbf{Attente des utilisateurs} & \textbf{Transactions en cours} & \textbf{Récupération au démarrage}\\
+\midrule
+\kw{NORMAL} (défaut) & refusées & oui (toutes les déconnexions) & --- & non\\
+\kw{TRANSACTIONAL} & refusées & fin de la transaction en cours & terminées, puis déconnexion & non\\
+\kw{IMMEDIATE} & refusées & non & SQL en cours non traités ; rollback & non\\
+\kw{ABORT} & refusées & non & non validées annulées ; fichiers non fermés & \textbf{oui}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%=====================================================================
+\section{Structures de stockage Oracle}
+%=====================================================================
+
+\subsection{Structures logiques et physiques}
+\begin{center}
+\small
+\begin{tabular}{@{}p{7.6cm}p{7.6cm}@{}}
+\toprule
+\textbf{Structure logique} & \textbf{Structure physique}\\
+\midrule
+Base de données $\supset$ tablespaces $\supset$ segments $\supset$ extents $\supset$ blocs de données Oracle & Fichiers de données $\supset$ blocs du système d'exploitation\\
+\bottomrule
+\end{tabular}
+\end{center}
+Logiquement, les données sont stockées dans des \textbf{tablespaces} : ils n'appartiennent qu'à une seule base, sont constitués d'un ou plusieurs fichiers de données, et divisés en unités de stockage logiques. Physiquement, elles sont dans des \textbf{fichiers de données}, qui n'appartiennent qu'à un seul tablespace et une seule base.
+
+\subsection{Tablespaces}
+\begin{itemize}[nosep]
+\item Une base a au moins un tablespace : \textbf{SYSTEM}, qui contient le dictionnaire de données (Oracle recommande de n'y stocker rien d'autre).
+\item Un tablespace peut être \textbf{online} (données accessibles) ou \textbf{offline} ; SYSTEM ne peut jamais être mis hors ligne.
+\item Avantages pour le DBA : organiser la base (quotas utilisateurs, disponibilité des données via mise hors service ou lecture seule) et améliorer les performances en répartissant le stockage sur plusieurs disques.
+\end{itemize}
+
+\subsection{Extents et segments}
+\begin{definition}[Extent / extension]
+Suite \emph{contiguë} de blocs, affectée à un type de données (par ex.\ les enregistrements d'une table) ; le nombre de blocs est fixé par le DBA.
+\end{definition}
+\begin{definition}[Segment]
+Ensemble d'extents dédié au stockage d'un type d'objet (table, index, \dots). Un extent initial est alloué à la création, puis de nouveaux extents sont alloués dynamiquement au besoin.
+\end{definition}
+
+\subsection{Gestion de l'espace dans un tablespace}
+\begin{itemize}[nosep]
+\item \textbf{Géré localement} (recommandé) : les extents libres sont gérés dans le tablespace par un \emph{bitmap} ; chaque bit correspond à un bloc et indique s'il est libre ou utilisé.
+\item \textbf{Géré par le dictionnaire} : les extents libres sont gérés par les tables du dictionnaire, mises à jour à chaque allocation ou libération.
+\end{itemize}
+
+\subsection{Créer un tablespace}
+\begin{lstlisting}
+CREATE {BIGFILE|SMALLFILE} TABLESPACE nom_tablespace
+  [DATAFILE ['nom_fichier'] [SIZE integer {K|M|G|T}]
+     [AUTOEXTEND {OFF | ON [NEXT integer {K|M|G|T}] [MAXSIZE {UNLIMITED | integer {K|M|G|T}}]}] [,...]]
+  [BLOCKSIZE integer [K]]
+  [{LOGGING|NOLOGGING}] [{ONLINE|OFFLINE}]
+  [extent_management_clause] [DEFAULT storage_clause];
+
+CREATE TABLESPACE TBL01
+  DATAFILE 'C:\ORACLE\PRODUCT\10.2.0\ORADATA\ORCL\FDAUTO1.dbf' SIZE 10M
+  AUTOEXTEND ON NEXT 2M MAXSIZE 20M;
+\end{lstlisting}
+\kw{LOGGING|NOLOGGING} : les modifications des objets du tablespace sont journalisées ou non. \kw{AUTOEXTEND} : étend automatiquement le fichier de données en cas de saturation, avec une limite éventuelle.
+
+\subsection{Modifier un tablespace}
+\begin{lstlisting}
+ALTER TABLESPACE TBL01 ADD DATAFILE 'C:\ORACLE\ORADATA\BDSCO2\TBL01fd03.dbf'
+  SIZE 30M AUTOEXTEND ON NEXT 5M MAXSIZE 100M;      -- ajouter un fichier
+ALTER DATABASE DATAFILE 'C:\ORACLE\ORADATA\BDSCO2\TBL01fd03.dbf' RESIZE 50M;  -- redimensionner
+ALTER TABLESPACE TBL01 READ ONLY;    -- plus d'ecriture (les transactions en cours se terminent)
+ALTER TABLESPACE TBL01 READ WRITE;
+ALTER TABLESPACE TBL01 ONLINE;       -- disponible
+ALTER TABLESPACE TBL01 OFFLINE;      -- indisponible
+\end{lstlisting}
+
+\subsection{Supprimer un tablespace}
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Commande} & \textbf{Effet}\\
+\midrule
+\kw{DROP TABLESPACE nom} & Suppression logique\\
+\kw{DROP TABLESPACE nom AND DATAFILES} & Suppression logique et physique (fichiers supprimés)\\
+\kw{DROP TABLESPACE nom INCLUDING CONTENTS} & Supprime aussi les objets stockés dans le tablespace\\
+\kw{... INCLUDING CONTENTS CASCADE CONSTRAINTS} & Supprime aussi les contraintes d'intégrité\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Consulter les informations}
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Information} & \textbf{Vues}\\
+\midrule
+Tablespaces & \kw{DBA_TABLESPACES}, \kw{V\$TABLESPACE}\\
+Fichiers de données & \kw{DBA_DATA_FILES}, \kw{V\$DATAFILE}\\
+Fichiers temporaires & \kw{DBA_TEMP_FILES}, \kw{V\$TEMPFILE}\\
+Extents / segments & \kw{DBA_EXTENTS}, \kw{DBA_SEGMENTS}\\
+Espace libre restant & \kw{DBA_FREE_SPACE}\\
+Taille de bloc par défaut & paramètre \kw{DB_BLOCK_SIZE}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%=====================================================================
+\section{Sécurité utilisateur}
+%=====================================================================
+
+\subsection{Compte utilisateur}
+Chaque compte comporte : un nom \emph{unique}, une méthode d'authentification, un tablespace par défaut, des quotas sur un ou plusieurs tablespaces, un tablespace temporaire, un profil, un statut (verrouillé ou expiré). Seuls le \textbf{nom} et l'\textbf{authentification} sont obligatoires ; le reste a des valeurs par défaut. Le nom ne peut plus être modifié après création. Les informations se consultent dans \kw{DBA_USERS}.
+
+\textbf{Comptes prédéfinis.} \textbf{SYS} : rôle DBA, tous les privilèges avec \kw{ADMIN OPTION}, requis pour démarrage, arrêt et certaines opérations de maintenance, propriétaire du dictionnaire de données. \textbf{SYSTEM} : reçoit le rôle DBA.
+
+\subsection{Authentification}
+\begin{center}
+\small
+\begin{tabular}{@{}p{3.3cm}p{6.2cm}p{5.6cm}@{}}
+\toprule
+\textbf{Mode} & \textbf{Principe} & \textbf{Syntaxe}\\
+\midrule
+Système d'exploitation & Privilège SYSDBA ou SYSOPER & \kw{CONNECT / AS SYSDBA}\\
+Fichier de mots de passe & Privilège SYSDBA ou SYSOPER, mots de passe copiés dans un fichier externe lisible même base fermée & \kw{CONNECT user/pwd AS SYSDBA}\\
+Mot de passe (base) & Mot de passe saisi à chaque connexion ; peut expirer immédiatement (changement à la 1\textsuperscript{re} connexion) & \kw{CREATE USER u IDENTIFIED BY pwd}\\
+Externe & Délégué à un service externe (Kerberos, RADIUS, Windows) ou à l'OS ; préfixe \kw{OS_AUTHENT_PREFIX} (ex.\ \kw{ops\$}) & \kw{CREATE USER u IDENTIFIED EXTERNALLY}\\
+Globale & Via Oracle Internet Directory & \kw{CREATE USER u IDENTIFIED GLOBALLY}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Créer un utilisateur}
+\begin{lstlisting}
+CREATE USER nom IDENTIFIED BY mot_de_passe
+  [DEFAULT TABLESPACE ts] [TEMPORARY TABLESPACE ts]
+  [QUOTA {valeur [K|M] | UNLIMITED} ON ts [,...]]
+  [PROFILE profil] [PASSWORD EXPIRE] [ACCOUNT {LOCK | UNLOCK}];
+
+CREATE USER scott IDENTIFIED BY pwdscott
+  DEFAULT TABLESPACE users QUOTA UNLIMITED ON users PASSWORD EXPIRE;
+\end{lstlisting}
+
+\subsection{Privilèges}
+\begin{definition}[Privilège]
+Droit d'exécuter un type d'instruction SQL ou d'accéder à un objet d'un autre utilisateur.
+\end{definition}
+\begin{itemize}[nosep]
+\item \textbf{Privilèges système} : opérations de base de données (créer des tablespaces, des sessions\dots). Accordés par l'administrateur ou par quelqu'un ayant reçu le droit de les administrer.
+\item \textbf{Privilèges objet} : action particulière sur un objet précis (table, vue, séquence, procédure, fonction, package). Sans privilège, un utilisateur n'accède qu'à ses propres objets. Accordés par le propriétaire, l'administrateur, ou un utilisateur autorisé explicitement.
+\end{itemize}
+
+\begin{lstlisting}
+GRANT CREATE SESSION TO HR;
+GRANT SELECT, UPDATE(SALARY) ON EMPLOYEES TO SCOTT;
+REVOKE CREATE SESSION FROM HR;
+REVOKE SELECT, UPDATE(SALARY) ON EMPLOYEES FROM SCOTT;
+\end{lstlisting}
+
+\textbf{Exemples de privilèges système} (le suffixe \kw{ANY} concerne n'importe quel schéma) :
+\begin{center}
+\small
+\begin{tabular}{@{}lp{10.5cm}@{}}
+\toprule
+\textbf{Catégorie} & \textbf{Privilèges}\\
+\midrule
+Session & \kw{CREATE SESSION}, \kw{ALTER SESSION}, \kw{RESTRICTED SESSION}\\
+Table & \kw{CREATE TABLE}, \kw{CREATE ANY TABLE}, \kw{DROP ANY TABLE}, \kw{SELECT ANY TABLE}, \kw{INSERT / UPDATE / DELETE ANY TABLE}, \kw{BACKUP ANY TABLE}\\
+Index, cluster & \kw{CREATE ANY INDEX}, \kw{ALTER / DROP ANY INDEX}, \kw{CREATE CLUSTER}\\
+Procédure, trigger & \kw{CREATE PROCEDURE}, \kw{EXECUTE ANY PROCEDURE}, \kw{CREATE TRIGGER}, \kw{ALTER ANY TRIGGER}\\
+Utilisateur, rôle & \kw{CREATE USER}, \kw{ALTER USER}, \kw{DROP USER}, \kw{BECOME USER}, \kw{CREATE ROLE}, \kw{GRANT ANY ROLE}\\
+Divers & \kw{ALTER DATABASE}, \kw{GRANT ANY PRIVILEGE}, \kw{CREATE SYNONYM}, \kw{FORCE TRANSACTION}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Privilèges objet} : \kw{ALTER} (table, séquence), \kw{DELETE}, \kw{EXECUTE} (procédure, fonction), \kw{INDEX}, \kw{INSERT}, \kw{REFERENCES} (clé étrangère), \kw{SELECT}, \kw{UPDATE}.
+
+\subsection{Options d'administration}
+\begin{retenir}[déléguer un privilège]
+\kw{WITH ADMIN OPTION} (privilège \emph{système}) et \kw{WITH GRANT OPTION} (privilège \emph{objet}) permettent au bénéficiaire de transmettre le privilège.
+
+\smallskip
+\textbf{Système :} si \kw{HR} reçoit \kw{CREATE SESSION WITH ADMIN OPTION} et le donne à \kw{SCOTT}, un \kw{REVOKE} sur \kw{HR} \textbf{n'est pas transmis} : SCOTT garde le privilège.
+
+\textbf{Objet :} si \kw{STOCK} reçoit \kw{SELECT ON EMPLOYEES WITH GRANT OPTION} et le donne à \kw{USER1}, un \kw{REVOKE} sur \kw{STOCK} \textbf{est transmis} : USER1 le perd aussi (révocation en cascade).
+\end{retenir}
+
+\subsection{Rôles}
+\begin{definition}[Rôle]
+Ensemble nommé de privilèges, accordé à des utilisateurs ou à d'autres rôles.
+\end{definition}
+\textbf{Avantages :} gestion simplifiée (on accorde les privilèges au rôle, puis le rôle aux utilisateurs) ; gestion dynamique (modifier un rôle met à jour immédiatement tous ses bénéficiaires) ; disponibilité sélective (un rôle s'active ou se désactive).
+
+\begin{center}
+\small
+\begin{tabular}{@{}lp{12cm}@{}}
+\toprule
+\textbf{Rôle prédéfini} & \textbf{Privilèges}\\
+\midrule
+\kw{CONNECT} & \kw{CREATE SESSION}, \kw{CREATE TABLE}, \kw{CREATE VIEW}, \kw{CREATE SYNONYM}, \kw{CREATE SEQUENCE}, \kw{CREATE DATABASE LINK}, \kw{CREATE CLUSTER}, \kw{ALTER SESSION}\\
+\kw{RESOURCE} & \kw{CREATE TABLE}, \kw{CREATE PROCEDURE}, \kw{CREATE SEQUENCE}, \kw{CREATE TRIGGER}, \kw{CREATE TYPE}, \kw{CREATE CLUSTER}, \kw{CREATE INDEXTYPE}, \kw{CREATE OPERATOR}\\
+\kw{SCHEDULER_ADMIN} & \kw{CREATE ANY JOB}, \kw{CREATE JOB}, \kw{EXECUTE ANY CLASS}, \kw{EXECUTE ANY PROGRAM}, \kw{MANAGE SCHEDULER}\\
+\kw{DBA} & La plupart des privilèges système et plusieurs rôles ; à ne pas accorder à des non-administrateurs\\
+\kw{SELECT_CATALOG_ROLE} & Aucun privilège système, mais plus de 1600 privilèges objet sur le dictionnaire de données\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+CREATE ROLE "SUPERDBA" IDENTIFIED BY "sup";   -- mot de passe demande a l'activation du role
+GRANT ALTER ANY INDEXTYPE TO "SUPERDBA";
+GRANT ALTER ANY TABLE     TO "SUPERDBA";
+GRANT "DBA" TO "SUPERDBA" WITH ADMIN OPTION;
+GRANT "SUPERDBA" TO STOCK WITH ADMIN OPTION;
+\end{lstlisting}
+
+\subsection{Profils}
+Un seul profil est affecté à un utilisateur à un instant donné. Un profil \textbf{gère les mots de passe} (toujours actif) et \textbf{limite les ressources} (actif seulement si \kw{RESOURCE_LIMIT = TRUE}, valeur par défaut \kw{FALSE}).
+
+\begin{center}
+\small
+\begin{tabular}{@{}lp{10.5cm}@{}}
+\toprule
+\textbf{Paramètre} & \textbf{Description}\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Mots de passe}}\\
+\kw{FAILED_LOGIN_ATTEMPTS} & Nombre d'échecs de connexion avant verrouillage du compte\\
+\kw{PASSWORD_LOCK_TIME} & Nombre de jours de verrouillage après ces échecs\\
+\kw{PASSWORD_LIFE_TIME} & Durée de vie du mot de passe (jours) avant expiration\\
+\kw{PASSWORD_GRACE_TIME} & Période de grâce (jours) pour changer le mot de passe après expiration\\
+\kw{PASSWORD_REUSE_TIME} & Nombre de jours pendant lesquels un mot de passe ne peut pas être réutilisé\\
+\kw{PASSWORD_REUSE_MAX} & Nombre de changements avant qu'un mot de passe puisse être réutilisé\\
+\kw{PASSWORD_VERIFY_FUNCTION} & Fonction PL/SQL de vérification de complexité ; elle doit appartenir à SYS et renvoyer un booléen\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Ressources}}\\
+\kw{SESSIONS_PER_USER} & Nombre de sessions concurrentes par compte\\
+\kw{CPU_PER_SESSION} & Temps CPU (centisecondes) maximal par session\\
+\kw{CPU_PER_CALL} & Temps CPU (centisecondes) maximal par requête\\
+\kw{CONNECT_TIME} & Durée de connexion maximale d'une session\\
+\kw{IDLE_TIME} & Durée d'inactivité maximale d'une session\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+CREATE PROFILE developer_profile LIMIT
+  SESSIONS_PER_USER 2  CPU_PER_SESSION 10000  CONNECT_TIME 480  IDLE_TIME 60
+  FAILED_LOGIN_ATTEMPTS 3  PASSWORD_LIFE_TIME 90  PASSWORD_REUSE_TIME 2
+  PASSWORD_VERIFY_FUNCTION my_function;
+-- valeurs possibles : integer | UNLIMITED | DEFAULT   (fonction | NULL | DEFAULT pour la verification)
+\end{lstlisting}
+
+%=====================================================================
+\section{Sécurité et audit}
+%=====================================================================
+
+\subsection{Sécurité de la base : principe du moindre privilège}
+Un système sécurisé garantit la confidentialité des données : authentifier les utilisateurs, gérer utilisateurs et profils, limiter l'accès aux données et services, surveiller les activités suspectes.
+
+\begin{definition}[Principe du moindre privilège]
+N'accorder à un utilisateur que les privilèges dont il a réellement besoin pour effectuer sa tâche.
+\end{definition}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{4.6cm}p{10.5cm}@{}}
+\toprule
+\textbf{Mesure} & \textbf{Détail}\\
+\midrule
+Protéger le dictionnaire & \kw{O7_DICTIONARY_ACCESSIBILITY = FALSE} : empêche les utilisateurs ayant un privilège \kw{ANY TABLE} d'accéder aux tables de base du dictionnaire, et interdit à SYS de se connecter autrement que \kw{SYSDBA}\\
+Révoquer de PUBLIC & Tout utilisateur peut utiliser les privilèges de PUBLIC ; il faut révoquer ceux qui ne sont pas indispensables. Toujours révoquer \kw{EXECUTE} sur \kw{UTL_SMTP} (envoi d'e-mails arbitraires), \kw{UTL_HTTP} (envoi de données vers un site malveillant) et \kw{UTL_FILE} (accès texte aux fichiers de l'OS)\\
+Limiter les administrateurs & Restreindre l'octroi de privilèges système et objet, les connexions \kw{SYSDBA} / \kw{SYSOPER}, et les privilèges de type DBA (\kw{DROP ANY TABLE})\\
+Authentification à distance & Désactiver : \kw{REMOTE_OS_AUTHENT = FALSE} (valeur par défaut), car un client distant non fiable pourrait se connecter sans authentification complémentaire\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+REVOKE EXECUTE ON utl_file, utl_http, utl_smtp FROM PUBLIC;
+SELECT grantee FROM dba_role_privs WHERE granted_role = 'DBA';   -- utilisateurs ayant le role DBA
+SELECT * FROM V$PWFILE_USERS;                                     -- utilisateurs SYSDBA / SYSOPER
+\end{lstlisting}
+
+\subsection{Les trois types d'audit}
+\begin{center}
+\small
+\begin{tabular}{@{}p{3.8cm}p{6cm}p{5cm}@{}}
+\toprule
+\textbf{Type d'audit} & \textbf{Événements audités} & \textbf{Contenu de la trace}\\
+\midrule
+Standard (de la base) & Utilisation de privilèges, accès aux objets & Ensemble fixe de données\\
+Basé sur les données (triggers) & Données modifiées par les instructions LMD & Défini par l'administrateur\\
+Détaillé (FGA) & Instructions SQL (INSERT, UPDATE, DELETE, SELECT) selon le contenu & Ensemble fixe, incluant l'instruction SQL\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Audit standard}
+Activé par le paramètre \kw{AUDIT_TRAIL} :
+\begin{center}
+\small
+\begin{tabular}{@{}lp{12cm}@{}}
+\toprule
+\textbf{Valeur} & \textbf{Effet}\\
+\midrule
+\kw{NONE} & Aucune collecte\\
+\kw{OS} & Enregistrements dans la trace d'audit de l'OS (emplacement : \kw{AUDIT_FILE_DEST})\\
+\kw{DB} & Enregistrements dans la table \kw{SYS.AUD\$}\\
+\kw{DB, EXTENDED} & Comme \kw{DB}, avec en plus les colonnes \kw{SQLBIND} et \kw{SQLTEXT}\\
+\kw{XML} & Fichiers XML dans la trace d'audit de l'OS\\
+\kw{XML, EXTENDED} & Comme \kw{XML}, avec \kw{SQLBIND} et \kw{SQLTEXT}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{lstlisting}
+SHOW PARAMETER audit
+ALTER SYSTEM SET audit_trail = DB SCOPE = SPFILE;   -- avec un spfile (avec un pfile : editer le fichier)
+\end{lstlisting}
+
+\textbf{Audit OS ou audit BD ?} L'audit OS convient pour auditer plusieurs bases dans une même destination (un seul rapport), mais n'est pas offert par tous les OS (Unix). L'audit BD permet de consulter les résultats par de simples requêtes sur les vues du dictionnaire, mais \kw{SYS.AUD\$} (tablespace SYSTEM) doit être archivée et purgée périodiquement, et protégée : un utilisateur malveillant pourrait y effacer ses actions. Solution : \kw{AUDIT ALL ON SYS.AUD\$ BY ACCESS;}.
+
+\textbf{Quatre niveaux d'audit :} commandes (LDD), privilèges système, objets de schéma (privilèges objet), connexions à la base.
+
+\begin{lstlisting}
+-- Audit de commandes ou de privileges systeme
+AUDIT {commande | privilege_systeme} [, ...] [BY user [, user] ...]
+      [BY {SESSION | ACCESS}] [WHENEVER [NOT] SUCCESSFUL];
+-- Audit d'objets
+AUDIT commande [, commande] ... ON {[schema.]objet | DEFAULT}
+      [BY {SESSION | ACCESS}] [WHENEVER [NOT] SUCCESSFUL];
+\end{lstlisting}
+\kw{BY SESSION} : un seul enregistrement par session et par objet, quel que soit le nombre de commandes de même type. \kw{BY ACCESS} : un enregistrement à chaque action (toujours le cas pour les commandes DDL). \kw{WHENEVER [NOT] SUCCESSFUL} : audit seulement si la commande réussit (ou échoue).
+
+\begin{lstlisting}
+AUDIT table;                                         -- commandes, non cible
+AUDIT TABLE BY hr WHENEVER NOT SUCCESSFUL;           -- commandes, cible
+AUDIT select any table, create any trigger;          -- privileges systeme
+AUDIT select any table BY hr BY SESSION;
+AUDIT ALL ON hr.employees;                           -- privileges objet
+AUDIT UPDATE, DELETE ON hr.employees BY ACCESS;
+AUDIT session WHENEVER NOT SUCCESSFUL;               -- connexions
+\end{lstlisting}
+
+\textbf{Arrêt de l'audit} (nécessite le privilège \kw{AUDIT SYSTEM}) :
+\begin{lstlisting}
+NOAUDIT session;
+NOAUDIT session BY scott, lori;
+NOAUDIT DELETE ANY TABLE;
+NOAUDIT ALL;  NOAUDIT ALL PRIVILEGES;
+NOAUDIT DELETE ON emp;
+NOAUDIT ALL ON emp;
+\end{lstlisting}
+
+\textbf{Vues d'audit :} \kw{DBA_AUDIT_TRAIL} (toutes les entrées), \kw{DBA_AUDIT_OBJECT} (objets de schéma), \kw{DBA_AUDIT_SESSION} (connexions et déconnexions), \kw{DBA_AUDIT_STATEMENT} (instructions).
+
+\subsection{Audit basé sur les données (triggers)}
+L'audit standard identifie les commandes exécutées sur une table mais pas \emph{les modifications effectuées}. Pour garder trace des valeurs modifiées, on utilise des triggers.
+\begin{itemize}[nosep]
+\item \textbf{Trigger DML} : enregistre les valeurs de toutes les modifications de la base (impossible avec l'audit intégré).
+\item \textbf{Trigger système} : audite créations, suppressions, connexions (inutile : l'audit intégré le fait).
+\end{itemize}
+\begin{lstlisting}
+CREATE [OR REPLACE] TRIGGER nom_trigger
+  {BEFORE | AFTER | INSTEAD OF}
+  {INSERT | UPDATE [OF col [, colN]] | DELETE} [OR ...]
+  REFERENCING {[OLD [AS] ancien] | [NEW [AS] nouveau]}
+  ON nom_table [FOR EACH ROW] [WHEN (condition)]
+DECLARE  /* declarations */
+BEGIN    /* traitement */
+[EXCEPTION ...]
+END;
+\end{lstlisting}
+
+\subsection{Audit détaillé (FGA)}
+Le \emph{Fine Grained Auditing} définit des conditions fines : il surveille l'accès aux données \textbf{selon leur contenu}, audite \kw{SELECT} ou \kw{INSERT / UPDATE / DELETE}, peut être lié à une table ou une vue, peut exécuter une procédure PL/SQL, et s'administre via le package \kw{DBMS_FGA} (privilège \kw{EXECUTE} requis).
+
+Une \textbf{stratégie d'audit détaillé} se compose de deux parties : les \emph{critères d'audit} (condition à vérifier) et l'\emph{action d'audit} (procédure exécutée quand la condition est vérifiée). Elle est créée par \kw{ADD_POLICY}.
+
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Sous-programme} & \textbf{Rôle}\\
+\midrule
+\kw{ADD_POLICY} & Crée une stratégie avec le prédicat fourni comme condition\\
+\kw{DROP_POLICY} & Supprime une stratégie\\
+\kw{ENABLE_POLICY} & Active une stratégie\\
+\kw{DISABLE_POLICY} & Désactive une stratégie\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+CREATE OR REPLACE PROCEDURE ins_audit_message(p_schema VARCHAR2, p_table VARCHAR2, p_policy VARCHAR2) IS
+BEGIN
+  INSERT INTO audit_messages VALUES (SYSDATE, p_schema||'.'||p_table||'.'||p_policy);
+END;
+/
+BEGIN
+  DBMS_FGA.ADD_POLICY(
+    object_schema   => 'SCOTT',   object_name    => 'EMP',
+    policy_name     => 'DEPTNO20_SAL',
+    audit_condition => 'DEPTNO = 20',  audit_column  => 'SAL',
+    handler_schema  => 'SYSTEM',  handler_module => 'INS_AUDIT_MESSAGE',
+    enable          => TRUE);
+END;
+/
+DBMS_FGA.ENABLE_POLICY (object_schema=>'hr', object_name=>'employees', policy_name=>'audit_emps_salary');
+DBMS_FGA.DISABLE_POLICY(object_schema=>'hr', object_name=>'employees', policy_name=>'audit_emps_salary');
+DBMS_FGA.DROP_POLICY   (object_schema=>'hr', object_name=>'employees', policy_name=>'audit_emps_salary');
+\end{lstlisting}
+
+\textbf{Vues :}
+\begin{itemize}[nosep]
+\item \kw{DBA_FGA_AUDIT_TRAIL} : tous les événements d'audit détaillé ;
+\item \kw{DBA_AUDIT_POLICIES} : toutes les stratégies de la base ; \kw{ALL_AUDIT_POLICIES} : celles des objets accessibles ; \kw{USER_AUDIT_POLICIES} : celles du schéma de l'utilisateur.
+\end{itemize}
+
+\begin{retenir}[règles de l'audit détaillé]
+Pour auditer toutes les instructions, utiliser une condition \kw{NULL}. Ajouter une stratégie déjà existante provoque une erreur. La table ou la vue auditée doit déjà exister. Une condition invalide provoque une erreur à l'accès à l'objet audité. Si la colonne d'audit n'existe pas, aucune ligne n'est auditée.
+\end{retenir}
+
+%=====================================================================
+\section{Déplacement des données}
+%=====================================================================
+Deux méthodes principales pour charger ou déplacer des données : \textbf{Oracle Data Pump} (export/import) et \textbf{SQL*Loader} (chargement de fichiers externes).
+
+\subsection{Oracle Data Pump}
+Introduit en \textbf{10g}, Data Pump remplace l'export/import classique, très lent (33~Go : 3h30 d'export, 7 à 8~h d'import). C'est un utilitaire \emph{côté serveur} de déplacement rapide de données et de métadonnées entre bases Oracle, avec \textbf{traitement parallèle}, via les outils \kw{expdp} et \kw{impdp}.
+
+Data Pump peut être lancé par Enterprise Manager, par les binaires \kw{EXPDP} / \kw{IMPDP} (dossier \kw{bin} de \kw{ORACLE_HOME}) ou par le package \kw{SYS.DBMS_DATAPUMP}. Un \textbf{objet Directory} Oracle doit exister au préalable pour stocker les exports.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lp{5.2cm}p{7.4cm}@{}}
+\toprule
+\textbf{Mode} & \textbf{Paramètre} & \textbf{Contenu}\\
+\midrule
+Complet & \kw{FULL} & Toute la base\\
+Schéma & (mode par défaut) \kw{SCHEMAS} & Un ou plusieurs schémas\\
+Table & \kw{TABLES} & Tables choisies dans un schéma\\
+Tablespace & \kw{TABLESPACES} & Tables d'un ou plusieurs tablespaces (les tablespaces eux-mêmes ne sont pas exportés)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Fichiers générés :} fichiers \textbf{SQL} (instructions LDD de création des objets), fichiers \textbf{DUMP} (données exportées), fichiers \textbf{LOG} (journal du job).
+
+\textbf{Privilèges :} \kw{EXP_FULL_DATABASE} et \kw{IMP_FULL_DATABASE} permettent d'exporter ou importer toute la base, un tablespace, un schéma ou une table d'un autre schéma. Les utilisateurs ayant le rôle DBA le peuvent.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{4.8cm}p{10.4cm}@{}}
+\toprule
+\textbf{Paramètre} & \textbf{Description}\\
+\midrule
+\kw{CONTENT} & Données à décharger : \kw{ALL}, \kw{DATA_ONLY} ou \kw{METADATA_ONLY}\\
+\kw{DIRECTORY} & Objet directory pour les fichiers dump et log\\
+\kw{DUMPFILE} & Liste des fichiers dump de destination\\
+\kw{EXCLUDE} / \kw{INCLUDE} & Exclut / inclut des types d'objets (ex.\ \kw{EXCLUDE=TABLE:EMP})\\
+\kw{FILESIZE} & Taille maximale de chaque fichier dump (octets)\\
+\kw{FULL}, \kw{SCHEMAS}, \kw{TABLES}, \kw{TABLESPACES} & Mode d'export / import\\
+\kw{TRANSPORT_TABLESPACES} & Tablespaces transportables (métadonnées)\\
+\kw{COMPRESSION} & Réduit la taille du dump (\kw{METADATA_ONLY} ou \kw{NONE})\\
+\kw{ENCRYPTION_PASSWORD} & Mot de passe pour les colonnes chiffrées\\
+\kw{REMAP_TABLESPACE} (impdp) & Associe l'objet à un autre tablespace\\
+\kw{PARALLEL} (impdp) & Nombre de processus de travail actifs\\
+\bottomrule
+\end{tabular}
+\end{center}
+L'aide s'obtient avec \kw{expdp help=y} et \kw{impdp help=y}. Le suivi d'un job se fait via la vue \kw{DBA_DATAPUMP_JOBS}.
+
+\begin{lstlisting}
+-- 1. Utilisateur et privileges
+create user exp_imp identified by expimp;
+grant connect, resource to exp_imp;
+grant exp_full_database, imp_full_database to exp_imp;
+-- 2. Repertoire Oracle (en tant que sysdba)
+create or replace directory DATAPUMP as 'C:\oraclexe';
+grant read, write on directory DATAPUMP to exp_imp;
+-- 3. Export (en ligne de commande OS)
+expdp exp_imp/expimp tables=exp_imp.test DIRECTORY=DATAPUMP DUMPFILE=test.dump LOGFILE=test.log
+-- 4. Import des donnees seulement (ajoute les lignes une nouvelle fois)
+impdp exp_imp/expimp content=DATA_ONLY tables=exp_imp.test DIRECTORY=DATAPUMP DUMPFILE=test.dump LOGFILE=test.log
+\end{lstlisting}
+
+\Needspace{10\baselineskip}
+\textbf{Package \kw{DBMS_DATAPUMP}} (procédures principales) :
+\begin{center}
+\small
+\begin{tabular}{@{}p{4.8cm}p{10.4cm}@{}}
+\toprule
+\textbf{Procédure} & \textbf{Rôle}\\
+\midrule
+\kw{OPEN} & Crée un nouveau job (opération \kw{EXPORT} / \kw{IMPORT}, mode, nom)\\
+\kw{ADD_FILE} & Spécifie un fichier dump, le log ou la sortie SQL (\kw{filetype} : 1 = dump, 3 = log)\\
+\kw{METADATA_FILTER} / \kw{DATA_FILTER} & Restreint les métadonnées / les données traitées\\
+\kw{METADATA_REMAP} / \kw{METADATA_TRANSFORM} & Redirige / modifie les métadonnées\\
+\kw{SET_PARAMETER} / \kw{SET_PARALLEL} & Modifie le traitement par défaut / le parallélisme\\
+\kw{START_JOB} & Démarre ou reprend un job\\
+\kw{STOP_JOB} / \kw{WAIT_FOR_JOB} & Arrête un job / attend sa fin\\
+\kw{ATTACH} / \kw{DETACH} & Se rattache à un job existant / s'en détache\\
+\kw{GET_STATUS}, \kw{LOG_ENTRY}, \kw{GET_DUMPFILE_INFO} & Statut du job, ajout au log, en-tête d'un fichier dump\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+DECLARE p_dph NUMBER;
+BEGIN
+  p_dph := DBMS_DATAPUMP.open(operation=>'EXPORT', job_mode=>'TABLE', job_name=>'DVP_EXPORT');
+  DBMS_DATAPUMP.add_file(handle=>p_dph, filename=>'dvp.dmp',     directory=>'DATAPUMP', filetype=>1);
+  DBMS_DATAPUMP.add_file(handle=>p_dph, filename=>'tab_dvp.log', directory=>'DATAPUMP', filetype=>3);
+  DBMS_DATAPUMP.metadata_filter(handle=>p_dph, name=>'SCHEMA_EXPR', value=>'IN (''DVP'')');
+  DBMS_DATAPUMP.start_job(p_dph);
+  DBMS_DATAPUMP.detach(p_dph);
+END;
+/
+-- Pour un import : operation=>'IMPORT' et DBMS_DATAPUMP.set_parameter(handle=>p_dph,
+--                  name=>'TABLE_EXISTS_ACTION', value=>'REPLACE');
+\end{lstlisting}
+
+\subsection{SQL*Loader}
+\textbf{SQL*Loader} charge des données de fichiers externes dans des tables Oracle ; son moteur d'analyse impose très peu de contraintes sur le format du fichier de données. Il s'appuie sur quatre fichiers :
+\begin{center}
+\small
+\begin{tabular}{@{}lp{12cm}@{}}
+\toprule
+\textbf{Fichier} & \textbf{Contenu}\\
+\midrule
+\textbf{Log file} & Journal du chargement : noms des fichiers (control, bad, discard, données), champs et types chargés, messages d'erreur, nombre d'enregistrements lus, rejetés pour erreur ou pour critère de sélection, temps de chargement\\
+\textbf{Bad file} & Enregistrements en erreur (non conformes au format du control file, violation de contrainte d'intégrité, tablespace plein\dots)\\
+\textbf{Discard file} & Enregistrements écartés car ne vérifiant pas les conditions de sélection (\kw{WHEN}) du control file\\
+\textbf{Control file} & Décrit le chargement : emplacements des fichiers, mémoire, rejets, fichiers de données d'entrée, structure/types/longueurs, tables cibles, correspondance champs--colonnes, critères de sélection, format (délimité, taille fixe)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+-- Exemple 1 : fichier delimite emp.dat   (10001,"Scott Tiger",1000,40)
+load data
+infile 'c:\Emp.dat'
+into table emp                      -- INSERT | REPLACE | TRUNCATE | APPEND
+fields terminated by "," optionally enclosed by '"'
+( empno, empname, sal, deptno )
+
+-- Lancement
+sqlldr user/password control=fichier.ctl log=fichier.log bad=fichier.bad discard=fichier.dsc
+\end{lstlisting}
+
+\begin{lstlisting}
+-- Exemple 2 : donnees a taille fixe, incluses dans le control file (infile *)
+load data
+infile *
+append into table departments
+( dept     position (01:04) char(4),
+  deptname position (05:25) char(20) )
+begindata
+COSC COMPUTER SCIENCE
+ENGL ENGLISH LITERATURE
+
+-- Exemple 3 : conversion au chargement (sequence, constante, expressions SQL)
+load data infile 'Emp.dat' badfile 'bad.bad'
+INTO TABLE modified_data
+( rec_no      "db_seq.nextval",
+  region      CONSTANT '31',
+  time_loaded "to_char(SYSDATE, 'HH24:MI')",
+  data1 position(1:5)   ":data1/100",
+  data2 position(6:15)  "upper(:data2)",
+  data3 position(16:22) "to_date(:data3, 'YYMMDD')" )
+
+-- Exemple 4 : chargement selectif
+load data infile 'emp.dat'
+append into table emp
+when (05) = 'B' and (15:20) = '990112'
+trailing nullcols                   -- colonnes absentes considerees comme NULL
+( empID POSITION(01:04), nom POSITION(05:14), date_emb POSITION(15:20) )
+
+-- Exemple 5 : chargement dans plusieurs tables
+LOAD DATA INFILE 'C:\emp.dat'
+REPLACE INTO TABLE emp  WHEN empno != ' '
+( empno POSITION(1:4) INTEGER, ename POSITION(6:15) CHAR,
+  deptno POSITION(17:18) CHAR, mgr POSITION(20:23) INTEGER )
+INTO TABLE proj  WHEN projno != ' '
+( projno POSITION(25:27) INTEGER, empno POSITION(1:4) INTEGER )
+\end{lstlisting}
+
+%=====================================================================
+\section{Aide-mémoire}
+%=====================================================================
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}p{4.6cm}p{10.5cm}@{}}
+\toprule
+\textbf{Thème} & \textbf{À retenir}\\
+\midrule
+Instance & SGA (shared pool, buffer cache, redo log buffer) + processus DBWn, LGWR, SMON, PMON, CKPT ; PGA privée par processus\\
+Dictionnaire & Propriété de SYS ; vues \kw{USER_}, \kw{ALL_}, \kw{DBA_}, \kw{V\$}\\
+Démarrage / arrêt & NOMOUNT $\rightarrow$ MOUNT $\rightarrow$ OPEN ; seul \kw{SHUTDOWN ABORT} exige une récupération\\
+Stockage & Tablespace $\supset$ segment $\supset$ extent $\supset$ bloc ; fichier de données $\leftrightarrow$ tablespace ; SYSTEM jamais offline\\
+Sécurité utilisateur & Privilèges système/objet, rôles, profils ; \kw{ADMIN OPTION} non cascadé, \kw{GRANT OPTION} cascadé\\
+Moindre privilège & \kw{O7_DICTIONARY_ACCESSIBILITY}, \kw{REMOTE_OS_AUTHENT} à FALSE ; révoquer \kw{UTL_*} de PUBLIC\\
+Audit & Standard (\kw{AUDIT_TRAIL}, \kw{AUDIT}/\kw{NOAUDIT}), triggers (valeurs modifiées), FGA (\kw{DBMS_FGA})\\
+Déplacement de données & Data Pump (\kw{expdp}/\kw{impdp}, 4 modes, directory) ; SQL*Loader (control, log, bad, discard)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
