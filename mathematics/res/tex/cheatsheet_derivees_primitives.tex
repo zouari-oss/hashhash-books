@@ -1,0 +1,224 @@
+\documentclass[10pt,a4paper,landscape]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Langue : babel-french s'il est installé, sinon repli sans erreur
+\IfFileExists{french.ldf}{%
+  \usepackage[french]{babel}%
+}{%
+  \usepackage[english]{babel}%
+}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1.1cm,top=1cm,bottom=1.1cm]{geometry}
+\usepackage{array,colortbl}
+\usepackage[most]{tcolorbox}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}\setlength{\extrarowheight}{4pt}
+
+% ---------- Raccourcis ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\cotan}{\operatorname{cotan}}
+\newcommand{\sh}{\operatorname{sh}}
+\newcommand{\ch}{\operatorname{ch}}
+\newcommand{\thy}{\operatorname{th}}
+\newcommand{\argsh}{\operatorname{argsh}}
+\newcommand{\argch}{\operatorname{argch}}
+\newcommand{\argth}{\operatorname{argth}}
+\newcommand{\Rp}{]0,+\infty[}
+\newcommand{\Rz}{]-\infty,0[\ \text{ou}\ ]0,+\infty[}
+\newcommand{\Itan}{\left]-\tfrac{\pi}{2}+k\pi,\tfrac{\pi}{2}+k\pi\right[}
+\newcommand{\Icot}{\left]k\pi,(k+1)\pi\right[}
+
+% ---------- Boîtes ----------
+\newtcolorbox{cbox}[2][]{enhanced,colback=white,colframe=black!80,boxrule=0.7pt,arc=1.5mm,
+  attach boxed title to top center={yshift=-2mm},boxed title style={colback=white,colframe=black!80,boxrule=0.6pt,arc=1mm,sharp corners=south},
+  coltitle=black,fonttitle=\bfseries\small,title={#2},left=3pt,right=3pt,top=5pt,bottom=3pt,#1}
+\newcommand{\hdr}[3]{\rowcolor{blue!10}$#1$ & $#2$ & $#3$\\ \hline}
+\newcommand{\key}[1]{\fbox{$\displaystyle #1$}}
+
+\begin{document}
+\begin{center}
+\fbox{\bfseries\Large\ Cheatsheet : dérivées et primitives des fonctions usuelles\ }
+\end{center}
+{\footnotesize Dans tout le formulaire, les quantités au dénominateur sont supposées non nulles ; $I$ désigne un intervalle sur lequel la fonction est définie ; $a>0$, $a\neq1$ pour $\log_a$ et $a^x$ ; $k\in\Z$.}
+
+\vspace{4pt}
+%======================================================= PAGE 1 : DERIVEES
+\begin{minipage}[t]{0.495\textwidth}\vspace{0pt}
+\footnotesize
+\begin{cbox}{Dérivées des fonctions usuelles}
+Dans chaque ligne, $f'$ est la dérivée de $f$ sur l'intervalle $I$.\par\smallskip
+\centering
+\begin{tabular}{|c|c|c|}\hline
+\hdr{f(x)}{I}{f'(x)}
+$\lambda$ (constante) & $\R$ & $0$\\ \hline
+$x$ & $\R$ & $1$\\ \hline
+$x^n\ (n\in\N^*)$ & $\R$ & $nx^{n-1}$\\ \hline
+$x^\alpha\ (\alpha\in\R)$ & $\Rp$ & $\alpha x^{\alpha-1}$\\ \hline
+$\dfrac1x$ & $\Rz$ & $-\dfrac1{x^2}$\\ \hline
+$\dfrac1{x^n}\ (n\geq2)$ & $\Rz$ & $-\dfrac{n}{x^{n+1}}$\\ \hline
+$\sqrt{x}$ & $\Rp$ & $\dfrac1{2\sqrt{x}}$\\ \hline
+$\ln x$ & $\Rp$ & $\dfrac1x$\\ \hline
+$\ln|x|$ & $\Rz$ & $\dfrac1x$\\ \hline
+$\log_a x$ & $\Rp$ & $\dfrac1{x\ln a}$\\ \hline
+$e^x$ & $\R$ & $e^x$\\ \hline
+$a^x$ & $\R$ & $a^x\ln a$\\ \hline
+$\sin x$ & $\R$ & $\cos x$\\ \hline
+$\cos x$ & $\R$ & $-\sin x$\\ \hline
+$\tan x$ & $\Itan$ & $1+\tan^2x=\dfrac1{\cos^2x}$\\ \hline
+$\cotan x$ & $\Icot$ & $-(1+\cotan^2x)=-\dfrac1{\sin^2x}$\\ \hline
+\end{tabular}
+\end{cbox}
+
+\vspace{6pt}
+\begin{cbox}{Dérivées successives et formule de Leibniz}
+\centering
+\begin{tabular}{c@{\qquad}c}
+$(e^x)^{(n)}=e^x$ & $(a^x)^{(n)}=a^x(\ln a)^n$\\[3pt]
+$(\sin x)^{(n)}=\sin\!\big(x+\tfrac{n\pi}{2}\big)$ & $(\cos x)^{(n)}=\cos\!\big(x+\tfrac{n\pi}{2}\big)$\\[3pt]
+$(x^m)^{(n)}=\dfrac{m!}{(m-n)!}x^{m-n}\ (n\le m)$ & $(\ln x)^{(n)}=\dfrac{(-1)^{n-1}(n-1)!}{x^n}$\\[5pt]
+\multicolumn{2}{c}{$\displaystyle (fg)^{(n)}=\sum_{k=0}^{n}\binom{n}{k}f^{(k)}g^{(n-k)}$}
+\end{tabular}
+\end{cbox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.495\textwidth}\vspace{0pt}
+\footnotesize
+\begin{cbox}{Dérivées des fonctions réciproques et hyperboliques}
+\centering
+\begin{tabular}{|c|c|c|}\hline
+\hdr{f(x)}{I}{f'(x)}
+$\arcsin x$ & $]-1,1[$ & $\dfrac1{\sqrt{1-x^2}}$\\ \hline
+$\arccos x$ & $]-1,1[$ & $-\dfrac1{\sqrt{1-x^2}}$\\ \hline
+$\arctan x$ & $\R$ & $\dfrac1{1+x^2}$\\ \hline
+$\sh x=\dfrac{e^x-e^{-x}}2$ & $\R$ & $\ch x$\\ \hline
+$\ch x=\dfrac{e^x+e^{-x}}2$ & $\R$ & $\sh x$\\ \hline
+$\thy x=\dfrac{\sh x}{\ch x}$ & $\R$ & $1-\thy^2x=\dfrac1{\ch^2x}$\\ \hline
+$\argsh x$ & $\R$ & $\dfrac1{\sqrt{x^2+1}}$\\ \hline
+$\argch x$ & $]1,+\infty[$ & $\dfrac1{\sqrt{x^2-1}}$\\ \hline
+$\argth x$ & $]-1,1[$ & $\dfrac1{1-x^2}$\\ \hline
+\end{tabular}
+\end{cbox}
+
+\vspace{6pt}
+\begin{cbox}{Opérations et dérivées}
+\begin{minipage}[t]{0.47\linewidth}
+\raggedright
+$(f+g)'=f'+g'$\\[3pt]
+$(\lambda f)'=\lambda f'$\\[3pt]
+$(fg)'=f'g+fg'$\\[3pt]
+$\Big(\dfrac1g\Big)'=-\dfrac{g'}{g^2}$\\[5pt]
+$\Big(\dfrac fg\Big)'=\dfrac{f'g-fg'}{g^2}$\\[5pt]
+$\key{(f\circ g)'=g'\times(f'\circ g)}$\\[3pt]
+$(f^{-1})'=\dfrac1{f'\circ f^{-1}}$
+\end{minipage}\hfill\vrule\hfill
+\begin{minipage}[t]{0.47\linewidth}
+\raggedright
+$(u^n)'=nu^{n-1}u'$\\[3pt]
+$\Big(\dfrac1{u^n}\Big)'=-\dfrac{nu'}{u^{n+1}}$\\[5pt]
+$(\sqrt u)'=\dfrac{u'}{2\sqrt u}$\\[5pt]
+$(e^u)'=u'e^u$\qquad $(\ln|u|)'=\dfrac{u'}u$\\[5pt]
+$(\sin u)'=u'\cos u$\\[3pt]
+$(\cos u)'=-u'\sin u$\\[3pt]
+$(\arctan u)'=\dfrac{u'}{1+u^2}$\\[5pt]
+$(\arcsin u)'=\dfrac{u'}{\sqrt{1-u^2}}$
+\end{minipage}
+
+\medskip
+Si $u>0$ : $\forall\alpha\in\R,\ \key{(u^\alpha)'=\alpha u'u^{\alpha-1}}$\qquad $(u^v)'=u^v\Big(v'\ln u+\dfrac{vu'}{u}\Big)$
+\end{cbox}
+\end{minipage}
+
+\newpage
+%======================================================= PAGE 2 : PRIMITIVES
+\begin{minipage}[t]{0.495\textwidth}\vspace{0pt}
+\footnotesize
+\begin{cbox}{Primitives des fonctions usuelles}
+\raggedright Dans chaque ligne, $F$ est \fbox{une} primitive de $f$ sur $I$ ; les primitives sont uniques \fbox{à une constante près}, notée $C$.\par\smallskip
+\centering
+\begin{tabular}{|c|c|c|}\hline
+\hdr{f(x)}{I}{F(x)}
+$\lambda$ (constante) & $\R$ & $\lambda x+C$\\ \hline
+$x^n\ (n\in\N^*)$ & $\R$ & $\dfrac{x^{n+1}}{n+1}+C$\\ \hline
+$x^\alpha\ (\alpha\neq-1)$ & $\Rp$ & $\dfrac{x^{\alpha+1}}{\alpha+1}+C$\\ \hline
+$\dfrac1x$ & $\Rz$ & $\ln|x|+C$\\ \hline
+$\dfrac1{x^n}\ (n\geq2)$ & $\Rz$ & $-\dfrac1{(n-1)x^{n-1}}+C$\\ \hline
+$\dfrac1{\sqrt x}$ & $\Rp$ & $2\sqrt x+C$\\ \hline
+$\ln x$ & $\Rp$ & $x\ln x-x+C$\\ \hline
+$e^x$ & $\R$ & $e^x+C$\\ \hline
+$a^x$ & $\R$ & $\dfrac{a^x}{\ln a}+C$\\ \hline
+$\sin x$ & $\R$ & $-\cos x+C$\\ \hline
+$\cos x$ & $\R$ & $\sin x+C$\\ \hline
+$\tan x$ & $\Itan$ & $-\ln|\cos x|+C$\\ \hline
+$\cotan x$ & $\Icot$ & $\ln|\sin x|+C$\\ \hline
+$1+\tan^2x=\dfrac1{\cos^2x}$ & $\Itan$ & $\tan x+C$\\ \hline
+$\dfrac1{\sin^2x}$ & $\Icot$ & $-\cotan x+C$\\ \hline
+$\sh x$ & $\R$ & $\ch x+C$\\ \hline
+$\ch x$ & $\R$ & $\sh x+C$\\ \hline
+$\thy x$ & $\R$ & $\ln(\ch x)+C$\\ \hline
+$\dfrac1{\ch^2x}$ & $\R$ & $\thy x+C$\\ \hline
+\end{tabular}
+\end{cbox}
+
+\vspace{6pt}
+\begin{cbox}{Méthodes d'intégration}
+\begin{tabular}{@{}l@{}}
+\textbf{Calcul :} $\displaystyle\int_a^bf(x)\,dx=[F(x)]_a^b=F(b)-F(a)$\qquad \textbf{Linéarité :} $\displaystyle\int(\lambda f+\mu g)=\lambda\!\int\! f+\mu\!\int\! g$\\[5pt]
+\textbf{Intégration par parties :} $\displaystyle\int_a^bu\,v'\,dx=[uv]_a^b-\int_a^bu'\,v\,dx$\\[5pt]
+\textbf{Changement de variable} $x=\varphi(t)$ : $\displaystyle\int_{\varphi(\alpha)}^{\varphi(\beta)}f(x)\,dx=\int_\alpha^\beta f(\varphi(t))\,\varphi'(t)\,dt$\\[5pt]
+\textbf{Linéarisation :} $\cos^2x=\frac{1+\cos2x}2$,\ $\sin^2x=\frac{1-\cos2x}2$,\ $\sin x\cos x=\frac{\sin2x}2$\\[3pt]
+\textbf{Fractions rationnelles :} décomposer en éléments simples ; mettre $x^2+bx+c$ sous forme canonique.
+\end{tabular}
+\end{cbox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.495\textwidth}\vspace{0pt}
+\footnotesize
+\begin{cbox}{Primitives de fractions, racines et réciproques}
+\centering
+\begin{tabular}{|c|c|c|}\hline
+\hdr{f(x)}{I}{F(x)}
+$\dfrac1{1+x^2}$ & $\R$ & $\arctan x+C$\\ \hline
+$\dfrac1{a^2+x^2}\ (a>0)$ & $\R$ & $\dfrac1a\arctan\dfrac xa+C$\\ \hline
+$\dfrac1{\sqrt{1-x^2}}$ & $]-1,1[$ & $\arcsin x+C$\\ \hline
+$\dfrac1{\sqrt{a^2-x^2}}\ (a>0)$ & $]-a,a[$ & $\arcsin\dfrac xa+C$\\ \hline
+$\dfrac1{x^2-a^2}\ (a>0)$ & $\R\setminus\{\pm a\}$ & $\dfrac1{2a}\ln\left|\dfrac{x-a}{x+a}\right|+C$\\ \hline
+$\dfrac1{\sqrt{x^2+1}}$ & $\R$ & $\ln\!\big(x+\sqrt{x^2+1}\big)+C$\\ \hline
+$\dfrac1{\sqrt{x^2-1}}$ & $]1,+\infty[$ & $\ln\!\big(x+\sqrt{x^2-1}\big)+C$\\ \hline
+$\dfrac1{\cos x}$ & $\Itan$ & $\ln\left|\tan\!\Big(\dfrac x2+\dfrac\pi4\Big)\right|+C$\\ \hline
+$\dfrac1{\sin x}$ & $\Icot$ & $\ln\left|\tan\dfrac x2\right|+C$\\ \hline
+$\arctan x$ & $\R$ & $x\arctan x-\tfrac12\ln(1+x^2)+C$\\ \hline
+$\arcsin x$ & $]-1,1[$ & $x\arcsin x+\sqrt{1-x^2}+C$\\ \hline
+$\arccos x$ & $]-1,1[$ & $x\arccos x-\sqrt{1-x^2}+C$\\ \hline
+\end{tabular}
+\end{cbox}
+
+\vspace{6pt}
+\begin{cbox}{Opérations et primitives}
+\raggedright On suppose $u$ dérivable sur $I$. Une primitive sur $I$ de :\par
+\begin{minipage}[t]{0.49\linewidth}
+\raggedright
+$u'u^n$ est $\dfrac{u^{n+1}}{n+1}\ (n\in\N^*)$\\[3pt]
+$\dfrac{u'}{u^2}$ est $-\dfrac1u$\\[3pt]
+$\dfrac{u'}{u^n}$ est $-\dfrac1{(n-1)u^{n-1}}\ (n\ge2)$\\[3pt]
+$\dfrac{u'}{\sqrt u}$ est $2\sqrt u$\ \ ($u>0$)\\[3pt]
+$\dfrac{u'}{u}$ est $\ln|u|$
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\linewidth}
+\raggedright
+$u'e^u$ est $e^u$\\[3pt]
+$u'\cos u$ est $\sin u$\ ; $u'\sin u$ est $-\cos u$\\[3pt]
+$u'(1+\tan^2u)$ est $\tan u$\\[3pt]
+$\dfrac{u'}{1+u^2}$ est $\arctan u$\\[3pt]
+$\dfrac{u'}{\sqrt{1-u^2}}$ est $\arcsin u$
+\end{minipage}
+
+\smallskip
+\raggedright Si $u>0$ et $a\in\R\setminus\{-1\}$, on a $u'u^a\mapsto\dfrac{u^{a+1}}{a+1}$ ; pour $a=-1$ : $\ln u$. Aussi : $\displaystyle\int f(ax+b)\,dx=\dfrac1aF(ax+b)+C$.
+\end{cbox}
+
+\end{minipage}
+
+\end{document}
