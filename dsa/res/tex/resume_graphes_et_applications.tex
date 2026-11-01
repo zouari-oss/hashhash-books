@@ -1,0 +1,404 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Langue : babel-french s'il est installé, sinon repli sans erreur
+\IfFileExists{french.ldf}{%
+  \usepackage[french]{babel}%
+}{%
+  \usepackage[english]{babel}%
+  \addto\captionsenglish{\renewcommand{\contentsname}{Table des matières}}%
+}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs,array}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\headheight}{14pt}
+\emergencystretch=4em
+\setlist{itemsep=1pt,topsep=2pt}
+\renewcommand{\arraystretch}{1.3}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Graphes \& Applications}
+\fancyhead[R]{\small Résumé de cours}
+\fancyfoot[C]{\small\thepage}
+\hypersetup{colorlinks=true,linkcolor=black}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Pcc}{\operatorname{Pcc}}
+\newcommand{\dist}{\operatorname{dist}}
+
+% ---------- Encadrés ----------
+\tcbset{defstyle/.style={colback=blue!4,colframe=blue!50!black,fonttitle=\bfseries,breakable,left=4pt,right=4pt,top=2pt,bottom=2pt}}
+\newtcolorbox{definition}[1][]{defstyle,title={Définition\ifx\relax#1\relax\else\ (#1)\fi}}
+\newtcolorbox{retenir}[1][]{defstyle,colback=red!3,colframe=red!50!black,title={À retenir\ifx\relax#1\relax\else\ : #1\fi}}
+\newtcolorbox{algo}[1][]{defstyle,colback=green!3,colframe=green!40!black,title={Algorithme\ifx\relax#1\relax\else\ : #1\fi}}
+\newtcolorbox{exemple}[1][]{defstyle,colback=orange!5,colframe=orange!60!black,title={Exemple\ifx\relax#1\relax\else\ : #1\fi}}
+\newtcolorbox{remarque}{defstyle,colback=gray!8,colframe=gray!60,title={Remarque}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Graphes \& Applications}\\[6pt]
+{\large Résumé de cours --- Chapitres 0 à 4}
+\end{center}
+\vspace{2pt}
+\tableofcontents
+\vspace{4pt}
+
+%=====================================================================
+\section{Introduction à la modélisation par les graphes}
+%=====================================================================
+
+\subsection{Contexte : origine et recherche opérationnelle}
+\begin{itemize}[nosep]
+\item \textbf{Origine} : en 1735, Euler résout le problème des sept ponts de Königsberg (traverser chaque pont une seule fois) et prouve que c'est impossible : un tel parcours exige que chaque sommet ait un degré pair (sauf deux au maximum, pour un parcours qui ne finit pas où il commence). À Königsberg, tous les sommets avaient un degré impair. C'est la naissance de la théorie des graphes.
+\item \textbf{Recherche opérationnelle (RO)} : outil d'aide à la décision ; ensemble de méthodes mathématiques et algorithmiques pour résoudre un problème de la meilleure façon possible (optimiser, réduire les coûts). Née pendant la seconde guerre mondiale (logistique militaire). Applications : production, transport, télécommunications, planification de projets, gestion financière, allocation de fréquences GSM ou de niveaux de vol.
+\end{itemize}
+
+\subsection{Graphes non orientés}
+\begin{definition}[Graphe non orienté]
+$G=(V,E)$ avec $V=\{v_1,\dots,v_n\}$ l'ensemble des \textbf{sommets} ($|V|=n$, \emph{ordre} du graphe) et $E=\{e_1,\dots,e_p\}$ l'ensemble des \textbf{arêtes} ($|E|=p$).
+\end{definition}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{3.6cm}p{11.8cm}@{}}
+\toprule
+\textbf{Notion} & \textbf{Définition}\\
+\midrule
+Adjacents / voisins & Deux sommets reliés par une arête\\
+Sommet isolé & Sommet adjacent à aucun autre\\
+Arête incidente & $e$ est incidente à $v$ si $v$ est une extrémité de $e$ ; deux arêtes incidentes à un même sommet sont adjacentes\\
+Boucle & Arête dont les deux extrémités sont égales\\
+Arêtes multiples (parallèles) & Plusieurs arêtes reliant les mêmes sommets\\
+Sous-graphe & $G'=(V',E')$ avec $V'\subseteq V$ et $E'\subseteq E$\\
+Graphe partiel & $G'=(V',E')$ avec $V'=V$ et $E'\subseteq E$\\
+Graphe simple & Au plus une arête entre deux sommets, pas de boucle (\emph{seul type utilisé dans le cours})\\
+Multigraphe / pseudographe & Arêtes multiples autorisées / boucles et arêtes multiples autorisées\\
+Chaîne / cycle & Suite de sommets reliés par des arêtes / chaîne fermée dont les arêtes sont distinctes\\
+Graphe connexe & Pour tous $x,y$, il existe une chaîne de $x$ vers $y$ ; sinon, il est réunion de \textbf{composantes connexes} (sous-graphes connexes maximaux)\\
+Graphe complet $K_n$ & Tous les sommets sont reliés deux à deux ; il a $\dfrac{n(n-1)}{2}$ arêtes\\
+Graphe biparti & Sommets partitionnés en $V_1,V_2$ avec toutes les arêtes entre $V_1$ et $V_2$\\
+Graphe régulier & Tous les sommets ont le même degré\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{retenir}[degré]
+Le \textbf{degré} $d(v_i)$ est le nombre d'arêtes incidentes à $v_i$ (une boucle compte double ; dans un graphe simple, c'est le nombre de voisins). Le \textbf{degré du graphe} est le degré maximum de ses sommets.
+
+\textbf{Lemme des poignées de mains} : $\displaystyle\sum_{v\in V}d(v)=2|E|$.
+\end{retenir}
+
+\subsection{Graphes orientés}
+\begin{itemize}[nosep]
+\item Un graphe orienté $G=(V,E)$ a des \textbf{arcs} $e=(u,v)$ (paire ordonnée) : $u$ extrémité initiale, $v$ extrémité finale ; $v$ est un \emph{successeur} de $u$ et $u$ un \emph{prédécesseur} de $v$.
+\item \textbf{Degré extérieur} $d^+(v)$ : nombre d'arcs d'extrémité initiale $v$ ; \textbf{degré intérieur} $d^-(v)$ : nombre d'arcs d'extrémité finale $v$ ; $d(v)=d^+(v)+d^-(v)$.
+\item \textbf{Chemin} (analogue de la chaîne) ; \textbf{circuit} : chemin fermé (analogue du cycle).
+\item \textbf{Fortement connexe} : pour tout couple $(u,v)$, il existe un chemin de $u$ à $v$ \emph{et} de $v$ à $u$. \textbf{Faiblement connexe} : connexe si l'on ignore l'orientation.
+\end{itemize}
+
+\subsection{Graphes valués et représentations}
+Un \textbf{graphe valué} associe à chaque arête ou arc $(u,v)$ un poids $w(u,v)$ (coût, distance, capacité\dots).
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{3.6cm}p{12.4cm}@{}}
+\toprule
+\textbf{Représentation} & \textbf{Description}\\
+\midrule
+Matrice d'adjacence & Matrice $n\times n$ : $A[i][j]=1$ (ou le poids) si l'arête $v_iv_j$ existe, $0$ sinon ; \emph{symétrique} pour un graphe non orienté\\
+Matrice d'incidence sommets-arcs & Lignes = sommets, colonnes = arcs, coefficients dans $\{0,+1,-1\}$ : pour l'arc $u=(i,j)$, $a_{iu}=+1$, $a_{ju}=-1$, autres termes nuls\\
+Listes d'adjacence & Table où chaque ligne (un sommet) contient la liste de ses successeurs (ou prédécesseurs) ; efficace quand le nombre d'arêtes est faible\\
+\bottomrule
+\end{tabular}
+\end{center}
+Critères d'efficacité d'un algorithme : le \emph{temps} de calcul et l'\emph{espace} mémoire utilisé.
+
+%=====================================================================
+\section{Coloration des sommets d'un graphe}
+%=====================================================================
+
+\subsection{Modélisation}
+\begin{exemple}[attribution des quais d'un port]
+Deux navires dont les horaires se chevauchent ne peuvent pas partager un quai. On modélise : \textbf{sommet} = navire, \textbf{arête} = chevauchement des horaires, \textbf{couleur} = quai. Le nombre minimal de couleurs est le nombre minimal de quais.
+\end{exemple}
+
+\begin{definition}[Coloration, nombre chromatique]
+\textbf{Colorier} un graphe, c'est colorier ses sommets de sorte que deux sommets adjacents aient des couleurs différentes. Le \textbf{nombre chromatique} $\chi(G)$ est le plus petit nombre de couleurs nécessaires.
+\end{definition}
+
+\subsection{Propriétés et encadrement de $\chi(G)$}
+\begin{retenir}[encadrer le nombre chromatique]
+Pour $G=(V,E)$ avec $|V|=n$ :
+\begin{itemize}[nosep]
+\item Graphe complet : $\chi(K_n)=n$.
+\item \textbf{Minoration} : si $G$ contient un sous-graphe complet $K_p$, alors $p\le\chi(G)$.
+\item \textbf{Majoration} : $\chi(G)\le n$ ; si l'on exhibe une coloration valide à $p$ couleurs, $\chi(G)\le p$ ; \textbf{Brooks} : si $d$ est le plus grand degré, $\chi(G)\le d+1$.
+\item \textbf{Graphe planaire} (dessinable dans le plan sans croisement d'arêtes, ex.\ une carte : sommet = région, arête = frontière) : $\chi(G)\le4$ (théorème des quatre couleurs, Appel--Haken, 1977).
+\end{itemize}
+Si minorant et majorant coïncident, on a $\chi(G)$ ; sinon on ne peut pas conclure.
+\end{retenir}
+
+\subsection{Algorithme glouton}
+\begin{algo}[Glouton]
+\emph{Principe} : avancer étape par étape en faisant un choix localement optimal, sans souci d'optimalité globale.
+\begin{enumerate}[nosep]
+\item Parcourir les sommets dans un ordre donné.
+\item À chaque sommet, affecter la \textbf{première couleur possible}, c'est-à-dire la plus petite couleur non utilisée par ses voisins déjà colorés.
+\end{enumerate}
+Il nécessite $n$ étapes et utilise au plus $d+1$ couleurs ($d$ : degré du graphe).
+\end{algo}
+
+\subsection{Algorithme de Welsh \& Powell}
+\begin{algo}[Welsh \& Powell]
+\begin{enumerate}[nosep]
+\item \textbf{Ordonner} les sommets par degré décroissant : $\deg(v_1)\ge\deg(v_2)\ge\dots\ge\deg(v_n)$.
+\item Affecter la couleur $C_1$ à $v_1$, puis la même couleur à chaque sommet suivant de la liste \textbf{non colorié et non adjacent} à un sommet déjà de couleur $C_1$.
+\item S'il reste des sommets non coloriés, prendre une \textbf{nouvelle couleur} pour le premier sommet non colorié de la liste résiduelle, et recommencer.
+\end{enumerate}
+\emph{Arrêt} : tous les sommets sont coloriés.
+\end{algo}
+
+\begin{exemple}[tableau de Welsh \& Powell]
+Sommets dans l'ordre A, B, E, F, C, D (degrés 4, 4, 4, 4, 3, 3). Itération 1 : $C_1$ pour A et C ; itération 2 : $C_2$ pour B et D ; itération 3 : $C_3$ pour E ; itération 4 : $C_4$ pour F. Donc $\chi(G)\le4$.
+\end{exemple}
+
+\begin{remarque}
+Ni Glouton ni Welsh \& Powell ne sont toujours optimaux : changer l'ordre de visite de deux sommets peut faire passer le glouton de 4 à 3 couleurs (avec un $K_3$ présent, on obtient alors $\chi(G)=3$) ; des contre-exemples existent aussi pour Welsh \& Powell (une coloration à 2 couleurs existe alors que l'algorithme en donne davantage). Ces algorithmes fournissent donc un \emph{majorant} de $\chi(G)$.
+\end{remarque}
+
+%=====================================================================
+\section{Recherche de plus court chemin}
+%=====================================================================
+Exemples : itinéraires (Google Maps), routage de paquets dans un réseau.
+
+\subsection{Définitions}
+\begin{definition}[Graphe pondéré, longueur d'un chemin]
+Un graphe pondéré est muni d'une application $p:E\to\R$ (poids). La \textbf{longueur} d'un chemin $m=\langle v_1,\dots,v_k\rangle$ est la somme des poids de ses arcs : $\displaystyle l(m)=\sum_{i=1}^{k-1}p(v_i,v_{i+1})$.
+\end{definition}
+
+\begin{definition}[Distance, circuit absorbant]
+La \textbf{distance} $\delta(v_i,v_j)$ est la plus petite longueur des chemins de $v_i$ à $v_j$ ; $\delta=+\infty$ s'il n'existe aucun chemin ; $\delta=-\infty$ s'il existe un chemin contenant un circuit de coût total négatif. Un \textbf{circuit absorbant} est un circuit de coût total négatif.
+\end{definition}
+
+\begin{retenir}
+Condition nécessaire d'existence d'un plus court chemin : \textbf{absence de circuit absorbant}. \emph{Sous-chemins optimaux} : tout sous-chemin d'un plus court chemin est un plus court chemin.
+\end{retenir}
+
+Le choix de l'algorithme dépend des poids (positifs ou de signe quelconque) et du problème : un sommet vers un autre, un sommet vers tous les autres, ou tous les couples de sommets.
+
+\subsection{Algorithme de Dijkstra (poids positifs)}
+Plus courts chemins d'une source $x_1$ vers tous les sommets. On note $\dist(j)$ la longueur optimale de $x_1$ à $x_j$, $P$ l'ensemble des sommets à distance \emph{permanente} (plus court chemin déterminé), $T=V\setminus P$ les sommets à distance \emph{temporaire} ; à chaque itération, un sommet passe de $T$ à $P$.
+
+\begin{algo}[Dijkstra--Moore, 1959]
+\begin{enumerate}[nosep]
+\item \textbf{Initialisation} : $\dist(1)=0$ ; pour $j\ge2$, $\dist(j)=C_{1,j}$ si $(x_1,x_j)\in A$, $+\infty$ sinon ; $\Pcc(1)=(x_1)$, $P=\{x_1\}$, $T=\{x_2,\dots,x_n\}$.
+\item \textbf{Tant que} $T\ne\emptyset$ :
+  \begin{itemize}[nosep]
+  \item \emph{Choix} : prendre $x_k\in T$ avec $\dist(k)=\min_{x_j\in T}\dist(j)$ ; mémoriser $\Pcc(k)$, $P\leftarrow P\cup\{x_k\}$, $T\leftarrow T\setminus\{x_k\}$.
+  \item \emph{Mise à jour} : pour chaque successeur $x_j\in T$ de $x_k$, si $\dist(k)+C_{k,j}<\dist(j)$, alors $\dist(j)\leftarrow\dist(k)+C_{k,j}$ (et le chemin est mis à jour).
+  \end{itemize}
+\item Afficher $\dist$ et $\Pcc$ (on obtient une \emph{arborescence} optimale).
+\end{enumerate}
+\end{algo}
+
+\begin{retenir}[limite de Dijkstra]
+Dijkstra \textbf{n'est plus valable avec des poids négatifs} : il fixe définitivement une distance trop tôt. Sur l'exemple du cours, il renvoie $\dist(3)=8$ alors que le chemin $(1,2,5,3)$ donne $\dist(3)=5$. D'où l'algorithme de Ford--Bellman.
+\end{retenir}
+
+\subsection{Algorithme de Ford--Bellman (poids quelconques)}
+Graphe à coûts quelconques ; plus court chemin d'un sommet vers tous les autres ; converge en l'absence de circuit absorbant. $\dist^k(j)$ désigne la longueur optimale d'un chemin de $x_1$ à $x_j$ comportant au plus $k$ sommets autres que l'origine.
+
+\begin{algo}[Ford--Bellman]
+\begin{enumerate}[nosep]
+\item \textbf{Étape 0} : $k=1$ ; $\dist^k(1)=0$ ; pour $j\ge2$, $\dist^1(j)=C_{1,j}$ si $(x_1,x_j)\in A$, $+\infty$ sinon.
+\item \textbf{Étape 1 (mise à jour)} : pour $j=1,\dots,n$, $\displaystyle\dist^{k+1}(j)=\min\Big(\dist^k(j),\ \min_{l}\big(\dist^k(l)+C_{l,j}\big)\Big)$, où $x_l$ parcourt les prédécesseurs de $x_j$.
+\item \textbf{Étape 2 (test de convergence)} : si $\dist^{k+1}(j)=\dist^k(j)$ pour tout $j$, \emph{fin} (optimalité atteinte) ; sinon, si $k=n$, il existe un \textbf{circuit absorbant} ; sinon $k\leftarrow k+1$ et retour à l'étape 1.
+\end{enumerate}
+\end{algo}
+
+\subsection{Algorithme de Floyd--Warshall (tous les couples)}
+Généralisation de Ford--Bellman : plus court chemin entre \emph{tous} les couples de sommets, à partir de la matrice des poids ($+\infty$ si l'arc n'existe pas).
+
+\begin{algo}[Floyd--Warshall]
+\begin{enumerate}[nosep]
+\item \textbf{Initialisation} : $\dist(i,j)=0$ si $i=j$, $C_{i,j}$ si $(x_i,x_j)\in A$, $+\infty$ sinon ; $\Pcc(i,j)=(x_i,x_j)$.
+\item \textbf{Pour $k=1,\dots,n$} (insertion du sommet $k$) et pour tous $i\ne k$, $j\ne k$ : si $\dist(i,k)+\dist(k,j)<\dist(i,j)$, alors
+$\dist(i,j)\leftarrow\dist(i,k)+\dist(k,j)$ et $\Pcc(i,j)\leftarrow\Pcc(i,k)\cup\Pcc(k,j)$.
+\item \textbf{Test} : s'il existe $i$ avec $\dist(i,i)<0$, il existe un \textbf{circuit absorbant} ; sinon, optimalité atteinte à $k=n$.
+\end{enumerate}
+\end{algo}
+
+\subsection{Comparaison des algorithmes}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{3.6cm}p{3.7cm}p{3.7cm}p{3.5cm}@{}}
+\toprule
+ & \textbf{Dijkstra} & \textbf{Ford--Bellman} & \textbf{Floyd--Warshall}\\
+\midrule
+Chemins calculés & d'un sommet vers les autres & d'un sommet vers les autres & toutes les paires\\
+Complexité, listes d'adjacence & $\Theta(n+m\log n)$ & $\Theta(n\times m)$ & ---\\
+Complexité, matrice d'adjacence & $\Theta(n^2)$ & $\Theta(n^3)$ & $\Theta(n^3)$\\
+Cas d'utilisation & poids positifs & poids quelconques & poids quelconques\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%=====================================================================
+\section{Flots sur les réseaux}
+%=====================================================================
+
+\subsection{Réseau de transport}
+\begin{definition}[Réseau de transport]
+Graphe orienté sans circuit $G=(V,E)$ dont chaque arc $e$ a une \textbf{capacité} $C_e\ge0$, avec une \textbf{source} $s$ (sommet sans prédécesseur, de degré intérieur nul) et un \textbf{puits} $t$ (sommet sans successeur, de degré extérieur nul). Les autres sommets sont des nœuds de transit.
+\end{definition}
+
+\begin{definition}[Flux, flot]
+Le \textbf{flux} $\varphi_e$ est la quantité circulant sur l'arc $e=(i,j)$ ; un \textbf{flot} est le vecteur des flux de tous les arcs.
+\end{definition}
+
+\begin{retenir}[flot réalisable (admissible)]
+Un flot est réalisable s'il vérifie :
+\begin{itemize}[nosep]
+\item la \textbf{contrainte de capacité} : $0\le\varphi_e\le C_e$ pour tout arc $e$ ;
+\item la \textbf{conservation du flux} en tout nœud de transit : $\displaystyle\sum_{i\in P(j)}\varphi(i,j)=\sum_{i\in S(j)}\varphi(j,i)$ (flux entrant $=$ flux sortant).
+\end{itemize}
+\end{retenir}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lp{12.5cm}@{}}
+\toprule
+\textbf{Notion} & \textbf{Définition}\\
+\midrule
+Arc de retour & Arc fictif $(t,s)$ de capacité infinie : son flux est la \emph{valeur de retour} ; la conservation est alors valable pour tous les nœuds\\
+Valeur du flot & Quantité totale qui traverse le réseau\\
+Arc saturé & $\varphi_e=C_e$\\
+Chemin saturé & Chemin passant par au moins un arc saturé\\
+Flot complet & Tout chemin de $s$ à $t$ est saturé\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{definition}[Problème du flot maximal]
+Trouver la plus grande quantité de flot réalisable que l'on peut acheminer de $s$ à $t$ en respectant les capacités. Applications : distribution d'eau, réseaux de communication (volume de données), réseaux de production (usine $\to$ entrepôt).
+\end{definition}
+
+\subsection{Algorithme de Ford--Fulkerson}
+\begin{definition}[Graphe résiduel]
+Associé à un flot $\varphi$ : pour un arc direct $(x_i,x_j)$, \textbf{capacité résiduelle} $C_{i,j}-\varphi_{i,j}$ ; pour un arc inverse (créé fictivement), capacité égale au flux $\varphi_{i,j}$ (possibilité de \emph{défaire} du flux).
+\end{definition}
+
+\begin{algo}[Ford--Fulkerson]
+\begin{enumerate}[nosep]
+\item \textbf{Étape 0} : flot initial réalisable $\varphi^0$ (par exemple le flot nul).
+\item \textbf{Étape 1 (flot complet)} : chercher, par exploration en profondeur, un \emph{chemin non saturé} (augmentant) $p^k$ de $s$ à $t$ dans le graphe résiduel. S'il existe : $\Delta_k$ = capacité résiduelle minimale sur $p^k$, $\varphi^{k+1}=\varphi^k+\Delta_k$, et mise à jour du graphe résiduel (flux résiduel $r_{k+1,a}=r_{k,a}-\Delta_k$ sur chaque arc $a$ de $p^k$) ; $k\leftarrow k+1$. Sinon, passer à l'étape 2.
+\item \textbf{Étape 2 (chaînes améliorantes)} : chercher une \emph{chaîne améliorante} $p^k$ de $s$ à $t$ dans le graphe résiduel (pouvant utiliser des arcs inverses). Si elle existe : $\varphi^{k+1}=\varphi^k+\Delta_k$, avec $r_{k+1,a}=r_{k,a}-\Delta_k$ si $a$ est un arc direct et $r_{k+1,a}=r_{k,a}+\Delta_k$ si $a$ est un arc inverse ; $k\leftarrow k+1$. Sinon, \textbf{fin : le flot est maximal}.
+\end{enumerate}
+\end{algo}
+
+\subsection{Coupe minimale}
+\begin{definition}[Coupe]
+Une \textbf{coupe} $[S,T]$ est une partition $V=S\cup T$, $S\cap T=\emptyset$, avec $s\in S$ et $t\in T$. Sa \textbf{capacité} est la somme des capacités des arcs allant de $S$ vers $T$ :
+$\displaystyle \operatorname{cap}[S,T]=\sum_{i\in S,\,j\in T}C_{ij}.$
+\end{definition}
+
+\begin{retenir}[flot max et coupe min]
+Pour toute coupe : $\varphi_{\max}\le\operatorname{cap}[S,T]$. Si $\operatorname{cap}[S,T]=\varphi_{\max}$, la coupe est \textbf{minimale}.
+
+\textbf{Construction} : calculer d'abord le flot maximal, puis mettre dans $S$ la source et tous les sommets atteignables depuis $s$ par des chemins (chaînes) non saturés dans le graphe résiduel ; les autres sommets vont dans $T$. Les arcs de $S$ vers $T$ sont les \textbf{arcs bloquants}.
+\end{retenir}
+
+\begin{exemple}[distribution d'eau potable]
+Capacités (m$^3$/h) : $S\to A$ 30, $S\to B$ 20, $A\to C$ 20, $A\to D$ 15, $B\to C$ 10, $D\to T$ 25, $C\to T$ 20.
+Le puits reçoit au plus $15$ par $D$ (car $D$ n'est alimenté que par $A\to D$ de capacité 15) et $20$ par $C$ : le flot maximal est $\mathbf{35}$ m$^3$/h (donc impossible d'envoyer 50). La coupe minimale est $S=\{S,A,B,C\}$, $T=\{D,T\}$, de capacité $15+20=35$. Les conduites bloquantes sont $A\to D$ et $C\to T$ : ce sont les seules à agrandir pour augmenter le débit, inutile de remplacer tout le réseau (au-delà d'un certain agrandissement, une autre coupe deviendra limitante).
+\end{exemple}
+
+%=====================================================================
+\section{Arbre couvrant à poids minimal}
+%=====================================================================
+Problème historique : en 1926, Otakar Borůvka conçoit un réseau de distribution électrique pour la Moravie du Sud au moindre coût. Les algorithmes de \textbf{Kruskal} (1956) et de \textbf{Prim} (1957) sont des algorithmes \textbf{gloutons}. Applications : relier $n$ villes par un réseau routier de coût minimal, relier des ordinateurs avec la plus petite longueur de câble.
+
+\subsection{Définitions et propriétés}
+On travaille avec des graphes \textbf{non orientés et valués}.
+\begin{definition}[Arbre, arbre couvrant]
+Un \textbf{arbre} est un graphe connexe sans cycle ; un arbre à $n$ sommets a $n-1$ arêtes. Un \textbf{arbre couvrant} de $G=(V,E)$ est un graphe partiel $T=(V,E')$, $E'\subseteq E$, connexe et sans cycle. Le \textbf{poids} d'un arbre est la somme des poids de ses arêtes.
+\end{definition}
+\begin{definition}[ACM]
+Un \textbf{arbre couvrant de poids minimum} (ACM, \emph{Minimum Spanning Tree}) est un arbre couvrant dont le poids est le plus petit possible. Tout graphe non orienté, valué et connexe admet un ou plusieurs ACM.
+\end{definition}
+
+\begin{retenir}[propriétés équivalentes]
+Pour un graphe $G$ à $n$ sommets et $m$ arêtes, sont équivalentes : $G$ connexe sans cycle ; $G$ connexe et $m=n-1$ ; il existe un unique chemin entre deux sommets quelconques. Un graphe non connexe n'a aucun arbre couvrant ; un graphe connexe en a au moins un.
+\end{retenir}
+
+\subsection{Algorithme de Kruskal}
+\begin{algo}[Kruskal]
+\emph{Principe} : ranger les arêtes par poids croissant et les ajouter une à une à l'ACM tant que leur ajout ne crée pas de cycle.
+\begin{enumerate}[nosep]
+\item $T=\emptyset$ ; trier les arêtes de $G$ par poids croissant.
+\item Traiter les arêtes dans cet ordre : si l'arête \textbf{connecte deux composantes connexes} de $T$, l'ajouter à $T$ ; sinon l'ignorer.
+\item S'arrêter dès que $T$ est connexe (on a incorporé $n-1$ arêtes) ; retourner $T$.
+\end{enumerate}
+\end{algo}
+
+\begin{exemple}[Kruskal sur un graphe à 9 sommets $a,\dots,i$]
+Arêtes triées (poids) : $a$-$g$ (1) oui, $b$-$h$ (1) oui, $f$-$i$ (1) oui, $i$-$d$ (1) oui, $g$-$b$ (2) oui, $a$-$b$ (2) non, $e$-$d$ (2) oui, $b$-$c$ (3) oui, $h$-$i$ (3) oui, puis $i$-$e$ (3), $h$-$f$ (3), $i$-$c$ (4), $g$-$f$ (5), $c$-$d$ (5) refusées (cycles).
+ACM : $a$-$g$, $b$-$h$, $f$-$i$, $i$-$d$, $g$-$b$, $e$-$d$, $b$-$c$, $h$-$i$ ; poids total $1+1+1+1+2+2+3+3=\mathbf{14}$.
+\end{exemple}
+
+\subsection{Algorithme de Prim}
+\begin{algo}[Prim]
+\emph{Principe} : partir d'un arbre réduit à un sommet, puis l'agrandir à chaque itération en le connectant à son plus proche voisin libre.
+\begin{enumerate}[nosep]
+\item Initialiser $T$ avec un sommet de $G$ choisi et aucune arête.
+\item \textbf{Répéter} : parmi les arêtes reliant un sommet de $T$ à un sommet extérieur, choisir une arête de poids \textbf{minimal} ; ajouter à $T$ cette arête et le sommet correspondant.
+\item S'arrêter quand tous les sommets sont dans $T$ ; retourner $T$.
+\end{enumerate}
+\end{algo}
+
+\begin{exemple}[Prim sur le même graphe, départ en $a$]
+Choix successifs : $a$-$g$ (1), $a$-$b$ (2), $b$-$h$ (1), $b$-$c$ (3), $h$-$f$ (3), $f$-$i$ (1), $i$-$d$ (1), $d$-$e$ (2) ; les arêtes qui fermeraient un cycle sont écartées ($g$-$b$, $g$-$f$, $c$-$i$). Poids total $1+2+1+3+3+1+1+2=\mathbf{14}$, le même que Kruskal (l'ACM n'est pas unique, mais son poids l'est).
+\end{exemple}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{3cm}p{6.1cm}p{6.1cm}@{}}
+\toprule
+ & \textbf{Kruskal} & \textbf{Prim}\\
+\midrule
+Idée & Trier les arêtes ; fusionner des composantes & Faire grossir un seul arbre depuis un sommet\\
+Test à chaque pas & L'arête ne crée pas de cycle & L'arête relie $T$ à l'extérieur, poids minimal\\
+Arrêt & $n-1$ arêtes retenues & Tous les sommets dans $T$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%=====================================================================
+\section{Aide-mémoire}
+%=====================================================================
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}p{3.8cm}p{11.8cm}@{}}
+\toprule
+\textbf{Thème} & \textbf{À retenir}\\
+\midrule
+Degrés & $\sum d(v)=2|E|$ ; $K_n$ a $n(n-1)/2$ arêtes ; orienté : $d=d^++d^-$\\
+Coloration & $p\le\chi(G)\le d+1$ (sous-graphe $K_p$, Brooks) ; planaire : $\chi\le4$ ; Glouton et Welsh \& Powell donnent un \emph{majorant}\\
+Dijkstra & Poids $\ge0$ ; un sommet $\to$ tous ; $\Theta(n^2)$ (matrice)\\
+Ford--Bellman & Poids quelconques ; détecte les circuits absorbants (si $k=n$) ; $\Theta(n\,m)$\\
+Floyd--Warshall & Tous les couples ; $\dist(i,i)<0$ $\Rightarrow$ circuit absorbant ; $\Theta(n^3)$\\
+Flots & Capacité + conservation ; graphe résiduel ; $\varphi_{\max}=\operatorname{cap}$(coupe minimale)\\
+ACM & Arbre : connexe, sans cycle, $n-1$ arêtes ; Kruskal (trier les arêtes) et Prim (faire grossir un arbre) : algorithmes gloutons\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
