@@ -1,5 +1,16 @@
 # Linux Notes
 
+<!--toc:start-->
+
+- [Linux Notes](#linux-notes)
+  - [Linux Components](#linux-components)
+  - [Linux Architecture](#linux-architecture)
+  - [Linux File System Hierarchy](#linux-file-system-hierarchy)
+  - [Linux System Information](#linux-system-information)
+  - [Linux tools](#linux-tools)
+
+<!--toc:end-->
+
 ## Linux Components
 
 | Component       | Description                                                                                                                                                                                                                                                                                                                                     |
@@ -73,13 +84,12 @@ Below is a list of essential tools to help gather this information. Most of thes
 - **fakeroot**: Lets you build packages pretending you are root, without real root rights.
 - **rpm-tools**: Tools to manipulate RPM packages (for RedHat-like systems), After install it in arch:
 
-  ```bash
-  rpm-tools installs RedHat package manager for you.
-  It is useful for those who wants to create/modify RPM files.
-  But do not use rpm-tools to install RedHat packages at your ArchLinux machine.
-  It will break your system!
-  You will need to go back to Arch wiki and read the installation guide again.
-  You've been warned!
-  ```
+> [!WARNING]
+> rpm-tools installs RedHat package manager for you.
+> It is useful for those who wants to create/modify RPM files.
+> But do not use rpm-tools to install RedHat packages at your ArchLinux machine.
+> It will break your system!
+> You will need to go back to Arch wiki and read the installation guide again.
+> You've been warned!
 
 - **dpkg**: Debian package management system (handles .deb).
