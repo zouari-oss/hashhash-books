@@ -15,7 +15,6 @@
 
 ## Forums and News
 
-- [linux.com](https://www.linux.com)
 - [The Linux Kernel Archives](https://www.kernel.org)
 - [QEMU ArchWiki](https://wiki.archlinux.org/title/QEMU)
 
