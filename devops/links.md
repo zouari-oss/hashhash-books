@@ -17,6 +17,10 @@
 - [SonarQube](https://www.sonarsource.com/products/sonarqube) | Delivers independent, zero-trust, multilayered verification and governance for every change, whether a developer or an AI wrote it.
 - [vagrant](https://github.com/hashicorp/vagrant) | A tool for building and distributing development environments.
 
+## Articles
+
+- [Deploy Prometheus and Grafana on Kubernetes using Helm](https://medium.com/@gayatripawar401/deploy-prometheus-and-grafana-on-kubernetes-using-helm-5aa9d4fbae66)
+
 ## Other
 
 - [Docker](/docker/links.md)
