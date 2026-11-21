@@ -68,3 +68,4 @@
 - [TempleOS in 100 Seconds](https://www.youtube.com/watch?v=h7gf5M04hdg)
 - [How to Install VMware Workstation Pro on Windows 11 - FREE DOWNLOAD LATEST VERSION](https://www.youtube.com/watch?v=giD0zQ4A4E8)
 - [How Install Ubuntu 22.04 on VMware Workstation 16/17 Pro - UPDATED - 2023](https://www.youtube.com/watch?v=Gh0ErZLWLDY)
+- [New Linux Server? Perform These 10 Tweaks First](https://www.youtube.com/watch?v=GUpZELktYKQ)
