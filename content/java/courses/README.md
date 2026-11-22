@@ -1,0 +1,44 @@
+# Java Courses
+
+## [Introduction To Java](./introduction-to-java.zip)
+
+- ch1: Welcome to Java
+- ch2: Primitive number data types
+- ch3: Arithmetic operators
+
+## [Intermediate Java](./intermediate-java.zip)
+
+- ch1: What are methods?
+- ch2: if statements
+- ch3: For loops
+- ch4: Building your own methods
+
+## [Introduction to Object-Oriented Programming in Java](./introductiontoobjectorientedprogramminginjava.zip)
+
+- ch1: Welcome
+- ch2: Encapsulation & access modifiers
+- ch3: Interfaces in Java
+
+## [Java I/O and Streams](./input-output-and-streams-in-java.zip)
+
+- ch1: Introduction to Input/Output Operations
+- ch2: Iterators and Streams
+- ch3: Custom Methods, Date/Time and Enums
+
+## [Optimizing Code in Java](./optimizing-code-in-java.zip)
+
+- ch1: Big-O notation: time complexity
+- ch2: Understanding performance bottlenecks
+- ch3: Basic multi-threading principles
+
+## [Introduction To Testing In Java](./introduction-to-testing-in-java.zip)
+
+- ch1: Introduction to testing
+- ch2: Integration testing
+- ch3: Parameterized testing
+
+## [Importing Data in Java](./importing-data-in-java.zip)
+
+- ch1: Introduction to Data Management in Java
+- ch2: Working With `tablesaw` Fundamentals
+- ch3: Advanced Data Processing With `tablesaw`

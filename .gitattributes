@@ -1,0 +1,17 @@
+# Root .gitattributes file
+
+* text=auto eol=lf
+
+# Binary content (never diffed / normalised)
+*.pdf   binary
+*.zip   binary
+*.xz    binary
+*.pptx  binary
+*.pka   binary
+*.png   binary
+*.jpg   binary
+*.webp  binary
+
+# Keep linguist stats about the notes, not the site tooling
+site/**   linguist-vendored
+content/** linguist-documentation=false

@@ -1,0 +1,7 @@
+# Chocolatey is a package manager for Windows that can help you update Python with ease.
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((Invoke-WebRequest -Uri 'https://chocolatey.org/install.ps1' -UseBasicParsing).Content)
+
+# --
+
+choco install python --pre
