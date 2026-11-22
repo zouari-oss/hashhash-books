@@ -1,0 +1,310 @@
+/* =========================================================================
+   HashHashBooks theme - "Minimalism & Swiss" documentation style
+   slate neutrals + maroon accent (from the logo), IBM Plex Sans / JetBrains Mono,
+   Phosphor icons (CSS masks), WCAG AA contrast, visible focus, reduced motion.
+   ========================================================================= */
+
+/* ---------- design tokens ---------- */
+:root {
+  --hh-radius: 10px;
+  --hh-radius-sm: 6px;
+  --hh-ease: 200ms cubic-bezier(0.2, 0, 0, 1);
+  --hh-shadow: 0 1px 2px rgb(15 23 42 / 0.06), 0 1px 1px rgb(15 23 42 / 0.04);
+  --hh-shadow-lift: 0 6px 18px rgb(15 23 42 / 0.1);
+
+  --vp-font-family-base:
+    "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  --vp-font-family-mono:
+    "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    monospace;
+
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-alt: #f8fafc;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-bg-soft: #f1f5f9;
+  --vp-c-text-1: #1e293b;
+  --vp-c-text-2: #475569;
+  --vp-c-text-3: #64748b;
+  --vp-c-divider: #e2e8f0;
+  --vp-c-gutter: #e2e8f0;
+  --vp-c-border: #cbd5e1;
+
+  --vp-c-brand-1: #8c2330; /* links, active states  (8.7:1 on white) */
+  --vp-c-brand-2: #741b27;
+  --vp-c-brand-3: #7a1f2b; /* filled buttons (white text 10:1) */
+  --vp-c-brand-soft: rgb(140 35 48 / 0.09);
+  --hh-accent-peach: #ffd3a0; /* second logo colour, used sparingly */
+
+  --vp-code-block-bg: #f8fafc;
+  --vp-code-line-highlight-color: rgb(140 35 48 / 0.08);
+  --vp-home-hero-name-color: var(--vp-c-brand-1);
+  --vp-home-hero-image-background-image: none;
+  --vp-home-hero-image-filter: none;
+  --vp-button-brand-bg: var(--vp-c-brand-3);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-bg: var(--vp-c-brand-2);
+}
+
+:root.dark {
+  --hh-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  --hh-shadow-lift: 0 8px 22px rgb(0 0 0 / 0.45);
+
+  --vp-c-bg: #0b1120;
+  --vp-c-bg-alt: #0f172a;
+  --vp-c-bg-elv: #111b2e;
+  --vp-c-bg-soft: #1a2438;
+  --vp-c-text-1: #e2e8f0;
+  --vp-c-text-2: #a9b4c6;
+  --vp-c-text-3: #8793a8;
+  --vp-c-divider: #1f2a40;
+  --vp-c-gutter: #0b1120;
+  --vp-c-border: #334155;
+
+  --vp-c-brand-1: #f29aa3; /* 8.9:1 on --vp-c-bg */
+  --vp-c-brand-2: #ee7c88;
+  --vp-c-brand-3: #a63446;
+  --vp-c-brand-soft: rgb(242 154 163 / 0.13);
+
+  --vp-code-block-bg: #0f172a;
+  --vp-code-line-highlight-color: rgb(242 154 163 / 0.1);
+}
+
+html {
+  scroll-padding-top: calc(var(--vp-nav-height) + 16px);
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- icons (Phosphor, see .generated/icons.css) ---------- */
+.i {
+  display: inline-block;
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.2em;
+  background-color: currentColor;
+  -webkit-mask: var(--i) center / contain no-repeat;
+  mask: var(--i) center / contain no-repeat;
+}
+
+/* ---------- accessibility ---------- */
+:where(a, button, input, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- sidebar ---------- */
+.VPSidebar {
+  border-right: 1px solid var(--vp-c-divider);
+  scrollbar-width: thin;
+  scrollbar-color: var(--vp-c-border) transparent;
+}
+.VPSidebar ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.VPSidebarItem .text {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  line-height: 1.45;
+}
+.VPSidebarItem .text .i {
+  translate: 0 0.12em;
+  opacity: 0.7;
+}
+.VPSidebarItem.level-0 > .item > .link > .text,
+.VPSidebarItem.level-0 > .item > .text {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.VPSidebarItem.is-active > .item .link > .text {
+  color: var(--vp-c-brand-1);
+}
+.VPSidebarItem.is-active > .item .link > .text .i {
+  opacity: 1;
+}
+.VPSidebarItem.level-1 .link,
+.VPSidebarItem.level-2 .link {
+  transition: background-color var(--hh-ease);
+  border-radius: var(--hh-radius-sm);
+}
+.VPSidebarItem .link:hover {
+  background-color: var(--vp-c-bg-soft);
+}
+@media (pointer: coarse) {
+  .VPSidebarItem .link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* ---------- nav ---------- */
+.VPNav .VPNavBar:not(.home.top) {
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+.VPNavBarTitle .title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- document content ---------- */
+.vp-doc h1 {
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.vp-doc h2 {
+  letter-spacing: -0.01em;
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 28px;
+}
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 {
+  text-wrap: balance;
+}
+.vp-doc p,
+.vp-doc li {
+  line-height: 1.7;
+}
+.vp-doc a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.vp-doc a:hover {
+  text-decoration-thickness: 2px;
+}
+.vp-doc img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--hh-radius);
+  border: 1px solid var(--vp-c-divider);
+}
+.vp-doc table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: var(--hh-radius-sm);
+}
+.vp-doc th {
+  background: var(--vp-c-bg-soft);
+  font-weight: 600;
+}
+.vp-doc td .i,
+.vp-doc li > .i {
+  margin-right: 0.35em;
+  color: var(--vp-c-text-3);
+}
+.vp-doc td a {
+  word-break: break-word;
+}
+.vp-doc td:not(:first-child),
+.vp-doc th:not(:first-child) {
+  white-space: nowrap;
+}
+.vp-doc td .dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.vp-doc :not(pre) > code {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 5px;
+  font-size: 0.875em;
+}
+.vp-doc div[class*="language-"] {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--hh-radius);
+  box-shadow: var(--hh-shadow);
+}
+.vp-doc blockquote {
+  border-left: 3px solid var(--vp-c-brand-1);
+  border-radius: 0 var(--hh-radius-sm) var(--hh-radius-sm) 0;
+  background: var(--vp-c-bg-soft);
+}
+.vp-doc kbd {
+  border: 1px solid var(--vp-c-border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0 6px;
+  font-size: 0.85em;
+  background: var(--vp-c-bg-alt);
+}
+.vp-doc ul > li > .i:first-child {
+  translate: 0 0.05em;
+}
+.vp-doc small {
+  color: var(--vp-c-text-3);
+}
+
+/* ---------- mermaid ---------- */
+.mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 16px;
+  overflow-x: auto;
+  background: var(--vp-c-bg-alt);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--hh-radius);
+}
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+.mermaid-error {
+  color: var(--vp-c-danger-1);
+  white-space: pre-wrap;
+  font: 13px var(--vp-font-family-mono);
+}
+
+/* ---------- home hero ---------- */
+.VPHero .name {
+  letter-spacing: -0.03em;
+}
+.VPHero .text {
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.VPHero .tagline {
+  max-width: 560px;
+  color: var(--vp-c-text-2);
+}
+.VPHero .VPImage {
+  max-height: 200px;
+  width: auto;
+  object-fit: contain;
+}
+.VPButton {
+  transition:
+    background-color var(--hh-ease),
+    border-color var(--hh-ease),
+    color var(--hh-ease);
+}
+.VPButton.alt {
+  border-color: var(--vp-c-border);
+}
+
+/* PDF pages use the full content width */
+.VPDoc.has-aside .content-container:has(.pdf-viewer) {
+  max-width: 1100px;
+}
+
+/* ---------- footer ---------- */
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider);
+}
