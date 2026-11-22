@@ -3,7 +3,7 @@
   "description": "A curated collection of programming books and notes",
   "repo": "zouari-oss/hashhash-books",
   "branch": "main",
-  "base": "/hashhash-books/",
+  "base": "/",
   "contentDir": "../content",
   "topics": {
     "ai": "Artificial Intelligence",

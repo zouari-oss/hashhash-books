@@ -9,7 +9,7 @@
  *   *.md                 -> rendered page (links rewritten, Vue-unsafe text escaped)
  *   images               -> copied next to the pages that use them
  *   *.pdf                -> one preview page each (PDF.js viewer streaming the file from GitHub)
- *   zip/pptx/...         -> NOT copied (GitHub Pages is limited to 1 GB);
+ *   zip/pptx/...         -> NOT copied (the hosting size is limited);
  *                           listed in the sidebar + folder pages, linked to GitHub
  *   every folder         -> gets an index page (its README.md/index.md if present)
  *   sidebar.json         -> generated navigation tree

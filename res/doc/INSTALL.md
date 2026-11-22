@@ -21,7 +21,7 @@
 - Node.js and npm (to build or run the website)
 
 Only needed to read the content: Git, or a browser with the
-[website](https://zouari-oss.github.io/hashhash-books/).
+[website](https://hashhash-books.vercel.app/).
 
 ## Clone the Repository
 
@@ -43,7 +43,7 @@ and overrides [`site/site.config.json`](../../site/site.config.json):
 
 | Variable      | Purpose                                                          |
 | ------------- | ---------------------------------------------------------------- |
-| `SITE_BASE`   | Public URL prefix (`/hashhash-books/` for GitHub project pages)  |
+| `SITE_BASE`   | Public URL prefix (`/` on Vercel, `/<repo>/` for GitHub project pages)  |
 | `SITE_REPO`   | GitHub repository files are linked from                          |
 | `SITE_BRANCH` | Branch files are linked from                                     |
 
@@ -68,7 +68,7 @@ make build
 make dev
 ```
 
-The site is served at <http://localhost:5173/hashhash-books/> with hot reload. Use `make preview`
+The site is served at <http://localhost:5173/> with hot reload. Use `make preview`
 to serve the production build.
 
 ## Verify Installation

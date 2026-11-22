@@ -17,7 +17,7 @@
 ## Overview
 
 HashHashBooks is a content repository with a static website generator on top. Contributors only
-add files under `content/`; the generator discovers them and publishes a site to GitHub Pages.
+add files under `content/`; the generator discovers them and publishes a site to Vercel.
 
 ```mermaid
 flowchart TD
@@ -25,7 +25,7 @@ flowchart TD
     B --> C[Generated sources and sidebar]
     C --> D[check-pages.mjs]
     D --> E[VitePress build]
-    E --> F[GitHub Pages]
+    E --> F[Vercel]
 ```
 
 ## Repository Structure
@@ -64,7 +64,7 @@ collection grows.
 | Generate       | `scripts/build-content.mjs`  | Scan `content/`, create pages, topic cards, sidebar  |
 | Check          | `scripts/check-pages.mjs`    | Fail the build if a page would not compile           |
 | Build          | VitePress                    | Produce the static site in `site/dist`               |
-| Deploy         | `deploy-site.yml` workflow   | Publish to GitHub Pages on push to `main`            |
+| Deploy         | Vercel (`vercel.json`)       | Build and publish on every push to `main`            |
 
 ## Content Types
 
@@ -76,7 +76,7 @@ collection grows.
 | `zip`, `pptx`, ...           | Listed in the sidebar and folder pages, linked to GitHub   |
 | new folder                   | New topic (home card + sidebar), no configuration required |
 
-> Binaries are linked, not copied into the site, because GitHub Pages is limited to 1 GB and
+> Binaries are linked, not copied into the site, because hosting size is limited and
 > this repo holds ~1.5 GB of PDFs/zips.
 
 ## Technology Stack
@@ -84,8 +84,8 @@ collection grows.
 - **Content:** Markdown, PDF, images
 - **Site generator:** VitePress (Node.js)
 - **Automation:** GNU Make, Node.js scripts
-- **CI/CD:** GitHub Actions
-- **Hosting:** GitHub Pages
+- **CI/CD:** Vercel (deploy), GitHub Actions (lint)
+- **Hosting:** Vercel
 
 ## Design Principles
 

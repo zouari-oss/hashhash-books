@@ -16,7 +16,7 @@
 ## Browsing the Collection
 
 Every file under [`content/`](../../content) is published automatically to
-**<https://zouari-oss.github.io/hashhash-books/>**, with a sidebar and full-text search.
+**<https://hashhash-books.vercel.app/>**, with a sidebar and full-text search.
 See [ARCHITECTURE.md](ARCHITECTURE.md) for how each file type is rendered.
 
 ## Categories
@@ -31,8 +31,8 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for how each file type is rendered.
 
 ## Adding Content
 
-Drop your files anywhere under `content/<topic>/`, commit and push to `main`. The
-`Deploy website` workflow rebuilds the site; nothing else needs editing.
+Drop your files anywhere under `content/<topic>/`, commit and push to `main`.
+Vercel rebuilds and redeploys the site; nothing else needs editing.
 
 To start a new topic:
 

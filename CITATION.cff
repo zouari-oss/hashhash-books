@@ -8,7 +8,7 @@ authors:
     given-names: "Omar"
 
 repository-code: "https://github.com/zouari-oss/hashhash-books"
-url: "https://zouari-oss.github.io/hashhash-books/"
+url: "https://hashhash-books.vercel.app/"
 
 abstract: >
   HashHashBooks is a curated collection of programming books, guides and notes

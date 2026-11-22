@@ -14,7 +14,7 @@ PROJECT_NAME := hashhash-books## Project name
 CONTENT_DIR  := content## Guides, books and notes (one folder per topic)
 SITE_DIR     := site## Website generator (VitePress)
 BROWSER_NAME := firefox## Browser name
-SITE_URL     := http://localhost:5173/hashhash-books/## Local dev server url
+SITE_URL     := http://localhost:5173/## Local dev server url
 
 # --- Commands ---
 SITE_CMD := cd $(SITE_DIR) && npm run --silent## Website base cmd

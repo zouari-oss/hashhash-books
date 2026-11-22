@@ -81,7 +81,7 @@ make
 
 ## Website
 
-Browse everything at **<https://zouari-oss.github.io/hashhash-books/>**.
+Browse everything at **<https://hashhash-books.vercel.app/>**.
 
 ## Emailware
 
