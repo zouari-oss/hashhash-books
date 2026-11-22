@@ -7,6 +7,7 @@ include res/mk/colors.mk     \
         res/mk/settings.mk   \
         res/mk/logging.mk    \
         res/mk/versioning.mk \
+        res/mk/vercel.mk     \
         res/mk/help.mk
 
 # --- Configuration ---
@@ -15,6 +16,9 @@ CONTENT_DIR  := content## Guides, books and notes (one folder per topic)
 SITE_DIR     := site## Website generator (VitePress)
 BROWSER_NAME := firefox## Browser name
 SITE_URL     := http://localhost:5173/## Local dev server url
+VERCEL_ROOT    := site## Vercel Root Directory (the generator reads ../content)
+VERCEL_NODE    := 24.x## Vercel Node.js version
+VERCEL_ENVFILE := site/.env## Variables pushed to Vercel
 
 # --- Commands ---
 SITE_CMD := cd $(SITE_DIR) && npm run --silent## Website base cmd

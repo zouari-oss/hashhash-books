@@ -1,7 +1,5 @@
 # Support
 
-## Table of Contents
-
 <!--toc:start-->
 
 - [Support](#support)

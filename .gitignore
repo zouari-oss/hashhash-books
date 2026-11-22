@@ -22,3 +22,7 @@ site/dist/
 *~
 site/.env
 .env
+
+# Vercel
+.vercel
+.env*

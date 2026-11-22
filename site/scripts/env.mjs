@@ -19,18 +19,21 @@ const bool = (v, d) =>
   v === undefined || v === "" ? d : !/^(0|false|no|off)$/i.test(v);
 const e = process.env;
 
+// "/x" -> "/x/", "x" -> "/x/", "" -> "/"
+const normalizeBase = (b) => `/${String(b).trim().replace(/^\/+|\/+$/g, "")}/`.replace(/^\/\/$/, "/");
+
 export function loadConfig() {
   const cfg = JSON.parse(
     fs.readFileSync(path.join(siteRoot, "site.config.json"), "utf8"),
   );
   return {
     ...cfg,
-    title: e.SITE_TITLE ?? cfg.title,
-    description: e.SITE_DESCRIPTION ?? cfg.description,
-    repo: e.SITE_REPO ?? cfg.repo,
-    branch: e.SITE_BRANCH ?? cfg.branch,
-    base: e.SITE_BASE ?? cfg.base,
-    contentDir: e.CONTENT_DIR ?? cfg.contentDir,
+    title: e.SITE_TITLE || cfg.title,
+    description: e.SITE_DESCRIPTION || cfg.description,
+    repo: e.SITE_REPO || cfg.repo,
+    branch: e.SITE_BRANCH || cfg.branch,
+    base: normalizeBase(e.SITE_BASE || cfg.base),
+    contentDir: e.CONTENT_DIR || cfg.contentDir,
     // false -> PDFs are only listed/linked (no preview page each): smaller & faster build
     pdfPreview: bool(e.PDF_PREVIEW, cfg.pdfPreview ?? true),
     // host serving the raw files to the PDF viewer (must send CORS headers)

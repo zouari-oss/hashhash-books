@@ -1,7 +1,5 @@
 # Architecture
 
-## Table of Contents
-
 <!--toc:start-->
 
 - [Architecture](#architecture)
@@ -58,13 +56,13 @@ collection grows.
 
 ## Build Pipeline
 
-| Step           | Script / Tool                | Purpose                                              |
-| -------------- | ---------------------------- | ---------------------------------------------------- |
-| Lint           | `scripts/lint-content.mjs`   | Enforce naming and folder conventions                |
-| Generate       | `scripts/build-content.mjs`  | Scan `content/`, create pages, topic cards, sidebar  |
-| Check          | `scripts/check-pages.mjs`    | Fail the build if a page would not compile           |
-| Build          | VitePress                    | Produce the static site in `site/dist`               |
-| Deploy         | Vercel (`vercel.json`)       | Build and publish on every push to `main`            |
+| Step     | Script / Tool               | Purpose                                             |
+| -------- | --------------------------- | --------------------------------------------------- |
+| Lint     | `scripts/lint-content.mjs`  | Enforce naming and folder conventions               |
+| Generate | `scripts/build-content.mjs` | Scan `content/`, create pages, topic cards, sidebar |
+| Check    | `scripts/check-pages.mjs`   | Fail the build if a page would not compile          |
+| Build    | VitePress                   | Produce the static site in `site/dist`              |
+| Deploy   | Vercel (`site/vercel.json`) | Build and publish on every push to `main`           |
 
 ## Content Types
 

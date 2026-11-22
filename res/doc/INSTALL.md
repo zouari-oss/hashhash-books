@@ -1,7 +1,5 @@
 # Installation
 
-## Table of Contents
-
 <!--toc:start-->
 
 - [Installation](#installation)
@@ -41,11 +39,11 @@ curl -O "https://raw.githubusercontent.com/zouari-oss/hashhash-books/main/conten
 `make install` copies `site/.env.example` to `site/.env` when missing. Every variable is optional
 and overrides [`site/site.config.json`](../../site/site.config.json):
 
-| Variable      | Purpose                                                          |
-| ------------- | ---------------------------------------------------------------- |
-| `SITE_BASE`   | Public URL prefix (`/` on Vercel, `/<repo>/` for GitHub project pages)  |
-| `SITE_REPO`   | GitHub repository files are linked from                          |
-| `SITE_BRANCH` | Branch files are linked from                                     |
+| Variable      | Purpose                                                                |
+| ------------- | ---------------------------------------------------------------------- |
+| `SITE_BASE`   | Public URL prefix (`/` on Vercel, `/<repo>/` for GitHub project pages) |
+| `SITE_REPO`   | GitHub repository files are linked from                                |
+| `SITE_BRANCH` | Branch files are linked from                                           |
 
 ## Build
 
