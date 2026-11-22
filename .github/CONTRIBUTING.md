@@ -12,6 +12,7 @@
       - [Before Submitting an Enhancement](#before-submitting-an-enhancement)
       - [How Do I Submit a Good Enhancement Suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
     - [Your First Code Contribution](#your-first-code-contribution)
+    - [Adding Content](#adding-content)
     - [Improving The Documentation](#improving-the-documentation)
   - [Styleguides](#styleguides)
     - [Commit Messages](#commit-messages)
@@ -32,7 +33,7 @@ All types of contributions are encouraged and valued. Please make sure to read t
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[hashhash-books Code of Conduct](https://gitlab.com/zouari-oss/hashhash-books/blob//CODE_OF_CONDUCT.md).
+[hashhash-books Code of Conduct](https://gitlab.com/zouari-oss/hashhash-books/blob/main/.github/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to .
 
@@ -131,6 +132,23 @@ Enhancement suggestions are tracked as [GitHub issues](https://gitlab.com/zouari
 include Setup of env, IDE and typical getting started instructions?
 
 -->
+
+### Adding Content
+
+Everything lives under `content/<topic>/`; the website is generated from it on every push to `main`.
+
+| You add | Put it in | Name it |
+| --- | --- | --- |
+| a guide / article (`.md`) | `content/<topic>/guides/` | `my-guide.md` |
+| a book or paper (`.pdf`) | `content/<topic>/books/` | `my-book.pdf` |
+| a cheat sheet | `content/<topic>/cheatsheets/` | `git-cheatsheet.pdf` |
+| slides | `content/<topic>/slides/` | `intro.pptx` |
+| images used by a guide | `content/<topic>/assets/` | `diagram.png` |
+| quick notes / useful links / glossary | `content/<topic>/` | `notes.md` `links.md` `terms.md` |
+| a new topic | `make new-topic-<name>` | lowercase kebab-case |
+
+Names are lowercase kebab-case (`my-guide.pdf`, never `My Guide.PDF`). Run `make lint` to check, and
+`make dev` to preview the website. Notes written in Obsidian work as they are (`![[image]]`, `==highlight==`, callouts); `make fix` converts them to standard Markdown so they also render on GitHub. Diagrams: use fenced ```` ```mermaid ```` blocks.
 
 ### Improving The Documentation
 

@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: "HashHashBooks"
+message: "If you use this project, please cite it using the metadata below."
+type: dataset
+
+authors:
+  - family-names: "Zouari"
+    given-names: "Omar"
+
+repository-code: "https://github.com/zouari-oss/hashhash-books"
+url: "https://zouari-oss.github.io/hashhash-books/"
+
+abstract: >
+  HashHashBooks is a curated collection of programming books, guides and notes
+  (C/C++, Java, Python, web, DevOps, cloud, cyber security, AI, algorithms, ...).
+  Every Markdown guide and linked book is published as a searchable website.
+
+keywords:
+  - programming
+  - books
+  - notes
+  - guides
+  - documentation
+  - computer science
+
+license: GPL-3.0-or-later
+version: "1.1.0"
+date-released: 2026-06-05
