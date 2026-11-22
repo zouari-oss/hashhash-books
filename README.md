@@ -3,7 +3,9 @@
 [![Stargazers](https://img.shields.io/badge/STARS-04-blue?style=plastic)](https://github.com/zouari-oss/hashhash-books/stargazers)
 [![Issues](https://img.shields.io/badge/ISSUES-00-blue?style=plastic)](https://github.com/zouari-oss/hashhash-books/issues)
 [![GPL3.0 License](https://img.shields.io/badge/LICENSE-GPL3.0-blue?style=plastic)](LICENSE)
-[![Linkedin](https://img.shields.io/badge/Linkedin-7.1k-blue?style=plastic)](https://www.linkedin.com/in/zouari-omar)
+[![Linkedin](https://img.shields.io/badge/Linkedin-7.2k-blue?style=plastic)](https://www.linkedin.com/in/zouari-omar)
+[![Dependabot Updates](https://github.com/zouari-oss/hashhash-books/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/zouari-oss/hashhash-books/actions/workflows/dependabot/dependabot-updates)
+[![Lint content](https://github.com/zouari-oss/hashhash-books/actions/workflows/lint-content.yml/badge.svg)](https://github.com/zouari-oss/hashhash-books/actions/workflows/lint-content.yml)
 
 <div align="center">
 
@@ -24,7 +26,7 @@
 
 ![Open Source](https://img.shields.io/badge/open_source-yes-brightgreen?style=for-the-badge&logo=opensourceinitiative&logoColor=white)
 ![Status](https://img.shields.io/badge/status-active-success?style=for-the-badge&logo=statuspage&logoColor=white)
-![Version](https://img.shields.io/badge/version-1.1.0-orange?style=for-the-badge&logo=semver&logoColor=white)
+![Version](https://img.shields.io/badge/version-1.2.0-orange?style=for-the-badge&logo=semver&logoColor=white)
 ![License](https://img.shields.io/badge/license-GPL3.0-green?style=for-the-badge&logo=open-source-initiative&logoColor=white)
 
 </div>
@@ -62,12 +64,12 @@ Every file is published automatically as a searchable website.
 
 ## Documentation
 
-| Document                                   | Description                                                       |
-| ------------------------------------------ | ----------------------------------------------------------------- |
-| [USAGE.md](res/doc/USAGE.md)               | Categories, adding content, and Makefile commands.                |
-| [ARCHITECTURE.md](res/doc/ARCHITECTURE.md) | Repository structure and website build pipeline.                  |
-| [INSTALL.md](res/doc/INSTALL.md)           | Installation and local setup instructions.                        |
-| [SUPPORT.md](res/doc/SUPPORT.md)           | Support resources and guidance for getting help.                  |
+| Document                                   | Description                                        |
+| ------------------------------------------ | -------------------------------------------------- |
+| [USAGE.md](res/doc/USAGE.md)               | Categories, adding content, and Makefile commands. |
+| [ARCHITECTURE.md](res/doc/ARCHITECTURE.md) | Repository structure and website build pipeline.   |
+| [INSTALL.md](res/doc/INSTALL.md)           | Installation and local setup instructions.         |
+| [SUPPORT.md](res/doc/SUPPORT.md)           | Support resources and guidance for getting help.   |
 
 ## Quick Start
 

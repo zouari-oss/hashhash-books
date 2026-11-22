@@ -11,11 +11,11 @@ include res/mk/colors.mk     \
         res/mk/help.mk
 
 # --- Configuration ---
-PROJECT_NAME := hashhash-books## Project name
-CONTENT_DIR  := content## Guides, books and notes (one folder per topic)
-SITE_DIR     := site## Website generator (VitePress)
-BROWSER_NAME := firefox## Browser name
-SITE_URL     := http://localhost:5173/## Local dev server url
+PROJECT_NAME   := hashhash-books## Project name
+CONTENT_DIR    := content## Guides, books and notes (one folder per topic)
+SITE_DIR       := site## Website generator (VitePress)
+BROWSER_NAME   := firefox## Browser name
+SITE_URL       := http://localhost:5173/## Local dev server url
 VERCEL_ROOT    := site## Vercel Root Directory (the generator reads ../content)
 VERCEL_NODE    := 24.x## Vercel Node.js version
 VERCEL_ENVFILE := site/.env## Variables pushed to Vercel

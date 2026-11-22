@@ -1,215 +1,430 @@
-## [1.1.0] - 2026-06-05
+# HashHashBooks Changelog
+
+<!--toc:start-->
+
+- [HashHashBooks Changelog](#hashhashbooks-changelog)
+  - [1.2.0 - 2026-11-22](#1.2.0---2026-11-22)
+    - [Features](#features)
+    - [Other](#other)
+    - [Refactor](#refactor)
+    - [Documentation](#documentation)
+    - [Miscellaneous Tasks](#miscellaneous-tasks)
+  - [1.1.0 - 2026-06-05](#1.1.0---2026-06-05)
+    - [Features](#features-1)
+    - [Refactor](#refactor-1)
+    - [Documentation](#documentation-1)
+    - [Styling](#styling)
+  - [1.0.0 - 2025-07-22](#1.0.0---2025-07-22)
+    - [Features](#features-2)
+
+<!--toc:end-->
+
+## 1.2.0 - 2026-11-22
 
 ### Features
 
-- *(JS)* ➕ Add 'NodeJsTipsAndTricks.pdf' To 'JS'
-- *(Java)* ➕ Add 'Object Class in Java.pdf' To 'Java'
-- *(CyberSecurity)* ➕ Add 'Hydra.md' to 'CyberSecurity'
-- *(Windows)* ➕ Add 'Windows Network Troubleshooting.pdf' to 'Windows'
-- *(C++)* ➕ Add 'Java vs C-C++.pdf' To 'C++'
-- *(Vim)* ➕ Add 'Vim.pdf' To 'Vim'
-- *(C)* ➕ Add 'why does order in struct change the size in c?.pdf' To 'C'
-- *(Java)* ➕ Add 'Multi-Threading in Java.pdf' To 'Java'
-- *(AI)* ➕ Add 'ML Cheat Sheet.pdf' To 'AI'
-- *(C++)* ➕ Add 'Modern C++ Handbooks.pdf' To 'C++'
-- *(Java)* ➕ Add '@Entity V_S @Data.pdf' To 'Java'
-- *(Java)* ➕ Add 'JDBC.pdf' To 'Java'
-- *(Java)* ➕ Add 'Spring Boot.pdf' To 'Java'
-- *(DevOps)* ➕ Add `WHAT IS NGINX UPSTREAM?.pdf` To `DevOps`
-- *(Java)* ➕ Add `Avoid NullPointerExceptions with Optional .pdf` To `Java`
-- *(cybersecurity)* ➕ Add `Network Security Notes.pdf` to `cybersecurity`
-- *(Linux)* ➕ Add `Release-Notes for Debian 13 (trixie) - release-notes.en.pdf` To `Linux`
-- *(webDev)* ➕ Add 'rest-overview.md' To 'webDev'
-- *(Java)* ➕ Add `Spring MVC vs Spring Boot.pdf` To `Java`
-- *(Java)* ➕ Add `Java Tokens.pdf` To `Java`
-- *(linux)* ➕ Add `Introduction to systemd Basics.pdf` To `linux`
-- *(Java)* ➕ Add `ANDROID_CLI_SETUP_AND_PROJECT_CREATION.md` To `Java`
-- *(cxx)* ➕ Add `cx-cxx-program-compilation.pdf` To `cxx`
-- *(linux)* ➕ Add `linux_library_guide_so_vs_a.md` To `linux`
-- *(java)* ➕ Add `java-sealed-classes.pdf` To `java`
-- *(sql)* ➕ Add `orm-vs-sql-guide.md` To `sql`
-- *(java)* ➕ Add `java-static-block-vs-constructor.md` To `java`
-- *(sql)* ➕ Add `sqlite-in-python.pdf` To `sql`
-- *(java)* ➕ Add `java-persistence.pdf` To `java`
-- *(linux)* ➕ Add `linux-server-fundamentals.pdf` To `linux`
-- *(testing)* ➕ Add `what-is-postman.pdf` To `testing`
-- *(bi)* ➕ Add `The-17-Most-Common-Graph-Types.pdf` To `bi`
-- *(sql)* ➕ Add `database_beginner_guide.pdf` To `sql`
-- *(ai)* ➕ Add `Transformers-&-Large-Language-Models-Cheatsheet.pdf` To `ai`
-- *(java)* ➕ Add `java-exception-handling-cheatsheet.jpg` To `java`
-- *(java)* ➕ Add `java-string-pool.pdf` To `java`
-- *(java)* ➕ Add `java-oop-notes.pdf` To `java`
-- *(java)* ➕ Add `Java Garbage Collection: The Hidden Hero Behind Your Apps.pdf` To `java`
-- *(java)* ➕ Add `Abstraction in Java.pdf` To `java`
-- *(java)* ➕ Add `Functional Interface In Java.pdf` To `java`
-- *(devops)* ➕ Add `DevOps Commands Cheat Sheet.pdf` To `devops`
-- *(git)* ➕ Add `github-markdown-guide.md` To `git`
-- *(linux)* ➕ Add `understanding-path-export-and-child-processes.md` To `linux`
-- *(java)* ➕ Add `MAVEN.pdf` To `java`
-- *(java)* ➕ Add `java-25-highlights.pdf` To `java`
-- *(dsa)* ➕ Add `design-patterns-cheatsheet.jpg` To `dsa`
-- *(java)* ➕ Add `Java Access Modifiers.pdf` To `java`
-- *(windows)* ➕ Add `The Art of Operating System.pdf` To `windows`
-- *(java)* ➕ Add `Reference-Type-vs-Object-Type.md` To `java`
-- *(network)* ➕ Add `private_vs_public_ip_ipv4_ipv6_guide.md` To `network`
-- *(java)* ➕ Add `Record in Java 17.pdf` To `java`
-- *(network)* ➕ Add `dhcp_basic_operations.md` To `network`
-- *(general)* ➕ Add `Grow-in-series-Clean-Code.pdf` To `general`
-- *(general)* ➕ Add `professional-sow-guide.md` To `general`
-- *(uml)* ✨ Add `uml` section
-- *(devops)* ➕ Add `DevOps-Networking-Guide.pdf` To `devops`
-- *(linux)* ➕ Add `linux-path-cheatsheet.png` To `linux`
-- *(java)* ➕ Add `Concurrency in Java.pdf` To `java`
-- *(ai)* ➕ Add `Statistical Methods for Machine Learning.pdf` To `ai`
-- *(java)* ➕ Add `JAVA-25-LTS-RELEASE-FEATURES.pdf` To `java`
-- *(cybersecurity)* ➕ Add `Wireshark.pdf` To `cybersecurity`
-- *(java)* ➕ Add `Clean-Code-in-Java.pdf` To `java`
-- *(php)* ➕ Add `symfony-cheat-sheet.pdf` To `php`
-- *(java)* ➕ Add `Java-File-Handling.pdf` To `java`
-- *(java)* ➕ Add `Java-OutOfMemoryError.pdf` To `java`
-- *(git)* ➕ Add `intermediate-git.zip` To `git`
-- *(git)* ➕ Add `introduction-to-github-concepts.zip` To `git`
-- *(git)* ➕ Add `Introduction to GitHub Products: A Complete Guide.pdf` To `git`
-- *(java)* ➕ Add `literals-in-java.pdf` To `java`
-- *(java)* ➕ Add `Strings-in-Java-Deep-Dive.pdf` To `java`
-- *(java)* ➕ Add `java-interview-q&a.pdf` To `java`
-- *(java)* ➕ Add `Exception Handling in Java - A Developer’s Lifesaver!.pdf` To `java`
-- *(java)* ➕ Add `Static vs Instance in Java: The Real Difference Explained.pdf` To `java`
-- *(git)* ➕ Add `branch-naming_conventions.md` To `git`
-- *(cybersecurity)* ➕ Add `FREE-TryHackMe-Labs-Collection.pdf` To `cybersecurity`
-- *(cxx)* ➕ Add `CXX-Systems-Programming-on-Linux.pdf` To `cxx`
-- *(java)* ➕ Add `Mastering Java Streams API: Top Interview Programming Questions & Answers.pdf` To `java`
-- *(dsa)* ➕ Add `DSA-ALGORITHMS.pdf` To `dsa`
-- *(java)* ➕ Add `transient-keyword-in-java.md` To `java`
-- *(linux)* ➕ Add `LINUX-FOR-NETWORK-ENGINEER.pdf` To `linux`
-- *(ai)* ➕ Add `ai-agents-cheat-sheet.pdf` To `ai`
-- *(git)* ➕ Add `intermediate-github-concepts.zip` To `git`
-- *(java)* ➕ Add `Lombok-Magic-Explained-Cleaner-Code-Fewer-Lines-Maximum-Readability.pdf` To `java`
-- *(linux)* ➕ Add `NFS-in-linux.md` To `linux`
-- *(java)* ➕ Add `Understand_Spring_Boot_Logging.pdf` To `java`
-- *(java)* ➕ Add `MapStruct-in-Java.pdf` To `java`
-- *(network)* ➕ Add `how-auto-vpn-works.pdf` To `network`
-- *(java)* ➕ Add `OOP-in-java.pdf` To `java`
-- *(java)* ➕ Add `java-streams.pdf` To `java`
-- *(network)* ➕ Add `NAT-address-types.md` To `network`
-- *(network)* ➕ Add `Static-NAT-vs-Dynamic-NAT-vs-PAT.md` To `network`
-- *(cxx)* ➕ Add `cpp-allocators.pdf` To `cxx`
-- *(linux)* ➕ Add `How-to-Create-an-NFS-Server-in-GNS3.md` To `linux`
-- *(js)* ➕ Add `angular` To `js`
-- *(ai)* ➕ Add `doc/*` To `ai`
-- *(php)* ➕ Add `PHP with MySQL: Build 5 PHP and MySQL Projects (not complete).zip` To `php`
-- *(devops)* ➕ Add `prometheus+grafana-guide.pdf` To `devops`
-- *(ai)* ➕ Add `introduction-to-ai-agents.zip` To `ai`
-- *(js)* ➕ Add `learn-angular.pdf` To `js/angular`
-- *(linux)* ➕ Add `linux-mastery-for-cpp-developers.pdf` To `linux`
-- *(java)* ➕ Add `java-for-ai-era.pdf` To `java`
-- *(java)* ➕ Add `Deploying-Java-Application-using-GitLab-Pipeline-Project-with-Maven-SonarQube-Docker.pdf` To `java`
-- *(java)* ➕ Add `reAct-framework.md` To `ai`
-- *(dart)* ✨ Add `dart` section
-- *(finance)* ✨ Add `finance` section
-- *(java)* ➕ Add `Java-Functional-Interfaces-java-functional-interfaces.md` To `java`
-- *(java)* ➕ Add `Serialization-and-Deserialization-in-java.pdf` To `java`
-- *(java)* ➕ Add `Future-vs-CompletableFuture-in-java.pdf` To `java`
-- *(linux)* ➕ Add `GRUB-Passwords-Encrypted-Disks-and-Recovery.md` To `linux`
-- *(java)* ➕ Add `java-io-vs-java-nio-vs-java-nio2.pdf` To `java`
-- *(linux)* ➕ Add `Mounting-an-ova-File-on-a-Linux-Machine.md` To `linux`
-- *(dsa)* ➕ Add `Data-Structures-&-Algorithms-Cheat-Sheet.pdf` To `dsa`
-- *(java)* ➕ Add `11-Essential-Rules-of-java-interfaces.pdf` To `java`
-- *(java)* ➕ Add `Apache-Maven-A-Beginner‑Friendly-Practical-Guide-(java).pdf` To `java`
-- *(ai)* ➕ Add `Get-Started-with-Hugging-Face-Transformers.pdf` To `ai`
-- *(ai)* ➕ Add `Fundamentals-of-Deep-Learning-Nvidia-Course.zip` To `ai`
-- *(java)* ➕ Add `java-arrays-cheatsheet.jpg` To `java`
-- *(git)* Add `Git-Ultimate-Cheatsheet.pdf` To `git`
-- *(java)* Add `cleaning-data-in-java.zip` To `java`
-- *(java)* Add `importing-data-in-java.zip` To `java`
-- *(java)* Add `Redis-Caching-Integration-in-Spring-Boot.pdf` To `java`
-- *(java)* Add `What-are-Test-Unit-Test-and-JUnit.pdf` To `java`
-- *(general)* Add `Jira-Tool-Project-&-Issue-Management.pdf` To `general`
-- *(dsa)* Add `Complete-DSA-Pattern-Guide-with-Complexity.pdf` To `dsa`
-- *(ai)* Add `K-Nearest-Neighbors-(KNN)-Cheat-Sheet.pdf` To `ai`
-- *(java)* Add `Memory-Management-in-Java.pdf` To `java`
-- *(mathematics)* Add `Probability-Ultimate-Cheatsheet.pdf` To `mathematics`
-- *(dsa)* Add `Top-50-DSA-Interview-Questions-with-Java-Solutions.pdf` To `dsa`
-- *(ai)* Add `what-is-llm.pdf` To `ai`
-- *(uml)* Add `Diagrammes-de-classes.pdf` To `uml`
-- *(uml)* Add `UML-Diagramme-de-classes-de-conception.pdf` To `uml`
-- *(sql)* Add `The-Data-Pipeline-in-Sql.pdf` To `sql`
-- *(java)* Add `Pattern-Matching-in-Java.pdf` To `java`
-- *(network)* Add `CCNA-Networking-Notes-Practical-Cheatsheet.pdf` To `network`
-- *(ai)* Add `intro-to-ai.zip` To `ai`
-- *(ai)* Add `introduction-to-hugging-face.zip` To `ai`
-- *(git)* Add `introduction-to-git.zip` To `git`
-- *(python)* Add `introduction-to-python.zip` To `python`
-- *(sql)* Add `introduction-to-sql.zip` To `sql`
-- *(general)* Add `hedera.zip` To `general`
-- *(html)* Add `html-css-js-certification-course-for-beginners.zip` To `html`
-- *(html)* Add `3 pdf's` To `html`
-- *(java)* Add `java-var.pdf` To `java`
-- *(java)* Add `java-fx/`, `jee/` and `spring/` sections To `java`
-- *(js)* Add `next-js/` section To `js`
-- *(python)* Add `fast-api/` section To `python`
-- *(java)* Add `rest-api-java.pdf` To `java`
-- *(linux)* Add `linux-basics-and-system-startup.md` To `linux`
-- *(js)* Update `next-js` section
-- *(python)* Update `fast-api/` section
-- *(ai)* Add `computer-vision-ultimate-cheatsheet.pdf` To `ai`
-- *(sql)* Add `postgresql/` section To `sql`
-- *(ai)* Add `naive-bayes-regression-&-classification-cheatsheet.pdf` To `ai`
-- *(network)* Add `Network-Security-Firewall-VPN-IDS-IPS-SIEM.pdf` To `network`
-- *(ai)* Add `feature-engineering-ultimate-cheatsheet.pdf` To `ai`
-- *(java)* Add `WHY-ORM-&-JPA-EXIST.pdf` To `java`
-- *(ai)* Add `How-AI-Impacts-Skill-Formation-Anthropic.pdf` To `ai`
-- *(java)* Add `JavaFX-Documentation-Project.pdf` To `java/java-fx`
-- *(python)* Add `fastapi-python-Web-Framework-tutorial.pdf` to `python/fast-api`
-- *(ai)* Add `Introduction-to-Prompt-Engineering.pdf` To `ai`
-- *(uml)* Add `UML-Reference-Card.pdf` to `uml`
-- *(ai)* Add `FaceRecognition-with-ArcFace-ONNX-and-5-PointAlignment.pdf` to `ai`
-- *(git)* Add `github-action.pdf` to `git`
-- *(tla)* Add `théorie-des-langages.pdf` to `tla`
-- *(linux)* Add `cheat_sheet_pandoc.pdf` to `linux`
-- *(hashhashbooks)* Add `sql/oracle/` & `tla/` sections
-- *(plt)* Add `introduction-to-the-theory-of-formal-languages.pdf` to `plt`
-- *(plt)* Add `plt-cheatsheet.md` to `plt`
-- *(sql)* Add `sql-oracle-cheatsheet.md` to `sql`
-- *(network)* Add `Module1,2,3` to `netacad-esprit-networking-basics`
-- *(ai)* Add `mcp` section to `ai`
-- *(ai)* Add `resume.md` to `ai/mcp`
-- *(python)* Add `jupyter-shortcuts.pdf` to `python`
-- *(ai)* Add `terms.md` to `ai`
-- *(ai)* Add `module-3-wireless-and-mobile-networks.md` to `network`
-- *(mathematics)* Add `résolution-numérique-de-systèmes-d’équations-linéaires-resume/` to `mathematics`
-- *(network)* Add `ccna1` to `network/courses`
-- *(ai)* Add `agentic-ai-ultimate-cheatsheet.pdf` to `ai`
-- *(mathematics)* Update `résolution-numérique-de-systèmes-d’équations-linéaires-resume/` from `mathematics`
-- *(mathematics)* Update `résolution-numérique-de-systèmes-d’équations-linéaires-resume/` from `mathematics`
-- *(mathematics)* Fix `résolution-numérique-de-systèmes-d’équations-linéaires-resume.md` format
-- *(software-engineering)* Add `lifecycle-models-comparison.md` to `software-engineering`
-- *(mathematics)* Update `résolution-numérique-de-systèmes-d’équations-linéaires-resume.md` in `mathematics`
-- *(software-engineering)* Add `system-design-fundamentals.pdf` to `software-engineering`
-- *(mathematics)* Add `résolution-numérique-de-systèmes-d’équations-linéaires-resume.pdf` to `mathematics`
-- *(ai)* Add `super-vip-cheatsheet-machine-learning.pdf` to `ai/ml`
-- *(mathematics)* Add `interpolation-polynomiale-resume.pdf.pdf` to `mathematics`
-- *(mathematics)* Add `approximation-polynomiale-et-optimisation-resume.pdf` to `mathematics`
-- *(mathematics)* Update `approximation-polynomiale-et-optimisation-resume.pdf` from `mathematics`
-- *(mathematics)* Update `interpolation-polynomiale-resume.pdf` from `mathematics`
-- *(software-engineering)* Add `ch5-gestion-de-configuration-logicielle-resume.pdf` & `ch6-test-&-validation-resume.pdf` to `software-engineering`
-- *(software-engineering)* Add `2020-Scrum-Guide-US.pdf` to `software-engineering`
-- *(mathematics)* Add `résolution-numérique-des-équations-non-linéaires-resume.pdf` to `mathematics`
-- *(go)* Add `golang-cheatsheet.pdf`, `golang-cheatsheet-andy-peace .pdf` to `go`
-- *(vuejs)* Add `vuejs-3-cheatsheet.pdf` to `vuejs`
+- _(site)_ Add VitePress website to render `content/` directory
+- _(cs)_ Add `php2shell.md`
+- _(cloud)_ Add `NIST_cloud_computing_teference_architecture.pdf`
+- _(cloud)_ Add `les_5_acteurs_du_cloud_computing` pdf/pptx
+- _(fintech)_ Add `fintech` section
+- _(ml)_ Add `Impact of HbA1c Measurement on Hospital Readmission Rates: Analysis of 70,000 Clinical Database Patient Records.pdf` to `ai/ml`
+- _(software-engineering)_ Add `pfe-support.md` to `software-engineering`
+- _(software-engineering)_ Add `problem-solving-platforms.md` to `software-engineering`
+- _(software-engineering)_ Add `learning-platforms.md` to `software-engineering`
+- _(python)_ Add `gray-hat-python-python-programming-for-hackers-and-reverse-engineers-2009.pdf` to `python`
+- _(network)_ Add `scalable-internet-architectures.pdf` to `network`
+- _(mathematics)_ Add `an-introduction-to-statistical-learning-*.pdf` to `mathematics`
+- _(dsa)_ Add `algorithms-optimization-kochenderfer.pdf` to `dsa`
+- _(ml)_ Add `the-hundred-page-machine-learning.pdf` to `ml`
+- _(ml)_ Add `mml-book.pdf` to `ml`
+- _(aws)_ Add `aws-security-and-cost-management.zip` to `cloud/aws/courses/`
+- _(aws)_ Add `aws-cloud-technology-and-services.zip` to `cloud/aws/courses/`
+- _(aws)_ Add `aws-fundamentals-Interview-questions.pdf` to `cloud/aws/`
+- _(aws)_ Add `aws-cloud.pdf` to `cloud/aws/`
+- _(aws)_ Add `aws-overview.pptx` to `cloud/aws/`
+- _(aws)_ Add `aws-simple-icons.pptx` to `cloud/aws/`
+- _(cloud)_ Add new section `cloud`
+- _(aws)_ Add `understanding-cloud-computing` course in `aws`
+- _(dragon)_ Add new `cxx/drogon/` section
+- _(ai)_ Add `ai-assisted-coding-for-developers.zip` to `ai/courses/`
+
+### Other
+
+- _(site)_ Add Vercel deployment support
 
 ### Refactor
 
-- *(cs)* ♻️ Change `cybersecurity` To `cs`
-- *(web)* Change `webDev` to `web`
+- _(content)_ Reorganize learning resources into `content/` directory
+- Moving `notes.md` & `links.md` under root
 
 ### Documentation
 
-- *(README)* Update `README.md`
-- *(README)* Add `README.md` to `ai`
-- *(hashhash-books)* Add CODEOWNERS & CHANGELOG
-- *(README)* Update `README.md`
+- _(linux)_ Add Linux containers guide
+- _(docker)_ Add container runtime comparison guide
+- _(linux)_ Add GNOME settings backup && restore guide
+- _(cs)_ Add cryptography documentation
+- _(devops)_ Reorganize documentation & add Kubernetes links
+- _(linux)_ Add `LFS101` course resources & reorganize notes
+- Update Docker & DSA links
+- _(oracle)_ Add database administration summary
+- _(probabilites)_ Remove `Applications corrigées` sections from chapter 1 & 2
+- _(probabilites)_ Add TOC for chapter 1 & 2
+- _(probabilites)_ Add chapter 2 summary & reorganize chapter 1
+- Update resource links and UML notes
+- _(probability)_ Add probability chapter summary & resource links
+- _(software-engineering)_ Add `spec-driven development` guide
+- _(cloud)_ Update AWS course & terminology docs
+
+### Miscellaneous Tasks
+
+- _(deploy)_ Migrate website hosting to `Vercel`
+- Standardize project structure && documentation
+- _(github)_ Add deployment && content lint workflows
+- _(pdf)_ Reorganize PDFs & add derivatives cheat sheet
+- _(pdf)_ Reorganize PDF resources & add graph theory resume
+
+## 1.1.0 - 2026-06-05
+
+### Features
+
+- _(vuejs)_ Add `vuejs-3-cheatsheet.pdf` to `vuejs`
+- _(go)_ Add `golang-cheatsheet.pdf`, `golang-cheatsheet-andy-peace .pdf` to `go`
+- _(mathematics)_ Add `résolution-numérique-des-équations-non-linéaires-resume.pdf` to `mathematics`
+- _(software-engineering)_ Add `2020-Scrum-Guide-US.pdf` to `software-engineering`
+- _(software-engineering)_ Add `ch5-gestion-de-configuration-logicielle-resume.pdf` & `ch6-test-&-validation-resume.pdf` to `software-engineering`
+- _(mathematics)_ Update `interpolation-polynomiale-resume.pdf` from `mathematics`
+- _(mathematics)_ Update `approximation-polynomiale-et-optimisation-resume.pdf` from `mathematics`
+- _(mathematics)_ Add `approximation-polynomiale-et-optimisation-resume.pdf` to `mathematics`
+- _(mathematics)_ Add `interpolation-polynomiale-resume.pdf.pdf` to `mathematics`
+- _(ai)_ Add `super-vip-cheatsheet-machine-learning.pdf` to `ai/ml`
+- _(mathematics)_ Add `résolution-numérique-de-systèmes-d’équations-linéaires-resume.pdf` to `mathematics`
+- _(software-engineering)_ Add `system-design-fundamentals.pdf` to `software-engineering`
+- _(mathematics)_ Update `résolution-numérique-de-systèmes-d’équations-linéaires-resume.md` in `mathematics`
+- _(software-engineering)_ Add `lifecycle-models-comparison.md` to `software-engineering`
+- _(mathematics)_ Fix `résolution-numérique-de-systèmes-d’équations-linéaires-resume.md` format
+- _(mathematics)_ Update `résolution-numérique-de-systèmes-d’équations-linéaires-resume/` from `mathematics`
+- _(mathematics)_ Update `résolution-numérique-de-systèmes-d’équations-linéaires-resume/` from `mathematics`
+- _(ai)_ Add `agentic-ai-ultimate-cheatsheet.pdf` to `ai`
+- _(network)_ Add `ccna1` to `network/courses`
+- _(mathematics)_ Add `résolution-numérique-de-systèmes-d’équations-linéaires-resume/` to `mathematics`
+- _(ai)_ Add `module-3-wireless-and-mobile-networks.md` to `network`
+- _(ai)_ Add `terms.md` to `ai`
+- _(python)_ Add `jupyter-shortcuts.pdf` to `python`
+- _(ai)_ Add `resume.md` to `ai/mcp`
+- _(ai)_ Add `mcp` section to `ai`
+- _(network)_ Add `Module1,2,3` to `netacad-esprit-networking-basics`
+- _(sql)_ Add `sql-oracle-cheatsheet.md` to `sql`
+- _(plt)_ Add `plt-cheatsheet.md` to `plt`
+- _(plt)_ Add `introduction-to-the-theory-of-formal-languages.pdf` to `plt`
+- _(hashhashbooks)_ Add `sql/oracle/` & `tla/` sections
+- _(linux)_ Add `cheat_sheet_pandoc.pdf` to `linux`
+- _(tla)_ Add `théorie-des-langages.pdf` to `tla`
+- _(git)_ Add `github-action.pdf` to `git`
+- _(ai)_ Add `FaceRecognition-with-ArcFace-ONNX-and-5-PointAlignment.pdf` to `ai`
+- _(uml)_ Add `UML-Reference-Card.pdf` to `uml`
+- _(ai)_ Add `Introduction-to-Prompt-Engineering.pdf` To `ai`
+- _(python)_ Add `fastapi-python-Web-Framework-tutorial.pdf` to `python/fast-api`
+- _(java)_ Add `JavaFX-Documentation-Project.pdf` To `java/java-fx`
+- _(ai)_ Add `How-AI-Impacts-Skill-Formation-Anthropic.pdf` To `ai`
+- _(java)_ Add `WHY-ORM-&-JPA-EXIST.pdf` To `java`
+- _(ai)_ Add `feature-engineering-ultimate-cheatsheet.pdf` To `ai`
+- _(network)_ Add `Network-Security-Firewall-VPN-IDS-IPS-SIEM.pdf` To `network`
+- _(ai)_ Add `naive-bayes-regression-&-classification-cheatsheet.pdf` To `ai`
+- _(sql)_ Add `postgresql/` section To `sql`
+- _(ai)_ Add `computer-vision-ultimate-cheatsheet.pdf` To `ai`
+- _(python)_ Update `fast-api/` section
+- _(js)_ Update `next-js` section
+- _(linux)_ Add `linux-basics-and-system-startup.md` To `linux`
+- _(java)_ Add `rest-api-java.pdf` To `java`
+- _(python)_ Add `fast-api/` section To `python`
+- _(js)_ Add `next-js/` section To `js`
+- _(java)_ Add `java-fx/`, `jee/` and `spring/` sections To `java`
+- _(java)_ Add `java-var.pdf` To `java`
+- _(html)_ Add `3 pdf's` To `html`
+- _(html)_ Add `html-css-js-certification-course-for-beginners.zip` To `html`
+- _(general)_ Add `hedera.zip` To `general`
+- _(sql)_ Add `introduction-to-sql.zip` To `sql`
+- _(python)_ Add `introduction-to-python.zip` To `python`
+- _(git)_ Add `introduction-to-git.zip` To `git`
+- _(ai)_ Add `introduction-to-hugging-face.zip` To `ai`
+- _(ai)_ Add `intro-to-ai.zip` To `ai`
+- _(network)_ Add `CCNA-Networking-Notes-Practical-Cheatsheet.pdf` To `network`
+- _(java)_ Add `Pattern-Matching-in-Java.pdf` To `java`
+- _(sql)_ Add `The-Data-Pipeline-in-Sql.pdf` To `sql`
+- _(uml)_ Add `UML-Diagramme-de-classes-de-conception.pdf` To `uml`
+- _(uml)_ Add `Diagrammes-de-classes.pdf` To `uml`
+- _(ai)_ Add `what-is-llm.pdf` To `ai`
+- _(dsa)_ Add `Top-50-DSA-Interview-Questions-with-Java-Solutions.pdf` To `dsa`
+- _(mathematics)_ Add `Probability-Ultimate-Cheatsheet.pdf` To `mathematics`
+- _(java)_ Add `Memory-Management-in-Java.pdf` To `java`
+- _(ai)_ Add `K-Nearest-Neighbors-(KNN)-Cheat-Sheet.pdf` To `ai`
+- _(dsa)_ Add `Complete-DSA-Pattern-Guide-with-Complexity.pdf` To `dsa`
+- _(general)_ Add `Jira-Tool-Project-&-Issue-Management.pdf` To `general`
+- _(java)_ Add `What-are-Test-Unit-Test-and-JUnit.pdf` To `java`
+- _(java)_ Add `Redis-Caching-Integration-in-Spring-Boot.pdf` To `java`
+- _(java)_ Add `importing-data-in-java.zip` To `java`
+- _(java)_ Add `cleaning-data-in-java.zip` To `java`
+- _(git)_ Add `Git-Ultimate-Cheatsheet.pdf` To `git`
+- _(java)_ ➕ Add `java-arrays-cheatsheet.jpg` To `java`
+- _(ai)_ ➕ Add `Fundamentals-of-Deep-Learning-Nvidia-Course.zip` To `ai`
+- _(ai)_ ➕ Add `Get-Started-with-Hugging-Face-Transformers.pdf` To `ai`
+- _(java)_ ➕ Add `Apache-Maven-A-Beginner‑Friendly-Practical-Guide-(java).pdf` To `java`
+- _(java)_ ➕ Add `11-Essential-Rules-of-java-interfaces.pdf` To `java`
+- _(dsa)_ ➕ Add `Data-Structures-&-Algorithms-Cheat-Sheet.pdf` To `dsa`
+- _(linux)_ ➕ Add `Mounting-an-ova-File-on-a-Linux-Machine.md` To `linux`
+- _(java)_ ➕ Add `java-io-vs-java-nio-vs-java-nio2.pdf` To `java`
+- _(linux)_ ➕ Add `GRUB-Passwords-Encrypted-Disks-and-Recovery.md` To `linux`
+- _(java)_ ➕ Add `Future-vs-CompletableFuture-in-java.pdf` To `java`
+- _(java)_ ➕ Add `Serialization-and-Deserialization-in-java.pdf` To `java`
+- _(java)_ ➕ Add `Java-Functional-Interfaces-java-functional-interfaces.md` To `java`
+- _(finance)_ ✨ Add `finance` section
+- _(dart)_ ✨ Add `dart` section
+- _(java)_ ➕ Add `reAct-framework.md` To `ai`
+- _(java)_ ➕ Add `Deploying-Java-Application-using-GitLab-Pipeline-Project-with-Maven-SonarQube-Docker.pdf` To `java`
+- _(java)_ ➕ Add `java-for-ai-era.pdf` To `java`
+- _(linux)_ ➕ Add `linux-mastery-for-cpp-developers.pdf` To `linux`
+- _(js)_ ➕ Add `learn-angular.pdf` To `js/angular`
+- _(ai)_ ➕ Add `introduction-to-ai-agents.zip` To `ai`
+- _(devops)_ ➕ Add `prometheus+grafana-guide.pdf` To `devops`
+- _(php)_ ➕ Add `PHP with MySQL: Build 5 PHP and MySQL Projects (not complete).zip` To `php`
+- _(ai)_ ➕ Add `doc/*` To `ai`
+- _(js)_ ➕ Add `angular` To `js`
+- _(linux)_ ➕ Add `How-to-Create-an-NFS-Server-in-GNS3.md` To `linux`
+- _(cxx)_ ➕ Add `cpp-allocators.pdf` To `cxx`
+- _(network)_ ➕ Add `Static-NAT-vs-Dynamic-NAT-vs-PAT.md` To `network`
+- _(network)_ ➕ Add `NAT-address-types.md` To `network`
+- _(java)_ ➕ Add `java-streams.pdf` To `java`
+- _(java)_ ➕ Add `OOP-in-java.pdf` To `java`
+- _(network)_ ➕ Add `how-auto-vpn-works.pdf` To `network`
+- _(java)_ ➕ Add `MapStruct-in-Java.pdf` To `java`
+- _(java)_ ➕ Add `Understand_Spring_Boot_Logging.pdf` To `java`
+- _(linux)_ ➕ Add `NFS-in-linux.md` To `linux`
+- _(java)_ ➕ Add `Lombok-Magic-Explained-Cleaner-Code-Fewer-Lines-Maximum-Readability.pdf` To `java`
+- _(git)_ ➕ Add `intermediate-github-concepts.zip` To `git`
+- _(ai)_ ➕ Add `ai-agents-cheat-sheet.pdf` To `ai`
+- _(linux)_ ➕ Add `LINUX-FOR-NETWORK-ENGINEER.pdf` To `linux`
+- _(java)_ ➕ Add `transient-keyword-in-java.md` To `java`
+- _(dsa)_ ➕ Add `DSA-ALGORITHMS.pdf` To `dsa`
+- _(java)_ ➕ Add `Mastering Java Streams API: Top Interview Programming Questions & Answers.pdf` To `java`
+- _(cxx)_ ➕ Add `CXX-Systems-Programming-on-Linux.pdf` To `cxx`
+- _(cybersecurity)_ ➕ Add `FREE-TryHackMe-Labs-Collection.pdf` To `cybersecurity`
+- _(git)_ ➕ Add `branch-naming_conventions.md` To `git`
+- _(java)_ ➕ Add `Static vs Instance in Java: The Real Difference Explained.pdf` To `java`
+- _(java)_ ➕ Add `Exception Handling in Java - A Developer’s Lifesaver!.pdf` To `java`
+- _(java)_ ➕ Add `java-interview-q&a.pdf` To `java`
+- _(java)_ ➕ Add `Strings-in-Java-Deep-Dive.pdf` To `java`
+- _(java)_ ➕ Add `literals-in-java.pdf` To `java`
+- _(git)_ ➕ Add `Introduction to GitHub Products: A Complete Guide.pdf` To `git`
+- _(git)_ ➕ Add `introduction-to-github-concepts.zip` To `git`
+- _(git)_ ➕ Add `intermediate-git.zip` To `git`
+- _(java)_ ➕ Add `Java-OutOfMemoryError.pdf` To `java`
+- _(java)_ ➕ Add `Java-File-Handling.pdf` To `java`
+- _(php)_ ➕ Add `symfony-cheat-sheet.pdf` To `php`
+- _(java)_ ➕ Add `Clean-Code-in-Java.pdf` To `java`
+- _(cybersecurity)_ ➕ Add `Wireshark.pdf` To `cybersecurity`
+- _(java)_ ➕ Add `JAVA-25-LTS-RELEASE-FEATURES.pdf` To `java`
+- _(ai)_ ➕ Add `Statistical Methods for Machine Learning.pdf` To `ai`
+- _(java)_ ➕ Add `Concurrency in Java.pdf` To `java`
+- _(linux)_ ➕ Add `linux-path-cheatsheet.png` To `linux`
+- _(devops)_ ➕ Add `DevOps-Networking-Guide.pdf` To `devops`
+- _(uml)_ ✨ Add `uml` section
+- _(general)_ ➕ Add `professional-sow-guide.md` To `general`
+- _(general)_ ➕ Add `Grow-in-series-Clean-Code.pdf` To `general`
+- _(network)_ ➕ Add `dhcp_basic_operations.md` To `network`
+- _(java)_ ➕ Add `Record in Java 17.pdf` To `java`
+- _(network)_ ➕ Add `private_vs_public_ip_ipv4_ipv6_guide.md` To `network`
+- _(java)_ ➕ Add `Reference-Type-vs-Object-Type.md` To `java`
+- _(windows)_ ➕ Add `The Art of Operating System.pdf` To `windows`
+- _(java)_ ➕ Add `Java Access Modifiers.pdf` To `java`
+- _(dsa)_ ➕ Add `design-patterns-cheatsheet.jpg` To `dsa`
+- _(java)_ ➕ Add `java-25-highlights.pdf` To `java`
+- _(java)_ ➕ Add `MAVEN.pdf` To `java`
+- _(linux)_ ➕ Add `understanding-path-export-and-child-processes.md` To `linux`
+- _(git)_ ➕ Add `github-markdown-guide.md` To `git`
+- _(devops)_ ➕ Add `DevOps Commands Cheat Sheet.pdf` To `devops`
+- _(java)_ ➕ Add `Functional Interface In Java.pdf` To `java`
+- _(java)_ ➕ Add `Abstraction in Java.pdf` To `java`
+- _(java)_ ➕ Add `Java Garbage Collection: The Hidden Hero Behind Your Apps.pdf` To `java`
+- _(java)_ ➕ Add `java-oop-notes.pdf` To `java`
+- _(java)_ ➕ Add `java-string-pool.pdf` To `java`
+- _(java)_ ➕ Add `java-exception-handling-cheatsheet.jpg` To `java`
+- _(ai)_ ➕ Add `Transformers-&-Large-Language-Models-Cheatsheet.pdf` To `ai`
+- _(sql)_ ➕ Add `database_beginner_guide.pdf` To `sql`
+- _(bi)_ ➕ Add `The-17-Most-Common-Graph-Types.pdf` To `bi`
+- _(testing)_ ➕ Add `what-is-postman.pdf` To `testing`
+- _(linux)_ ➕ Add `linux-server-fundamentals.pdf` To `linux`
+- _(java)_ ➕ Add `java-persistence.pdf` To `java`
+- _(sql)_ ➕ Add `sqlite-in-python.pdf` To `sql`
+- _(java)_ ➕ Add `java-static-block-vs-constructor.md` To `java`
+- _(sql)_ ➕ Add `orm-vs-sql-guide.md` To `sql`
+- _(java)_ ➕ Add `java-sealed-classes.pdf` To `java`
+- _(linux)_ ➕ Add `linux_library_guide_so_vs_a.md` To `linux`
+- _(cxx)_ ➕ Add `cx-cxx-program-compilation.pdf` To `cxx`
+- _(Java)_ ➕ Add `ANDROID_CLI_SETUP_AND_PROJECT_CREATION.md` To `Java`
+- _(linux)_ ➕ Add `Introduction to systemd Basics.pdf` To `linux`
+- _(Java)_ ➕ Add `Java Tokens.pdf` To `Java`
+- _(Java)_ ➕ Add `Spring MVC vs Spring Boot.pdf` To `Java`
+- _(webDev)_ ➕ Add 'rest-overview.md' To 'webDev'
+- _(Linux)_ ➕ Add `Release-Notes for Debian 13 (trixie) - release-notes.en.pdf` To `Linux`
+- _(cybersecurity)_ ➕ Add `Network Security Notes.pdf` to `cybersecurity`
+- _(Java)_ ➕ Add `Avoid NullPointerExceptions with Optional .pdf` To `Java`
+- _(DevOps)_ ➕ Add `WHAT IS NGINX UPSTREAM?.pdf` To `DevOps`
+- _(Java)_ ➕ Add 'Spring Boot.pdf' To 'Java'
+- _(Java)_ ➕ Add 'JDBC.pdf' To 'Java'
+- _(Java)_ ➕ Add '@Entity V_S @Data.pdf' To 'Java'
+- _(C++)_ ➕ Add 'Modern C++ Handbooks.pdf' To 'C++'
+- _(AI)_ ➕ Add 'ML Cheat Sheet.pdf' To 'AI'
+- _(Java)_ ➕ Add 'Multi-Threading in Java.pdf' To 'Java'
+- _(C)_ ➕ Add 'why does order in struct change the size in c?.pdf' To 'C'
+- _(Vim)_ ➕ Add 'Vim.pdf' To 'Vim'
+- _(C++)_ ➕ Add 'Java vs C-C++.pdf' To 'C++'
+- _(Windows)_ ➕ Add 'Windows Network Troubleshooting.pdf' to 'Windows'
+- _(CyberSecurity)_ ➕ Add 'Hydra.md' to 'CyberSecurity'
+- _(Java)_ ➕ Add 'Object Class in Java.pdf' To 'Java'
+- _(JS)_ ➕ Add 'NodeJsTipsAndTricks.pdf' To 'JS'
+
+### Refactor
+
+- _(web)_ Change `webDev` to `web`
+- _(cs)_ ♻️ Change `cybersecurity` To `cs`
+
+### Documentation
+
+- _(README)_ Update `README.md`
+- _(hashhash-books)_ Add CODEOWNERS & CHANGELOG
+- _(README)_ Add `README.md` to `ai`
+- _(README)_ Update `README.md`
 
 ### Styling
 
-- *(C++)* 🗑  ️Clean `C++` section
+- _(C++)_ 🗑 ️Clean `C++` section
+
+## 1.0.0 - 2025-07-22
+
+### Features
+
+- _(Java)_ ➕ Add `Java I/O and Streams` To `Java/doc/JavaBuiltInPackages.md`
+- _(CyberSecurity)_ 📝 Complete 'Nmap Host Discovery Using ICMP' chapter
+- _(CyberSecurity)_ 📝 Complete 'Nmap Host Discovery Using ARP' chapter
+- _(C)_ ➕ Add 'Embedded Systems Q&A.pdf' To 'C'
+- _(Linux)_ ➕ Add 'Linux Basic info.pdf' To 'Linux'
+- _(C)_ ➕ Add 'Pointers in C-C++.pdf' To 'C'
+- _(Python)_ ➕ Add 'Beginner's Python Cheatsheet.pdf' To 'Python'
+- _(Odoo)_ ➕ Add 'Odoo Dev Tip - UNDERSTAND READONLY AT MODEL & VIEW LEVEL.pdf' To 'Odoo'
+- _(Ai)_ ➕ Add 'AI Engineer Roadmap 2025.pdf' To 'Ai'
+- _(Ai)_ ➕ Add 'Basics of Linear Algebra for ML.pdf' To 'Ai'
+- _(DevOps)_ ➕ Add 'Windows Server 2022.pdf' To 'DevOps'
+- _(Odoo)_ ➕ Add 'Exceptions in Java Selenium.pdf' To 'Odoo'
+- _(DevOps)_ ➕ Add 'Mastering DevOps in 2025.pdf' To 'DevOps'
+- _(Java)_ ➕ Add 'Exceptions in Java Selenium.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Java Data Structures.pdf' To 'Java'
+- _(SQL)_ ➕ Add 'SQL Basics Cheat Sheet.pdf' To 'SQL'
+- _(Network)_ ➕ Add 'NFS Server Setup.pdf' To 'Network'
+- _(Java)_ ➕ Add 'The Iterable<T> and Iterator<T> Interfaces in Java.pdf' To 'Java'
+- _(Network)_ ➕ Add 'C++ Pointers.pdf' To 'Network'
+- _(C++)_ ➕ Add 'C++ Pointers.pdf' To 'C++'
+- _(Microcontrols)_ ➕ Add 'What Is DMA?.pdf' To 'Microcontrols'
+- _(Linux)_ ➕ Add 'Archive cmds and Remote systems.pdf' To 'Linux'
+- _(Java)_ ➕ Add 'Java Architecture - HackMD.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Java Clean Code Tips.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Versions of java.pdf' To 'Java'
+- _(Java)_ ➕ Add '25 Java Coding Questions based on Set, Map etc.pdf' To 'Java'
+- _(C)_ ➕ Add 'Compiling Fundamentals.pdf' To 'C'
+- _(C++)_ ➕ Add 'Short Notes on C-C++.pdf' To 'C++'
+- _(Network)_ ➕ Add 'Network Cable Types and Specifications.pdf' To 'Network'
+- _(DSA)_ ➕ Add 'Top 25 DSA Interview Questions (MAANG Edition).pdf' To 'DSA'
+- _(Linux)_ ➕ Add 'The Linux Boot Process — Explained Step-by-Step.pdf' To 'Linux'
+- _(Linux)_ ➕ Add 'Master Exception & File Handling in Java.pdf' To 'Linux'
+- _(Java)_ ➕ Add 'HashMap in java.pdf' To 'Java'
+- _(Network)_ ➕ Add 'Networking for DevOps.pdf' To 'Network'
+- _(Java)_ ➕ Add 'JAVA STRING METHODS.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Java Strings, StringBuffer & StringBuilder.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Java Essentials: From What Programming Is to How Java Works.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Shell Scripting with BASH.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Master Exception & File Handling in Java.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Encapsulation & Inheritance in Java.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Collections & Generics.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Real Time Java Coding Standards.pdf' To 'Java'
+- _(Linux)_ ➕ Add 'Linux Disk Management Cheat Sheet.pdf' To 'Linux'
+- _(Java)_ ➕ Add '100 lambda code snippets - Java 8.pdf' To 'Java'
+- _(Java)_ ➕ Add 'Java Lombok.pdf' To 'Java'
+- _(Docker)_ ➕ Add 'DOCKER Guide.pdf' To 'Docker'
+- _(Shell)_ ➕ Add 'Basic Shell Scripting.pdf' To 'Shell'
+- _(Shell)_ ➕ Add 'localUserGroupMgr.pdf' To 'Shell'
+- _(DSA)_ ➕ Add 'DSA cheatsheet.pdf' To 'DSA'
+- _(C)_ ➕ Add 'How C Programming Works.pdf' To 'C'
+- _(Linux)_ ➕ Add 'vim editor andA Practical Guide to Using Vim with Soft and Hard Links.pdf' To 'Linux'
+- _(Network)_ ➕ Add 'Port Numbers Every DevOps Engineer Should Know.pdf' To 'Network'
+- _(SQL)_ ➕ Add 'SQL Notes.pdf' To 'SQL'
+- _(Linux)_ ➕ Add 'systemctl.pdf' To 'Linux'
+- _(Network)_ ➕ Add 'SSH.pdf' To 'Network'
+- _(C)_ ➕ Add 'Pointers in C – The Ultimate Guide.pdf' To 'C'
+- _(Java)_ ➕ Add 'Memory Managment in Java.pdf' To 'Java'
+- _(C)_ ➕ Add 'Understanding Memory Segments in C with Examples.pdf' To 'C'
+- _(Java)_ ➕ Add 'OOP in Java.pdf' To 'Java'
+- _(Network)_ ➕ Add 'Network Topologies.pdf' To 'Network'
+- _(Java)_ ➕ Add 'Why Memory Leaks, OutOfMemoryErrors & Memory Issues Still Haunt Us in Java 17 (and How to Fix Them).pdf' To 'Java'
+- _(Linux)_ ➕ Add 'Linux Kernel Crash Book.pdf' To 'Linux'
+- _(Python)_ ➕ Add 'Operators in Python.pdf' To 'Python'
+- _(SQL)_ ➕ Add 'Oracle SQL.pdf' To 'SQL'
+- _(Network)_ ➕ Add 'How Nginx Works.pdf' To 'Network'
+- _(Docker)_ ➕ Add 'docker CLI & Dockerfile.pdf' To 'Docker'
+- _(C)_ ➕ Add 'Mastering Pointers in C.pdf' To 'C'
+- _(Java)_ ➕ Add 'File Regex.pdf' To 'Java'
+- _(Bash)_ ➕ Add 'Shell Scripting for DevOps.pdf' To 'Bash'
+- _(Java)_ ➕ Add 'JVM Architecture.pdf' To 'Java'
+- _(Network)_ ➕ Add 'Servlet – HTTP Status Codes.pdf' To 'Network'
+- _(C++)_ ➕ Add 'Introduction to C++ Programming.pdf' To 'C++'
+- _(Linux)_ ➕ Add 'Linux Cheat Sheet.pdf' To 'Linux'
+- _(JS)_ ➕ Add 'Intro to Nest.JS.pdf' To 'JS
+- _(Python)_ ➕ Add 'python namespaces.pdf' To 'Python'
+- _(Docker)_ ➕ Add 'Docker Notes.pdf' To 'Docker'
+- _(Java)_ ➕ Add 'Java Keywords this, super, final.pdf' To 'Java'
+- _(C++)_ ➕ Add 'POCO C++ Libraries Introduction and Overview.pdf' To 'C++'
+- _(Linux)_ ➕ Add ' Linux 101 Hacks.pdf' To 'Linux'
+- _(Ai)_ ➕ Add 'Important questions to ace your machine learning interview.pdf' To 'Ai'
+- _(Linux)_ ➕ Add 'Linux Interviews Questions.pdf' To 'Linux'
+- _(PowerShell)_ ➕ Add 'Learning PowerShell.pdf' To 'PowerShell'
+- _(SQL)_ ➕ Add 'Complete SQL Guide.pdf' To 'SQL'
+- _(DevOps)_ ➕ Add '110+ DevOps Interview Questions and Answers for 2023' To 'DevOps'
+- _(Java)_ ➕ Add 'Java Generics Guide.pdf' To 'Java'
+- _(Docker)_ ➕ Add 'Mastering Docker Image Building for Java Microservices.pdf' To 'Docker'
+- _(SQL)_ ➕ Add 'SQL vs NoSQL.pdf' To 'SQL'
+- _(Java)_ ➕ Add 'Master Java Collections with 25 Real-time Coding Questions.pdf' To 'Java'
+- _(Linux)_ ➕ Add '250 Scenario-Based Linux Interview Questions & Answers.pdf' To 'Linux'
+- _(Java)_ ➕ Add 'Java Coding Questions.pdf' To 'Java'
+- _(Arduino)_ ✨ Add 'Arduino' section
+- _(Java)_ ➕ Add 'Mastering Multithreading in Java – An Industry-Focused Perspective.pdf' To 'Java'
+- _(Ai)_ ➕ Add '10 Fundamental Concepts You Should Know for Deep Learning.pdf' To 'Ai'
+- _(Python)_ ➕ Add 'Python For Beginner.pdf' To 'Python'
+- _(Java)_ ➕ Add 'Java Builder Pattern .pdf' To 'Java'
+- _(Java)_ ➕ Add 'Java Methods Cheat Sheet for DSA Problems.pdf' To 'Java'
+- _(Linux)_ ➕ Add 'Linux Commands Reference Chart.pdf' To 'Linux'
+- _(Tech for everyone)_ ➕ Add 'SOLID Principles Cheat sheet.pdf' To 'Tech for everyone'
+- _(C)_ ➕ Add 'Embedded C Programming.pdf' To 'C'
+- _(Java)_ ➕ Add 'Mastering Java Collections.pdf' To 'Java'
+- _(Bash)_ ➕ Add 'Mastering Shell Scripting: Essential Scripts for Daily Use, Automation, and Interviews.pdf' To 'Bash'
+- _(DSA)_ ➕ Add 'DATA STRUCTURE AND ALGORITHM.pdf' To 'DSA'
+- _(Docker)_ ➕ Add 'Docker – Basic Essential Commands with Examples and Explanations.pdf' To 'Docker'
+- _(Linux)_ ➕ Add 'Linux Networking Commands.pdf' To 'Linux'
+- _(C++)_ ➕ Add '🧠 Understanding the Difference Between `std::pow(2, n)` and `1 << n` in C++.md' To 'C++'
+- _(Network)_ ➕ Add 'Networking Essentials for DevOps Engineers.pdf' To 'Network'
+- _(Testing-Tools)_ ➕ Add 'Postman Interview Questions Notes.pdf' To 'Testing tools'
+- _(Java)_ ➕ Add 'Basic to Advanced Java programs.pdf' To 'Java'
+- _(Java)_ ➕ Add 'DBC- Java Database Connectivity.pdf' To 'Java'
+- _(Linux)_ ➕ Add 'Master Firewall Setup Firewall.pdf' To 'Linux'
+- _(Linux)_ :heavy_plus_sign: Add 'Mastering UNIX Shell Scripting: Complete Guide.pdf' To 'Linux'
+- _(Java)_ :heavy_plus_sign: Add 'Java Memory Management: Key Concepts & Insights for Experienced Developers.pdf' To 'Java'
+- _(Java)_ :heavy_plus_sign: Add 'String in Java – A Detailed & Simple Guide with Examples.pdf' To 'Java'
+- _(Java)_ :heavy_plus_sign: Add 'Exception Handling in Java.pdf' To 'Java'
+- _(C/C++)_ :heavy_plus_sign: Add 'C Qualifiers.pdf' To 'C'
+- _(C/C++)_ :heavy_plus_sign: Add 'Mastering Pointers in C,C++.pdf' To 'C/C++'
+- _(Java)_ :heavy_plus_sign: Add 'Java 24: Essential Features Every Java Developer Must Know.pdf' To 'Java'
+- _(Linux)_ :heavy_plus_sign: Add 'File Transfer Cheat Sheet for Windows & Linux.pdf' To 'Linux'
+- _(Java)_ :heavy_plus_sign: Add 'Comprehensive Ultimate Java Cheat Sheet.pdf' To 'Java'
+- _(Network)_ :heavy_plus_sign: Add 'Essential Ports Every DevOps Engineer Should Know.pdf' To 'Network'
+- _(Linux)_ :heavy_plus_sign: Add 'The Ultimate Linux Command Cheat Sheet.pdf' To 'Linux'
+- _(Linux)_ :heavy_plus_sign: Add 'Linux Administration Cheat Sheet for SysAdmins.pdf' To 'Linux'
+- _(TechForEveryone)_ :heavy_plus_sign: Add 'Design Patterns.pdf' To 'Tech for everyone'
+- _(Docker)_ :heavy_plus_sign: Add 'Mastering Docker: Containers & Volumes.pdf' To 'Docker'

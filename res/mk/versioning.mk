@@ -6,10 +6,9 @@
 # --- Configuration ---
 VERSION_FILE    = VERSION## File storing current version
 PROJECT_VERSION = $(shell cat $(VERSION_FILE))## Current project version (read from VERSION file)
-CHANGELOG_FILE  = CHANGELOG.md## Changelog file
 
 # --- Commands ---
-CHANGELOG_CMD = git cliff -o $(CHANGELOG_FILE)## Changelog command
+CHANGELOG_CMD = git cliff## Changelog command
 
 # --- Utilities ---
 define validate_version
