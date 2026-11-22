@@ -1,0 +1,68 @@
+name: Deploy website
+
+# Any push that touches the content or the site generator rebuilds the website.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "site/**"
+      - "res/img/**"
+      - ".github/workflows/deploy-site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Binaries (pdf/zip/...) are linked, not published: no need to download history.
+          fetch-depth: 1
+          sparse-checkout: |
+            content
+            site
+            res
+          sparse-checkout-cone-mode: true
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - uses: actions/configure-pages@v6
+
+      - name: Install
+        run: npm ci
+        working-directory: site
+
+      - name: Build
+        run: npm run build
+        working-directory: site
+        env:
+          SITE_REPO: ${{ github.repository }}
+          SITE_BRANCH: ${{ github.ref_name }}
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

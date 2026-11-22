@@ -6,3 +6,19 @@
 *.out
 *.log
 *.aux
+
+# --- Website ---
+node_modules/
+site/.generated/
+site/.vitepress-cache/
+
+site/dist/
+
+# --- Editors / OS ---
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+site/.env
+.env
